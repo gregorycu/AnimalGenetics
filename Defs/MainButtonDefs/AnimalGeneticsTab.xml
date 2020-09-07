@@ -1,0 +1,12 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<Defs>
+  <MainButtonDef>
+    <defName>AnimalGenetics</defName>
+    <label>genetics</label>
+    <description>Animal genetic attributes.</description>
+    <tabWindowClass>AnimalGenetics.MainTabWindow_AnimalGenetics</tabWindowClass>
+    <order>45</order>
+    <validWithoutMap>true</validWithoutMap>
+  </MainButtonDef>
+  
+</Defs>
