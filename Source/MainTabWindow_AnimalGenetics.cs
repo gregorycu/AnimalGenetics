@@ -1,12 +1,7 @@
 ﻿namespace AnimalGenetics
 {
-    using System;
-    using System.Collections.Generic;
-    using System.Linq;
     using RimWorld;
-    using UnityEngine;
-    using Verse;
-    
+
     public class MainTabWindow_AnimalGenetics : MainTabWindow_Animals
     {
         [DefOf]
