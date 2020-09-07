@@ -17,12 +17,14 @@ namespace AnimalGenetics
             {
                 var h = new HarmonyLib.Harmony("AnimalGenetics");
                 h.PatchAll();
+
+                var affectedStats = new List<StatDef> { StatDefOf.MoveSpeed };
+
+                foreach (var stat in affectedStats)
+                    stat.parts.Insert(0, new StatPart(stat));
             }
         }
     }
-
-
-
 
     public class StatGroup : IExposable
     {
@@ -45,7 +47,7 @@ namespace AnimalGenetics
                 foreach (var stat in keys)
                 {
                     //float baseValue = (AnimalGenetics.GetData(mother).Get(stat) + AnimalGenetics.GetData(father).Get(stat)) / 2.0f;
-                    float baseValue = AnimalGenetics.GetData(mother).Get(stat);
+                    float baseValue = AnimalGenetics.GetFactor(mother, stat);
 
                     Log.Warning("Has mother with " + baseValue.ToString() + " multiplying with " + mutatedStats[stat].ToString());
     
@@ -67,7 +69,7 @@ namespace AnimalGenetics
         {
             Scribe_Collections.Look(ref _Data, "values", LookMode.Def, LookMode.Value);
         }
-        public float Get(StatDef stat)
+        public float GetFactor(StatDef stat)
         {
             if (!_Data.ContainsKey(stat))
                 return 1.0f;
@@ -85,13 +87,6 @@ namespace AnimalGenetics
         {
         }
 
-        public StatGroup GetData(Pawn thing)
-        {
-            if (!_Data.ContainsKey(thing))
-                _Data[thing] = new StatGroup(thing);
-            return _Data[thing];
-        }
-
         public override void ExposeData()
         {
             Scribe_Collections.Look(ref _Data, "data", LookMode.Reference, LookMode.Deep, ref _Things, ref _StatGroups);
@@ -100,32 +95,63 @@ namespace AnimalGenetics
         Dictionary<Thing, StatGroup> _Data = new Dictionary<Thing, StatGroup>();
         List<Thing> _Things = new List<Thing>();
         List<StatGroup> _StatGroups = new List<StatGroup>();
-    }
 
-    [HarmonyPatch(typeof(StatExtension), nameof(StatExtension.GetStatValue))]
-    static class PatchStats
-    {
-        static void Postfix(this Thing thing, ref float __result, StatDef stat, bool applyPostProcess)
+        private StatGroup GetData(Pawn pawn)
         {
-            if (!typeof(Pawn).IsInstanceOfType(thing))
-                return;
-            
-            var AnimalGenetics = Find.World.GetComponent<AnimalGenetics>();
+            if (!_Data.ContainsKey(pawn))
+                _Data[pawn] = new StatGroup(pawn);
+            return _Data[pawn];
+        }
 
-            if (AnimalGenetics == null)
-                return;
-
-            if (stat == StatDefOf.MoveSpeed)
-            {
-                var data = AnimalGenetics.GetData((Pawn)thing);
-
-                if (data == null)
-                    return;
-
-                __result = __result * data.Get(stat);
-            }
-
-
+        public float GetFactor(Pawn pawn, StatDef stat)
+        {
+            return GetData(pawn).GetFactor(stat);
         }
     }
+
+    // Token: 0x0200108A RID: 4234
+    public class StatPart : RimWorld.StatPart
+    {
+        public StatPart(StatDef statDef)
+        {
+            _StatDef = statDef;
+            priority = 1.1f;
+        }
+
+        // Token: 0x06006665 RID: 26213 RVA: 0x0023A4F7 File Offset: 0x002386F7
+        public override void TransformValue(StatRequest req, ref float val)
+        {
+            var factor = GetFactor(req);
+            if (factor != null)
+                val = val * (float)factor;
+        }
+
+        // Token: 0x06006666 RID: 26214 RVA: 0x0001A1D9 File Offset: 0x000183D9
+        public override string ExplanationPart(StatRequest req)
+        {
+            var factor = GetFactor(req);
+
+            if (factor == null)
+                return null;
+
+            return "Genetics: x" + GenText.ToStringPercent((float)factor);
+        }
+
+        float? GetFactor(StatRequest req)
+        {
+            if (!req.HasThing)
+                return null;
+
+            Pawn pawn = req.Thing as Pawn;
+
+            if (pawn == null)
+                return null;
+
+            return Find.World.GetComponent<AnimalGenetics>().GetFactor(pawn, _StatDef);
+        }
+
+        StatDef _StatDef;
+    }
+
+
 }
