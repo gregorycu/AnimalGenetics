@@ -42,6 +42,10 @@ namespace AnimalGenetics
             return new Dictionary<StatDef, float>
             {
                 { StatDefOf.MoveSpeed,  _Random.Next(9000, 11000) / 10000.0f },
+                { StatDefOf.MaxHitPoints,  _Random.Next(9000, 11000) / 10000.0f },
+                { StatDefOf.LeatherAmount,  _Random.Next(9000, 11000) / 10000.0f },
+                { StatDefOf.MeatAmount,  _Random.Next(9000, 11000) / 10000.0f },
+                { StatDefOf.CarryingCapacity,  _Random.Next(9000, 11000) / 10000.0f }
             };
         }
 

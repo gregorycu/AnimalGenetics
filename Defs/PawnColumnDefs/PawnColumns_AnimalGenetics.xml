@@ -1,9 +1,33 @@
 <?xml version="1.0" encoding="utf-8" ?>
 <Defs>
-<PawnColumnDef>
-<defName>AnimalGenetics_SpeedGene</defName>
-<workerClass>AnimalGenetics.PawnColumnWorker_SpeedGene</workerClass>
-<sortable>true</sortable>
-<label>Speed</label>
-</PawnColumnDef>
+	<PawnColumnDef>
+		<defName>AnimalGenetics_HealthGene</defName>
+		<workerClass>AnimalGenetics.PawnColumnWorker_HealthGene</workerClass>
+		<sortable>true</sortable>
+		<label>Health</label>
+	</PawnColumnDef>
+	<PawnColumnDef>
+		<defName>AnimalGenetics_SpeedGene</defName>
+		<workerClass>AnimalGenetics.PawnColumnWorker_SpeedGene</workerClass>
+		<sortable>true</sortable>
+		<label>Speed</label>
+	</PawnColumnDef>
+	<PawnColumnDef>
+		<defName>AnimalGenetics_CapacityGene</defName>
+		<workerClass>AnimalGenetics.PawnColumnWorker_CapacityGene</workerClass>
+		<sortable>true</sortable>
+		<label>Carry Capacity</label>
+	</PawnColumnDef>
+	<PawnColumnDef>
+		<defName>AnimalGenetics_MeatGene</defName>
+		<workerClass>AnimalGenetics.PawnColumnWorker_MeatGene</workerClass>
+		<sortable>true</sortable>
+		<label>Meat Quality</label>
+	</PawnColumnDef>
+	<PawnColumnDef>
+		<defName>AnimalGenetics_LeatherGene</defName>
+		<workerClass>AnimalGenetics.PawnColumnWorker_LeatherGene</workerClass>
+		<sortable>true</sortable>
+		<label>Leather</label>
+	</PawnColumnDef>
 </Defs>

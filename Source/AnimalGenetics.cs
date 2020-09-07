@@ -9,7 +9,7 @@ namespace AnimalGenetics
     {
         public AnimalGenetics(World world) : base(world)
         {
-            var affectedStats = new List<StatDef> { StatDefOf.MoveSpeed };
+            var affectedStats = new List<StatDef> { StatDefOf.MoveSpeed, StatDefOf.MaxHitPoints, StatDefOf.LeatherAmount, StatDefOf.MeatAmount, StatDefOf.CarryingCapacity };
             foreach (var stat in affectedStats)
                 stat.parts.Insert(0, new StatPart(stat));
         }

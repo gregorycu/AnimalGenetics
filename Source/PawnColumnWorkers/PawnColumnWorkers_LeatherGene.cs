@@ -5,13 +5,13 @@ using Verse;
 
 namespace AnimalGenetics
 {
-    public class PawnColumnWorker_SpeedGene : PawnColumnWorker
+    public class PawnColumnWorker_LeatherGene : PawnColumnWorker
     {
         public override void DoCell(Rect rect, Pawn pawn, PawnTable table)
         {
-            GUI.color = Utilities.TextColor(GetSpeedGene(pawn));
+            GUI.color = Utilities.TextColor(GetLeatherGene(pawn));
             Text.Anchor = TextAnchor.MiddleCenter;
-            Widgets.Label(rect, (GetSpeedGene(pawn)*100).ToString("F0"));
+            Widgets.Label(rect, (GetLeatherGene(pawn)*100).ToString("F0"));
             Text.Anchor = TextAnchor.UpperLeft;
             GUI.color = Color.white;
         }
@@ -22,14 +22,14 @@ namespace AnimalGenetics
             return 50;
         }
 
-        public float GetSpeedGene(Pawn pawn)
+        public float GetLeatherGene(Pawn pawn)
         {
-            return Find.World.GetComponent<AnimalGenetics>().GetFactor(pawn, StatDefOf.MoveSpeed);
+            return Find.World.GetComponent<AnimalGenetics>().GetFactor(pawn, StatDefOf.LeatherAmount);
         }
 
         public override int Compare(Pawn a, Pawn b)
         {
-            return GetSpeedGene(a).CompareTo(GetSpeedGene(b));
+            return GetLeatherGene(a).CompareTo(GetLeatherGene(b));
         }
     }
 }
