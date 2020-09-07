@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<Defs>
+<PawnColumnDef>
+<defName>AnimalGenetics_SpeedGene</defName>
+<workerClass>AnimalGenetics.PawnColumnWorker_SpeedGene</workerClass>
+<sortable>true</sortable>
+<label>Speed</label>
+</PawnColumnDef>
+</Defs>

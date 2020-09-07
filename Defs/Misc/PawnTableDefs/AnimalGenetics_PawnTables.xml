@@ -10,6 +10,8 @@
       <li>Age</li>
       <li>LifeStage</li>
       <li>Pregnant</li>
+	  <li>GapTiny</li>
+	  <li>AnimalGenetics_SpeedGene</li>
       <li>RemainingSpace</li>
     </columns>
   </PawnTableDef>
