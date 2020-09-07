@@ -1,10 +1,10 @@
 ﻿using System;
 using System.Collections.Generic;
-using HarmonyLib;
 using RimWorld;
 using RimWorld.Planet;
 using Verse;
 using System.Linq;
+using HarmonyLib;
 
 namespace AnimalGenetics
 {
@@ -15,7 +15,7 @@ namespace AnimalGenetics
         {
             static AnimalGeneticsAssemblyLoader()
             {
-                var h = new HarmonyLib.Harmony("AnimalGenetics");
+                var h = new Harmony("AnimalGenetics");
                 h.PatchAll();
 
                 var affectedStats = new List<StatDef> { StatDefOf.MoveSpeed };
