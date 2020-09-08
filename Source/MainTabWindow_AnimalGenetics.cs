@@ -1,7 +1,12 @@
-﻿namespace AnimalGenetics
-{
-    using RimWorld;
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using RimWorld.Planet;
+using RimWorld;
+using Verse;
 
+namespace AnimalGenetics
+{
     public class MainTabWindow_AnimalGenetics : MainTabWindow_Animals
     {
         [DefOf]
@@ -23,29 +28,18 @@
             }
         }
 
-        //public override void DoWindowContents(Rect canvas)
-        //{
-        // set size and draw background
-        //    base.DoWindowContents(canvas);
-        //}
+        protected override IEnumerable<Pawn> Pawns
+        {
+            get
+            {
+                /*return from p in Find.CurrentMap.mapPawns.PawnsInFaction(Faction.OfPlayer)
+                       where p.RaceProps.Animal
+                       select p;*/
 
-        /// <summary>
-        ///     Builds pawn list + slot positions
-        ///     called from base.PreOpen(), and various methods that want to reset the graph.
-        /// </summary>
-        /*       protected void BuildPawnList()
-               {
-                   // rebuild pawn list
-                   pawns = Find.CurrentMap.mapPawns.FreeColonists.ToList();
-                   firstDegreePawns = pawns.SelectMany(p => p.relations.RelatedPawns).Distinct().Except(pawns).ToList();
-                   RelationsHelper.ResetOpinionCache();
-
-                   // recalculate positions
-                   CreateAreas();
-                   CreateGraph();
-
-                   // create list of social thoughts to pawns
-                   RelationsHelper.CreateThoughtList(pawns.Concat(firstDegreePawns).ToList());
-               }*/
+                return from p in Find.CurrentMap.mapPawns.AllPawns
+                       where p.Spawned && p.AnimalOrWildMan() && !p.Position.Fogged(p.Map) && !p.IsPrisonerInPrisonCell()
+                       select p;
+            }
+        }
     }
 }

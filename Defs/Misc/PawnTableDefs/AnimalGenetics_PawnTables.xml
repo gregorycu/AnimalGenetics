@@ -11,11 +11,12 @@
       <li>LifeStage</li>
       <li>Pregnant</li>
 	  <li>GapTiny</li>
-	  <li>AnimalGenetics_HealthGene</li>
 	  <li>AnimalGenetics_SpeedGene</li>
 	  <li>AnimalGenetics_CapacityGene</li>
 	  <li>AnimalGenetics_MeatGene</li>
 	  <li>AnimalGenetics_LeatherGene</li>
+	  <li>GapTiny</li>
+	  <li>AllowedAreaWide</li>
       <li>RemainingSpace</li>
     </columns>
   </PawnTableDef>
