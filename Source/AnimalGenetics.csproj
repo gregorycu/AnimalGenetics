@@ -44,11 +44,29 @@
     <None Include="..\Common\Defs\**" />
     <None Include="..\Common\Languages\**" />
     <None Include="..\Common\Patches\**" />
+    <Reference Include="UnityEngine.CoreModule">
+      <HintPath>$(RIMWORLD_DIR)\RimWorldWin64_Data\Managed\UnityEngine.CoreModule.dll</HintPath>
+    </Reference>
+    <Reference Include="UnityEngine.IMGUIModule">
+      <HintPath>$(RIMWORLD_DIR)\RimWorldWin64_Data\Managed\UnityEngine.IMGUIModule.dll</HintPath>
+    </Reference>
+    <Reference Include="UnityEngine.InputLegacyModule">
+      <HintPath>$(RIMWORLD_DIR)\RimWorldWin64_Data\Managed\UnityEngine.InputLegacyModule.dll</HintPath>
+    </Reference>
+    <Reference Include="UnityEngine.TextRenderingModule">
+      <HintPath>$(RIMWORLD_DIR)\RimWorldWin64_Data\Managed\UnityEngine.TextRenderingModule.dll</HintPath>
+    </Reference>
   </ItemGroup>
   <ItemGroup>
     <Compile Include="AnimalGenetics.cs" />
     <Compile Include="Assembly.cs" />
     <Compile Include="MainTabWindow_AnimalGenetics.cs" />
+    <Compile Include="PawnColumnWorkers\PawnColumnWorkers_CapacityGene.cs" />
+    <Compile Include="PawnColumnWorkers\PawnColumnWorkers_HealthGene.cs" />
+    <Compile Include="PawnColumnWorkers\PawnColumnWorkers_LeatherGene.cs" />
+    <Compile Include="PawnColumnWorkers\PawnColumnWorkers_MeatGene.cs" />
+    <Compile Include="Utilities.cs" />
+    <Compile Include="PawnColumnWorkers\PawnColumnWorkers_SpeedGene.cs" />
     <Compile Include="PawnTable_Genetics.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="StatGroup.cs" />
