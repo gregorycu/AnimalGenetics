@@ -24,7 +24,7 @@ namespace AnimalGenetics
 
         public float GetCapacityGene(Pawn pawn)
         {
-            return Find.World.GetComponent<AnimalGenetics>().GetFactor(pawn, StatDefOf.CarryingCapacity);
+            return Find.World.GetComponent<AnimalGenetics>().GetFactor(pawn, StatDefOf.CarryingCapacity).Value;
         }
 
         public override int Compare(Pawn a, Pawn b)

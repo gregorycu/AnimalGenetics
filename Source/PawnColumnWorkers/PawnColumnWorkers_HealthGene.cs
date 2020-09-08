@@ -24,7 +24,7 @@ namespace AnimalGenetics
 
         public float GetHealthGene(Pawn pawn)
         {
-            return Find.World.GetComponent<AnimalGenetics>().GetFactor(pawn, StatDefOf.MaxHitPoints);
+            return Find.World.GetComponent<AnimalGenetics>().GetFactor(pawn, StatDefOf.MaxHitPoints).Value;
         }
 
         public override int Compare(Pawn a, Pawn b)

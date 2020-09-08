@@ -24,7 +24,7 @@ namespace AnimalGenetics
 
         public float GetSpeedGene(Pawn pawn)
         {
-            return Find.World.GetComponent<AnimalGenetics>().GetFactor(pawn, StatDefOf.MoveSpeed);
+            return Find.World.GetComponent<AnimalGenetics>().GetFactor(pawn, StatDefOf.MoveSpeed).Value;
         }
 
         public override int Compare(Pawn a, Pawn b)

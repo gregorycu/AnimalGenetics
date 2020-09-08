@@ -22,10 +22,12 @@ namespace AnimalGenetics
 
         public static Color TextColor(float mod)
         {
-            if (mod > Mid) {
+            if (mod > Mid)
+            {
                 return Color.Lerp(MidColor, HighEndColor, (mod - Mid) * UpperMult);
             }
-            else {
+            else
+            {
                 return Color.Lerp(MidColor, LowEndColor, (Mid - mod) * LowerMult);
             }
         }
@@ -40,6 +42,11 @@ namespace AnimalGenetics
 
             double y1 = Math.Sqrt(-2.0 * Math.Log(x1)) * Math.Cos(2.0 * Math.PI * x2);
             return (float)(y1 * RandStdDev + RandMean);
+        }
+
+        public static int SampleInt()
+        {
+            return RandGen.Next();
         }
     }
 }

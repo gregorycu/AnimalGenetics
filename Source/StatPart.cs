@@ -25,12 +25,24 @@ namespace AnimalGenetics
 
         public override string ExplanationPart(StatRequest req)
         {
-            var factor = GetFactor(req);
+            Pawn pawn = req.Thing as Pawn;
 
-            if (factor == null)
+            if (pawn == null)
                 return null;
 
-            return "Genetics: x" + GenText.ToStringPercent((float)factor);
+            var statRecord = Find.World.GetComponent<AnimalGenetics>().GetFactor(pawn, _StatDef); 
+
+            if (statRecord == null)
+                return null;
+
+            string postfix = "";
+            if (statRecord.Parent != StatRecord.Source.None)
+            {
+                string icon = statRecord.Parent == StatRecord.Source.Mother ? "♀" : "♂";
+                postfix = " (x" + GenText.ToStringPercent(statRecord.ParentValue) + icon + ")";
+            }
+
+            return "Genetics: x" + GenText.ToStringPercent(statRecord.Value) + postfix;
         }
 
         float? GetFactor(StatRequest req)
@@ -43,7 +55,8 @@ namespace AnimalGenetics
             if (pawn == null)
                 return null;
 
-            return Find.World.GetComponent<AnimalGenetics>().GetFactor(pawn, _StatDef);
+            var statRecord = Find.World.GetComponent<AnimalGenetics>().GetFactor(pawn, _StatDef);
+            return statRecord == null ? 1.0f : statRecord.Value;
         }
 
         StatDef _StatDef;

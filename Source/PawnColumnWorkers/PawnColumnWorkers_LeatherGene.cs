@@ -24,7 +24,7 @@ namespace AnimalGenetics
 
         public float GetLeatherGene(Pawn pawn)
         {
-            return Find.World.GetComponent<AnimalGenetics>().GetFactor(pawn, StatDefOf.LeatherAmount);
+            return Find.World.GetComponent<AnimalGenetics>().GetFactor(pawn, StatDefOf.LeatherAmount).Value;
         }
 
         public override int Compare(Pawn a, Pawn b)

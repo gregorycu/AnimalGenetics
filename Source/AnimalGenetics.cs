@@ -171,13 +171,59 @@ namespace AnimalGenetics
         private StatGroup GetData(Pawn pawn)
         {
             if (!_Data.ContainsKey(pawn))
-                _Data[pawn] = new StatGroup(pawn);
+                _Data[pawn] = GenerateStatsGroup(pawn);
             return _Data[pawn];
         }
 
-        public float GetFactor(Pawn pawn, StatDef stat)
+        public StatRecord GetFactor(Pawn pawn, StatDef stat)
         {
             return GetData(pawn).GetFactor(stat);
+        }
+
+        public StatGroup GenerateStatsGroup(Pawn pawn)
+        {
+            StatGroup toReturn = new StatGroup();
+
+            var mother = pawn.GetMother();
+            var father = pawn.GetFather();
+
+            var motherStats = mother == null ? null : GetData(mother);
+            var fatherStats = father == null ? null : GetData(father);
+
+            var affectedStats = new List<StatDef>
+            {
+                 StatDefOf.MoveSpeed,
+                 StatDefOf.LeatherAmount,
+                 StatDefOf.MeatAmount,
+                 StatDefOf.CarryingCapacity
+            };
+
+            foreach (var stat in affectedStats)
+            {
+                var record = new StatRecord();
+
+                float motherValue = motherStats != null ? motherStats.GetFactor(stat).Value : Utilities.SampleGaussian();
+                float fatherValue = motherStats != null ? motherStats.GetFactor(stat).Value : Utilities.SampleGaussian();
+
+                bool fromMother = Utilities.SampleInt() % 2 == 0;
+
+                if (fromMother)
+                {
+                    record.ParentValue = motherValue;
+                    record.Parent = motherStats != null ? StatRecord.Source.Mother : StatRecord.Source.None;
+                }
+                else
+                {
+                    record.ParentValue = motherValue;
+                    record.Parent = motherStats != null ? StatRecord.Source.Father : StatRecord.Source.None;
+                }
+
+                record.Value = record.ParentValue * Utilities.SampleGaussian();
+
+                toReturn.Data[stat] = record;
+            }
+
+            return toReturn;
         }
     }
 }

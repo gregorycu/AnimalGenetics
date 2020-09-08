@@ -6,69 +6,44 @@ using Verse;
 
 namespace AnimalGenetics
 {
+    public class StatRecord : IExposable
+    {
+        public float Value;
+        public float ParentValue;
+        public enum Source
+        {
+            None, Mother, Father
+        };
+        public Source Parent;
+
+        public void ExposeData()
+        {
+            Scribe_Values.Look(ref Value, "Value");
+            Scribe_Values.Look(ref ParentValue, "ParentValue");
+            Scribe_Values.Look(ref Parent, "Parent");
+        }
+    };
+
     public class StatGroup : IExposable
     {
         public StatGroup()
         {
         }
 
-        public StatGroup(Pawn pawn)
-        {
-            var AnimalGenetics = Find.World.GetComponent<AnimalGenetics>();
-
-            var father = pawn.GetFather();
-            var mother = pawn.GetMother();
-
-            var mutatedStats = GetMutatedStats();
-
-            if (mother != null) // && father != null)
-            {
-                var keys = mutatedStats.Keys.ToList();
-                foreach (var stat in keys)
-                {
-                    //float baseValue = (AnimalGenetics.GetData(mother).Get(stat) + AnimalGenetics.GetData(father).Get(stat)) / 2.0f;
-                    float baseValue = AnimalGenetics.GetFactor(mother, stat);
-
-                    Log.Warning("Has mother with " + baseValue.ToString() + " multiplying with " + mutatedStats[stat].ToString());
-
-                    mutatedStats[stat] = baseValue * mutatedStats[stat];
-                }
-            }
-            _Data = mutatedStats;
-        }
-
-        Dictionary<StatDef, float> GetMutatedStats()
-        {
-            /*return new Dictionary<StatDef, float>
-            {
-                { StatDefOf.MoveSpeed,  _Random.Next(9000, 11000) / 10000.0f },
-                { StatDefOf.LeatherAmount,  _Random.Next(9000, 11000) / 10000.0f },
-                { StatDefOf.MeatAmount,  _Random.Next(9000, 11000) / 10000.0f },
-                { StatDefOf.CarryingCapacity,  _Random.Next(9000, 11000) / 10000.0f }
-            };*/
-            return new Dictionary<StatDef, float>
-            {
-                { StatDefOf.MoveSpeed,  Utilities.SampleGaussian() },
-                { StatDefOf.LeatherAmount,  Utilities.SampleGaussian() },
-                { StatDefOf.MeatAmount,  Utilities.SampleGaussian() },
-                { StatDefOf.CarryingCapacity,  Utilities.SampleGaussian() }
-            };
-        }
-
         public void ExposeData()
         {
-            Scribe_Collections.Look(ref _Data, "values", LookMode.Def, LookMode.Value);
+            Scribe_Collections.Look(ref Data, "values", LookMode.Def, LookMode.Deep);
         }
-        public float GetFactor(StatDef stat)
+        public StatRecord GetFactor(StatDef stat)
         {
-            if (!_Data.ContainsKey(stat))
-                return 1.0f;
-            return _Data[stat];
+            if (!Data.ContainsKey(stat))
+                return DefaultStat;
+            return Data[stat];
         }
 
-        Dictionary<StatDef, float> _Data = new Dictionary<StatDef, float>();
+        public static StatRecord DefaultStat = new StatRecord { Value = 1.0f, ParentValue = 1.0f, Parent = StatRecord.Source.None };
 
-        static Random _Random = new Random();
+        public Dictionary<StatDef, StatRecord> Data = new Dictionary<StatDef, StatRecord>();
     }
 
 }
