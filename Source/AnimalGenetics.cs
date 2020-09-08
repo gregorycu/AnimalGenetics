@@ -71,7 +71,7 @@ namespace AnimalGenetics
                 var record = new StatRecord();
 
                 float motherValue = motherStats != null ? motherStats.GetFactor(stat).Value : Utilities.SampleGaussian();
-                float fatherValue = motherStats != null ? motherStats.GetFactor(stat).Value : Utilities.SampleGaussian();
+                float fatherValue = fatherStats != null ? fatherStats.GetFactor(stat).Value : Utilities.SampleGaussian();
 
                 bool fromMother = Utilities.SampleInt() % 2 == 0;
 
