@@ -1,5 +1,4 @@
-﻿using System;
-using RimWorld;
+﻿using RimWorld;
 using UnityEngine;
 using Verse;
 
@@ -7,29 +6,25 @@ namespace AnimalGenetics
 {
     public class PawnColumnWorker_LeatherGene : PawnColumnWorker
     {
+        static StatDef statDef = StatDefOf.LeatherAmount;
         public override void DoCell(Rect rect, Pawn pawn, PawnTable table)
         {
-            GUI.color = Utilities.TextColor(GetLeatherGene(pawn));
+            float gene = Genes.GetGene(pawn, statDef);
+            GUI.color = Utilities.TextColor(gene);
             Text.Anchor = TextAnchor.MiddleCenter;
-            Widgets.Label(rect, (GetLeatherGene(pawn)*100).ToString("F0"));
+            Widgets.Label(rect, (gene * 100).ToString("F0") + "%");
             Text.Anchor = TextAnchor.UpperLeft;
             GUI.color = Color.white;
         }
 
         public override int GetMinWidth(PawnTable table)
         {
-            //return Constants.TextCellWidth;
-            return 50;
-        }
-
-        public float GetLeatherGene(Pawn pawn)
-        {
-            return Find.World.GetComponent<AnimalGenetics>().GetFactor(pawn, StatDefOf.LeatherAmount).Value;
+            return 80;
         }
 
         public override int Compare(Pawn a, Pawn b)
         {
-            return GetLeatherGene(a).CompareTo(GetLeatherGene(b));
+            return Genes.GetGene(a, statDef).CompareTo(Genes.GetGene(b, statDef));
         }
     }
 }
