@@ -140,7 +140,10 @@ namespace AnimalGenetics
 
             var affectedStats = new List<StatDef>
             {
-                 StatDefOf.MoveSpeed
+                 StatDefOf.MoveSpeed,
+                 StatDefOf.LeatherAmount,
+                 StatDefOf.MeatAmount,
+                 StatDefOf.CarryingCapacity
             };
 
             foreach (var stat in affectedStats)
