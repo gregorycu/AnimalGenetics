@@ -2,9 +2,37 @@
 using UnityEngine;
 using Verse;
 using System;
+using System.Collections.Generic;
+using System.Linq;
 
 namespace AnimalGenetics
 {
+    class MultiLerp
+    {
+        public MultiLerp(KeyValuePair<float, Color>[] points)
+        {
+            _Points = points;
+        }
+        KeyValuePair<float, Color>[] _Points;
+
+        public Color Apply(float value)
+        {
+            if (value < _Points.First().Key)
+                return _Points.First().Value;
+
+            if (value > _Points.Last().Key)
+                return _Points.Last().Value;
+
+            var lhs = _Points.LastOrDefault((KeyValuePair<float, Color> point) => value >= point.Key);
+            var rhs = _Points.FirstOrDefault((KeyValuePair<float, Color> point) => value < point.Key);
+
+            Log.Message(">>> " + ((value - lhs.Key) / (rhs.Key - lhs.Key)).ToString());
+
+            return Color.Lerp(lhs.Value, rhs.Value, (value - lhs.Key) / (rhs.Key - lhs.Key));
+        }
+    };
+
+
     public static class Utilities
     {
         private static float LowEnd = 0.5f;
@@ -19,6 +47,18 @@ namespace AnimalGenetics
 
         public static Color TextColor(float mod)
         {
+            /*KeyValuePair<float, Color>[] points = {
+                    new KeyValuePair<float, Color>(0.80f, Color.gray),
+                    new KeyValuePair<float, Color>(1.00f, new Color(0.1f, 0.7f, 0.1f)),
+                    new KeyValuePair<float, Color>(1.20f, new Color(0.3f, 0.3f, 1.0f)),
+                    new KeyValuePair<float, Color>(1.40f, new Color(0.5f, 0.2f, 0.7f)),
+                    new KeyValuePair<float, Color>(1.60f, new Color(1.0f, 0.7f, 0.2f)),
+                    new KeyValuePair<float, Color>(1.80f, Color.yellow)
+            };
+            var ml = new MultiLerp(points);
+
+            return ml.Apply(mod);*/
+
             if (mod > Mid)
             {
                 return Color.Lerp(MidColor, HighEndColor, (mod - Mid) * UpperMult);
