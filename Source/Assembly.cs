@@ -1,6 +1,8 @@
 ﻿using HarmonyLib;
 using System.Reflection;
 using Verse;
+using RimWorld;
+
 
 namespace AnimalGenetics
 {
@@ -21,10 +23,12 @@ namespace AnimalGenetics
         {
             static public bool Prefix(Pawn_AgeTracker __instance, Pawn ___pawn)
             {
-                while (!___pawn.Dead && !__instance.CurLifeStage.reproductive)
-                {
-                    Log.Warning("Aging pawn");
-                    __instance.DebugMake1YearOlder();
+                if (___pawn.RaceProps.FleshType == FleshTypeDefOf.Normal) {
+                    while (!___pawn.Dead && !__instance.CurLifeStage.reproductive)
+                    {
+                        Log.Warning("Aging pawn");
+                        __instance.DebugMake1YearOlder();
+                    }
                 }
                 return false;
             }
