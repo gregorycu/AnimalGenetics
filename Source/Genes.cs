@@ -26,10 +26,11 @@ namespace AnimalGenetics
                 }
                 return (Find.World.GetComponent<AnimalGenetics>().GetFactor(pawn, gene).ParentValue * 100).ToString("F0") + "% " + gender;
             }
-
-
-            return "Test";
         }
-
+        
+        public static float GetInheritValue(Pawn pawn, StatDef gene)
+        {
+            return Find.World.GetComponent<AnimalGenetics>().GetFactor(pawn, gene).ParentValue;
+        }
     }
 }
