@@ -26,7 +26,7 @@ namespace AnimalGenetics
             mean = listingStandard.Slider(mean, 0f, 2f);
             listingStandard.Label("Standard Deviation : " + (stdDev * 100).ToString("F0"));
             stdDev = listingStandard.Slider(stdDev, 0f, 0.5f);
-            listingStandard.GapLine();
+            listingStandard.Label("");
             listingStandard.Label("Inherited gene mutation factor (standard deviation from parent) : " + (mutationFactor * 100).ToString("F0"));
             mutationFactor = listingStandard.Slider(mutationFactor, 0f, 1f);
             listingStandard.End();
