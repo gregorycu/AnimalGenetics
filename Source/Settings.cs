@@ -5,7 +5,7 @@ namespace AnimalGenetics
 {
     public class AnimalGeneticsSettings : ModSettings
     {
-        public float mutationFactor = 0.15f;
+        public float mutationFactor = 0.1f;
         public float stdDev = 0.15f;
         public float mean = 1f;
 
@@ -28,7 +28,7 @@ namespace AnimalGenetics
             stdDev = listingStandard.Slider(stdDev, 0f, 0.5f);
             listingStandard.Label("");
             listingStandard.Label("Inherited gene mutation factor (standard deviation from parent) : " + (mutationFactor * 100).ToString("F0"));
-            mutationFactor = listingStandard.Slider(mutationFactor, 0f, 1f);
+            mutationFactor = listingStandard.Slider(mutationFactor, 0f, 0.5f);
             listingStandard.End();
         }
     }
