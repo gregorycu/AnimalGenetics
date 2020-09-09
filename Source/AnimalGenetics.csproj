@@ -61,12 +61,14 @@
     <Compile Include="AnimalGenetics.cs" />
     <Compile Include="Assembly.cs" />
     <Compile Include="Constants.cs" />
+    <Compile Include="Controller.cs" />
     <Compile Include="Genes.cs" />
     <Compile Include="ITab_Pawn_Genetics.cs" />
     <Compile Include="MainTabWindow_AnimalGenetics.cs" />
     <Compile Include="PawnColumnWorkers\PawnColumnWorkers_CapacityGene.cs" />
     <Compile Include="PawnColumnWorkers\PawnColumnWorkers_LeatherGene.cs" />
     <Compile Include="PawnColumnWorkers\PawnColumnWorkers_MeatGene.cs" />
+    <Compile Include="Settings.cs" />
     <Compile Include="Utilities.cs" />
     <Compile Include="PawnColumnWorkers\PawnColumnWorkers_SpeedGene.cs" />
     <Compile Include="PawnTable_Genetics.cs" />
