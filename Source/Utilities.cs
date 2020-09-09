@@ -41,7 +41,7 @@ namespace AnimalGenetics
             float ret = (float)y1 * stdDev + mean;
             if (ret < lowerBound)
             {
-                return 0.01f;
+                return lowerBound;
             }
             return ret;
         }
