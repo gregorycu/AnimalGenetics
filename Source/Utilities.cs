@@ -54,8 +54,7 @@ namespace AnimalGenetics
             double x2 = 1 - RandGen.NextDouble();
 
             double y1 = Math.Sqrt(-2.0 * Math.Log(x1)) * Math.Cos(2.0 * Math.PI * x2);
-            float ret = (float)y1 * stdDev + mean;
-            return ret;
+            return ret = (float)y1 * stdDev + mean;
         }
 
         public static int SampleInt()
