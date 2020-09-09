@@ -68,8 +68,8 @@ namespace AnimalGenetics
             {
                 var record = new StatRecord();
 
-                float motherValue = motherStats != null ? motherStats.GetFactor(stat).Value : Utilities.SampleGaussian(Controller.Settings.mean, Controller.Settings.stdDev, 0.01f);
-                float fatherValue = motherStats != null ? motherStats.GetFactor(stat).Value : Utilities.SampleGaussian(Controller.Settings.mean, Controller.Settings.stdDev, 0.01f);
+                float motherValue = motherStats != null ? motherStats.GetFactor(stat).Value : Utilities.SampleGaussian(Controller.Settings.mean, Controller.Settings.stdDev, 0.1f);
+                float fatherValue = motherStats != null ? motherStats.GetFactor(stat).Value : Utilities.SampleGaussian(Controller.Settings.mean, Controller.Settings.stdDev, 0.1f);
 
                 bool fromMother = Utilities.SampleInt() % 2 == 0;
 
@@ -85,9 +85,9 @@ namespace AnimalGenetics
                 }
 
                 record.Value = record.ParentValue + Utilities.SampleGaussian(0f, Controller.Settings.mutationFactor);
-                if (record.Value < 0.01f)
+                if (record.Value < 0.1f)
                 {
-                    record.Value = 0.01f;
+                    record.Value = 0.1f;
                 }
 
                 toReturn.Data[stat] = record;
