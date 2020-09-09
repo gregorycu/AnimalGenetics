@@ -13,5 +13,7 @@
             //PawnTableDef = def;
             //SetMinMaxSize(def.minWidth, uiWidth, 0, (int)(uiHeight * 400));
         }
+
+
     }
 }
