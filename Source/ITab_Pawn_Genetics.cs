@@ -54,7 +54,7 @@ namespace AnimalGenetics
 			curY += 20;
 			foreach (var stat in affectedStats)
 			{
-				curY += DrawRow(rect, curY, Constants.statNames[stat], Genes.GetGene(base.SelPawn, stat), Genes.GetInheritString(base.SelPawn, stat));
+				curY += DrawRow(rect, curY, Constants.statNames[stat], Genes.GetGene(base.SelPawn, stat), Genes.GetInheritString(base.SelPawn, stat), Genes.GetInheritValue(base.selPawn, stat));
 			}
 			
 			//GUI.color = Utilities.TextColor(Find.World.GetComponent<AnimalGenetics>().GetFactor(base.SelPawn, StatDefOf.CarryingCapacity));
@@ -74,7 +74,7 @@ namespace AnimalGenetics
 
 		}
 
-		private static float DrawRow(Rect rect, float curY, String name, float value, String parent)
+		private static float DrawRow(Rect rect, float curY, String name, float value, String parent, float parentValue)
 		{
 			Text.Font = GameFont.Small;
 			Rect rect2 = new Rect(0f, curY, rect.width, 20f);
@@ -88,7 +88,7 @@ namespace AnimalGenetics
 			Text.Anchor = TextAnchor.MiddleCenter;
 			GUI.color = Utilities.TextColor(value);
 			Widgets.Label(new Rect(rect.width * 0.6f, curY, rect.width * 0.2f, 30f), (value * 100).ToString("F0") + "%");
-			GUI.color = Utilities.TextColor(0.69f);
+			GUI.color = Utilities.TextColor(parentValue;
 			Widgets.Label(new Rect(rect.width * 0.8f, curY, rect.width * 0.2f, 30f), parent);
 			GUI.color = Color.white;
 			Text.Anchor = TextAnchor.UpperLeft;
