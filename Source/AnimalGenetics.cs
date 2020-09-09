@@ -25,8 +25,6 @@ namespace AnimalGenetics
             }
         }
 
-
-
         public override void ExposeData()
         {
             Scribe_Collections.Look(ref _Data, "data", LookMode.Reference, LookMode.Deep, ref _Things, ref _StatGroups);
@@ -51,7 +49,7 @@ namespace AnimalGenetics
         public StatGroup GenerateStatsGroup(Pawn pawn)
         {
             StatGroup toReturn = new StatGroup();
-
+ 
             var mother = pawn.GetMother();
             var father = pawn.GetFather();
 
@@ -70,8 +68,8 @@ namespace AnimalGenetics
             {
                 var record = new StatRecord();
 
-                float motherValue = motherStats != null ? motherStats.GetFactor(stat).Value : Utilities.SampleGaussian();
-                float fatherValue = fatherStats != null ? fatherStats.GetFactor(stat).Value : Utilities.SampleGaussian();
+                float motherValue = motherStats != null ? motherStats.GetFactor(stat).Value : Utilities.SampleGaussian(Controller.Settings.mean, Controller.Settings.stdDev, 0.1f);
+                float fatherValue = fatherStats != null ? fatherStats.GetFactor(stat).Value : Utilities.SampleGaussian(Controller.Settings.mean, Controller.Settings.stdDev, 0.1f);
 
                 bool fromMother = Utilities.SampleInt() % 2 == 0;
 
@@ -83,10 +81,14 @@ namespace AnimalGenetics
                 else
                 {
                     record.ParentValue = motherValue;
-                    record.Parent = motherStats != null ? StatRecord.Source.Father : StatRecord.Source.None;
+                    record.Parent = fatherStats != null ? StatRecord.Source.Father : StatRecord.Source.None;
                 }
 
-                record.Value = record.ParentValue * Utilities.SampleGaussian();
+                record.Value = record.ParentValue + Utilities.SampleGaussian(0f, Controller.Settings.mutationFactor);
+                if (record.Value < 0.1f)
+                {
+                    record.Value = 0.1f;
+                }
 
                 toReturn.Data[stat] = record;
             }
