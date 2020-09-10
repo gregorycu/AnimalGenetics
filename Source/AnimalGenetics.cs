@@ -80,7 +80,7 @@ namespace AnimalGenetics
                 }
                 else
                 {
-                    record.ParentValue = motherValue;
+                    record.ParentValue = fatherValue;
                     record.Parent = fatherStats != null ? StatRecord.Source.Father : StatRecord.Source.None;
                 }
 

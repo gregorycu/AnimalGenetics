@@ -25,19 +25,35 @@ namespace AnimalGenetics
         {
             Listing_Standard listingStandard = new Listing_Standard();
             listingStandard.Begin(rect);
-            listingStandard.Label("Genetic range for new animals (normally distributed)");
+            listingStandard.Label("Genetic range for new animals", -1f, "Randomly selected from a normal distribution with these settings");
             listingStandard.Label("Mean : " + (mean * 100).ToString("F0"));
             mean = listingStandard.Slider(mean, 0f, 2f);
             listingStandard.Label("Standard Deviation : " + (stdDev * 100).ToString("F0"));
             stdDev = listingStandard.Slider(stdDev, 0f, 0.5f);
-            listingStandard.Label("");
-            listingStandard.Label("Inherited gene mutation factor (standard deviation from parent) : " + (mutationFactor * 100).ToString("F0"));
+            listingStandard.Gap(30f);
+            listingStandard.Label("Inherited gene mutation factor : " + (mutationFactor * 100).ToString("F0"), -1f, "Random normally distributed difference from parent values, mean = 0, std. deviation = <mutation factor>");
             mutationFactor = listingStandard.Slider(mutationFactor, 0f, 0.5f);
-            listingStandard.Label("");
-            listingStandard.Label("Color Mode");
-            if (listingStandard.RadioButton("Normal", colorModeNormal, 8f)) { colorModeNormal = true; colorModeRPG = false; colorMode = 0; }
-            if (listingStandard.RadioButton("RPG", colorModeRPG, 8f)) { colorModeRPG = true; colorModeNormal = false; colorMode = 1; }
+            //listingStandard.Gap(30f);
             listingStandard.End();
+
+            float curY = listingStandard.CurHeight + 70f;
+            Rect rect2 = new Rect(0, curY, rect.width / 2, 150f);
+            Listing_Standard listingStandard2 = new Listing_Standard();
+            listingStandard2.Begin(rect2);
+            listingStandard2.Label("Color Mode");
+            if (listingStandard2.RadioButton_NewTemp("Normal", colorModeNormal, 8f, "Traditional red->yellow->green colors", 0f)) { colorModeNormal = true; colorModeRPG = false; colorMode = 0; }
+            if (listingStandard2.RadioButton_NewTemp("RPG", colorModeRPG, 8f, "RGP style item quality colors", 0f)) { colorModeRPG = true; colorModeNormal = false; colorMode = 1; }
+            listingStandard2.Gap(30f);
+            if (listingStandard2.ButtonText("Default Settings"))
+            {
+                mutationFactor = 0.1f;
+                stdDev = 0.15f;
+                mean = 1f;
+                colorMode = 1;
+                colorModeNormal = false;
+                colorModeRPG = true;
+            }
+            listingStandard2.End();
         }
     }
 }
