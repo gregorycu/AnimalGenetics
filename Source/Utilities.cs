@@ -45,20 +45,36 @@ namespace AnimalGenetics
         private static Color HighEndColor = new Color(0.4f, 1f, 0.4f);
         private static System.Random RandGen = new System.Random();
 
+
+        private static KeyValuePair<float, Color>[] pointsRPG = {
+            new KeyValuePair<float, Color>(0.80f, Color.gray),
+            new KeyValuePair<float, Color>(1.00f, new Color(0.1f, 0.7f, 0.1f)),
+            new KeyValuePair<float, Color>(1.20f, new Color(0.3f, 0.3f, 1.0f)),
+            new KeyValuePair<float, Color>(1.40f, new Color(0.5f, 0.2f, 0.7f)),
+            new KeyValuePair<float, Color>(1.60f, new Color(1.0f, 0.7f, 0.2f)),
+            new KeyValuePair<float, Color>(1.80f, Color.yellow)
+        };
+        private static KeyValuePair<float, Color>[] pointsNormal = {
+            new KeyValuePair<float, Color>(0.50f, new Color(0.9f, 0f, 0f)),
+            new KeyValuePair<float, Color>(1.00f, Color.yellow),
+            new KeyValuePair<float, Color>(1.50f, new Color(0.4f, 1f, 0.4f))
+        };
+
+        private static List<KeyValuePair<float, Color>[]> colorProfiles = new List<KeyValuePair<float, Color>[]>()
+        {
+            pointsNormal,
+            pointsRPG
+        };
+
         public static Color TextColor(float mod)
         {
-            /*KeyValuePair<float, Color>[] points = {
-                    new KeyValuePair<float, Color>(0.80f, Color.gray),
-                    new KeyValuePair<float, Color>(1.00f, new Color(0.1f, 0.7f, 0.1f)),
-                    new KeyValuePair<float, Color>(1.20f, new Color(0.3f, 0.3f, 1.0f)),
-                    new KeyValuePair<float, Color>(1.40f, new Color(0.5f, 0.2f, 0.7f)),
-                    new KeyValuePair<float, Color>(1.60f, new Color(1.0f, 0.7f, 0.2f)),
-                    new KeyValuePair<float, Color>(1.80f, Color.yellow)
-            };
+            KeyValuePair<float, Color>[] points;
+            points = colorProfiles[Controller.Settings.colorMode];
             var ml = new MultiLerp(points);
 
-            return ml.Apply(mod);*/
+            return ml.Apply(mod);
 
+            /*
             if (mod > Mid)
             {
                 return Color.Lerp(MidColor, HighEndColor, (mod - Mid) * UpperMult);
@@ -66,7 +82,7 @@ namespace AnimalGenetics
             else
             {
                 return Color.Lerp(MidColor, LowEndColor, (Mid - mod) * LowerMult);
-            }
+            }*/
         }
 
         // Cheers, https://gist.github.com/tansey/1444070
