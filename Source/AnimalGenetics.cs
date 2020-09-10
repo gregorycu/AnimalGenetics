@@ -49,20 +49,19 @@ namespace AnimalGenetics
         public StatGroup GenerateStatsGroup(Pawn pawn)
         {
             StatGroup toReturn = new StatGroup();
- 
+
+            //if we're not an animal, return an empty stat list for this pawn
+            if (!pawn.RaceProps.Animal) {
+                return toReturn;
+            }
+
             var mother = pawn.GetMother();
             var father = pawn.GetFather();
 
             var motherStats = mother == null ? null : GetData(mother);
             var fatherStats = father == null ? null : GetData(father);
 
-            var affectedStats = new List<StatDef>
-            {
-                 StatDefOf.MoveSpeed,
-                 StatDefOf.LeatherAmount,
-                 StatDefOf.MeatAmount,
-                 StatDefOf.CarryingCapacity
-            };
+            var affectedStats = Constants.affectedStats;
 
             foreach (var stat in affectedStats)
             {

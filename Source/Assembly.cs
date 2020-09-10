@@ -44,5 +44,13 @@ namespace AnimalGenetics
             }
         }
 
+        [HarmonyPatch(typeof(MassUtility), nameof(MassUtility.Capacity))]
+        public static class MassUtility_Capacity_Patch
+        {
+            static public void Postfix(ref float __result, Pawn __0)
+            {
+                __result = __result * Genes.GetGene(__0, StatDefOf.CarryingCapacity);
+            }
+        }
     }
 }
