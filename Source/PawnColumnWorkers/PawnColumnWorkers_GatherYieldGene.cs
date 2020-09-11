@@ -4,7 +4,7 @@ using Verse;
 
 namespace AnimalGenetics
 {
-    public class PawnColumnWorker_GatherYeildGene : PawnColumnWorker
+    public class PawnColumnWorker_GatherYieldGene : PawnColumnWorker
     {
         static StatDef statDef = AnimalGenetics.GatherYield;
         public override void DoCell(Rect rect, Pawn pawn, PawnTable table)
