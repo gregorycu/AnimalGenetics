@@ -21,7 +21,7 @@ namespace AnimalGenetics
             }
         }
 
-        [HarmonyPatch(typeof(Pawn_AgeTracker), nameof(Pawn_AgeTracker.AgeTick))]
+        /*[HarmonyPatch(typeof(Pawn_AgeTracker), nameof(Pawn_AgeTracker.AgeTick))]
         public class GrowUp
         {
             static public bool Prefix(Pawn_AgeTracker __instance, Pawn ___pawn)
@@ -35,9 +35,9 @@ namespace AnimalGenetics
                 }
                 return false;
             }
-        }
+        }*/
 
-        [HarmonyPatch(typeof(Hediff_Pregnant), nameof(Hediff_Pregnant.Tick))]
+        /*[HarmonyPatch(typeof(Hediff_Pregnant), nameof(Hediff_Pregnant.Tick))]
         public class BabyOut
         {
             static public bool Prefix(Hediff_Pregnant __instance)
@@ -45,7 +45,7 @@ namespace AnimalGenetics
                 __instance.Severity = 1;
                 return true;
             }
-        }
+        }*/
 
         [HarmonyPatch(typeof(MassUtility), nameof(MassUtility.Capacity))]
         public static class MassUtility_Capacity_Patch

@@ -50,13 +50,13 @@ namespace AnimalGenetics
             new KeyValuePair<float, Color>(1.05f, new Color(0.1f, 0.7f, 0.1f)),
             new KeyValuePair<float, Color>(1.20f, new Color(0.3f, 0.3f, 1.0f)),
             new KeyValuePair<float, Color>(1.40f, new Color(0.5f, 0.2f, 0.7f)),
-            new KeyValuePair<float, Color>(1.60f, new Color(1.0f, 0.7f, 0.2f)),
+            new KeyValuePair<float, Color>(1.60f, new Color(1.0f, 0.6f, 0.1f)),
             new KeyValuePair<float, Color>(1.80f, Color.yellow)
         };
         private static KeyValuePair<float, Color>[] pointsNormal = {
-            new KeyValuePair<float, Color>(0.50f, new Color(0.9f, 0f, 0f)),
+            new KeyValuePair<float, Color>(0.25f, new Color(0.9f, 0f, 0f)),
             new KeyValuePair<float, Color>(1.00f, Color.yellow),
-            new KeyValuePair<float, Color>(1.50f, new Color(0.4f, 1f, 0.4f))
+            new KeyValuePair<float, Color>(1.75f, new Color(0.4f, 1f, 0.4f))
         };
 
         private static List<KeyValuePair<float, Color>[]> colorProfiles = new List<KeyValuePair<float, Color>[]>()

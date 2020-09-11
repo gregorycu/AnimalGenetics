@@ -23,17 +23,17 @@ namespace AnimalGenetics
             StatDefOf.MoveSpeed,
             StatDefOf.LeatherAmount,
             StatDefOf.MeatAmount,
-            StatDefOf.CarryingCapacity,
+            StatDefOf.CarryingCapacity
         };
 
         public static Dictionary<StatDef, String> statNames= new Dictionary<StatDef, String>()
         {
             { StatDefOf.MoveSpeed, "Speed"},
-            { StatDefOf.LeatherAmount, "Leather Amount"},
-            { StatDefOf.MeatAmount, "Meat Amount" },
-            { StatDefOf.CarryingCapacity, "Carrying Capacity" },
             { AnimalGenetics.Damage, "Damage" },
-            { AnimalGenetics.GatherYield, "Milk/Wool" }
+            { StatDefOf.CarryingCapacity, "Carrying Capacity" },
+            { StatDefOf.MeatAmount, "Meat Amount" },
+            { StatDefOf.LeatherAmount, "Leather Amount"},
+            { AnimalGenetics.GatherYield, "Milk / Wool" }
         };
     }
 }
