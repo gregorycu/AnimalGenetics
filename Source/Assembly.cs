@@ -52,5 +52,17 @@ namespace AnimalGenetics
                 __result = __result * Genes.GetGene(__0, StatDefOf.CarryingCapacity);
             }
         }
+
+        [HarmonyPatch(typeof(VerbProperties), nameof(VerbProperties.GetDamageFactorFor), new[] { typeof(Tool), typeof(Pawn), typeof(HediffComp_VerbGiver) })]
+        public static class VerbProperties_GetDanageFactorFor_Patch
+        {
+            static public void Postfix(ref float __result, Pawn __1)
+            {
+                //StatDefOf.MeleeWeapon_DamageMultiplier is for equipment. Using for animal gene purposes but won't inject stat part.
+                if (__1.RaceProps.Animal) {
+                    __result = __result * Genes.GetGene(__1, StatDefOf.MeleeWeapon_DamageMultiplier);
+                }
+            }
+        }
     }
 }

@@ -13,7 +13,20 @@ namespace AnimalGenetics
             StatDefOf.MoveSpeed,
             StatDefOf.LeatherAmount,
             StatDefOf.MeatAmount,
-            StatDefOf.CarryingCapacity
+            StatDefOf.CarryingCapacity,
+            StatDefOf.MeleeWeapon_DamageMultiplier,
+            StatDefOf.ArmorRating_Blunt
+        };
+
+        // Stats to insert and modify. For StatDefs that we are using for internal representation but do not effect what we want.
+        // MeleeWeapon_DamageMultiplier is for melee weapons - Using as our store for DamageGene via Harmony patch.
+        public static List<StatDef> affectedStatsToInsert = new List<StatDef>()
+        {
+            StatDefOf.MoveSpeed,
+            StatDefOf.LeatherAmount,
+            StatDefOf.MeatAmount,
+            StatDefOf.CarryingCapacity,
+            StatDefOf.ArmorRating_Blunt
         };
 
         public static Dictionary<StatDef, String> statNames= new Dictionary<StatDef, String>()
@@ -21,7 +34,9 @@ namespace AnimalGenetics
             { StatDefOf.MoveSpeed, "Speed"},
             { StatDefOf.LeatherAmount, "Leather Amount"},
             { StatDefOf.MeatAmount, "Meat Amount" },
-            { StatDefOf.CarryingCapacity, "Carrying Capacity" }
+            { StatDefOf.CarryingCapacity, "Carrying Capacity" },
+            { StatDefOf.MeleeWeapon_DamageMultiplier, "Damage" },
+            { StatDefOf.ArmorRating_Blunt, "Armor" }
         };
     }
 }

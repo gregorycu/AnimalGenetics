@@ -10,7 +10,7 @@ namespace AnimalGenetics
 
         public AnimalGenetics(World world) : base(world)
         {
-            var affectedStats = Constants.affectedStats;
+            var affectedStats = Constants.affectedStatsToInsert;
 
             foreach (var stat in affectedStats)
             {
