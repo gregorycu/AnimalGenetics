@@ -15,8 +15,8 @@ namespace AnimalGenetics
         public override void ExposeData()
         {
             base.ExposeData();
-            Scribe_Values.Look<float>(ref mutationFactor, "mutationFactor", 0.15f);
-            Scribe_Values.Look<float>(ref stdDev, "stdDev", 0.15f);
+            Scribe_Values.Look<float>(ref mutationFactor, "mutationFactor", 0.10f);
+            Scribe_Values.Look<float>(ref stdDev, "stdDev", 0.10f);
             Scribe_Values.Look<float>(ref mean, "mean", 1f);
             Scribe_Values.Look<int>(ref colorMode, "colorMode", 1);
         }

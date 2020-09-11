@@ -65,7 +65,7 @@ namespace AnimalGenetics
             {
                 //StatDefOf.MeleeWeapon_DamageMultiplier is for equipment. Using for animal gene purposes but won't inject stat part.
                 if (__1.RaceProps.Animal) {
-                    __result = __result * Genes.GetGene(__1, StatDefOf.MeleeWeapon_DamageMultiplier);
+                    __result = __result * Genes.GetGene(__1, AnimalGenetics.Damage);
                 }
             }
         }

@@ -55,21 +55,12 @@ namespace AnimalGenetics
 			{
 				curY += DrawRow(rect, curY, Constants.statNames[stat], Genes.GetGene(pawn, stat), Genes.GetInheritString(pawn, stat), Genes.GetInheritValue(pawn, stat));
 			}
-			
-			//GUI.color = Utilities.TextColor(Find.World.GetComponent<AnimalGenetics>().GetFactor(base.SelPawn, StatDefOf.CarryingCapacity));
-			//Text.Anchor = TextAnchor.MiddleCenter;
-			//Widgets.Label(rect, (Find.World.GetComponent<AnimalGenetics>().GetFactor(pawn, StatDefOf.CarryingCapacity) * 100).ToString("F0"));
-			//Text.Anchor = TextAnchor.UpperLeft;
-			
-			//listingStandard.Label((Find.World.GetComponent<AnimalGenetics>().GetFactor(base.SelPawn, StatDefOf.CarryingCapacity) * 100).ToString("F0"));
-			//GUI.color = Color.white;
-			//listingStandard.End();
 		}
 
         protected override void UpdateSize()
         {
             base.UpdateSize();
-			this.size = new Vector2(300f, 220f);
+			this.size = new Vector2(300f, 210f);
 
 		}
 
