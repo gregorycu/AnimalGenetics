@@ -8,13 +8,14 @@ namespace AnimalGenetics
 {
     public static class Constants
     {
+        // order here dictates order displayed in game.
         public static List<StatDef> affectedStats = new List<StatDef>()
         {
             StatDefOf.MoveSpeed,
-            StatDefOf.LeatherAmount,
-            StatDefOf.MeatAmount,
-            StatDefOf.CarryingCapacity,
             AnimalGenetics.Damage,
+            StatDefOf.CarryingCapacity,
+            StatDefOf.MeatAmount,
+            StatDefOf.LeatherAmount,
             AnimalGenetics.GatherYield
         };
 
@@ -34,6 +35,16 @@ namespace AnimalGenetics
             { StatDefOf.MeatAmount, "Meat Amount" },
             { StatDefOf.LeatherAmount, "Leather Amount"},
             { AnimalGenetics.GatherYield, "Milk / Wool" }
+        };
+
+        public static Dictionary<StatDef, String> statTooltips = new Dictionary<StatDef, String>()
+        {
+            { StatDefOf.MoveSpeed, "Movement speed"},
+            { AnimalGenetics.Damage, "Melee attack damage" },
+            { StatDefOf.CarryingCapacity, "Caravan and carry capacity" },
+            { StatDefOf.MeatAmount, "Meat from butchering" },
+            { StatDefOf.LeatherAmount, "Leather from butchering"},
+            { AnimalGenetics.GatherYield, "Milk and Wool yields" }
         };
     }
 }

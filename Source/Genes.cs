@@ -32,5 +32,10 @@ namespace AnimalGenetics
         {
             return Find.World.GetComponent<AnimalGenetics>().GetFactor(pawn, gene).ParentValue;
         }
+
+        public static String GetTooltip(StatDef gene)
+        {
+            return Constants.statTooltips[gene];
+        }
     }
 }

@@ -5,7 +5,7 @@
     <label>genetics</label>
     <description>Animal genetic attributes.</description>
     <tabWindowClass>AnimalGenetics.MainTabWindow_AnimalGenetics</tabWindowClass>
-    <order>45</order>
+    <order>55</order>
     <validWithoutMap>true</validWithoutMap>
   </MainButtonDef>
   

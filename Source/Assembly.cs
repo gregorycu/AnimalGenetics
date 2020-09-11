@@ -17,6 +17,7 @@ namespace AnimalGenetics
                 var h = new Harmony("AnimalGenetics");
                 h.PatchAll();
 
+                DefDatabase<StatDef>.Add(AnimalGenetics.Damage);
                 DefDatabase<StatDef>.Add(AnimalGenetics.GatherYield);
             }
         }

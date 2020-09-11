@@ -88,7 +88,7 @@ namespace AnimalGenetics
                     record.Parent = fatherStats != null ? StatRecord.Source.Father : StatRecord.Source.None;
                 }
 
-                record.Value = record.ParentValue + Utilities.SampleGaussian(0f, Controller.Settings.mutationFactor);
+                record.Value = record.ParentValue + Utilities.SampleGaussian(Controller.Settings.mutationMean, Controller.Settings.mutationStdDev);
                 record.Value = Mathf.Max(record.Value, 0.1f);
  
                 toReturn.Data[stat] = record;

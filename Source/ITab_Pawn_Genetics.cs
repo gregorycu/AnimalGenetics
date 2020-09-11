@@ -46,14 +46,17 @@ namespace AnimalGenetics
 
 			float curY = 55f;
 			var affectedStats = Constants.affectedStats;
-			//Text.Font = GameFont.Tiny;
 			Text.Anchor = TextAnchor.MiddleCenter;
-			Widgets.Label(new Rect(rect.width * 0.6f, curY, rect.width * 0.2f, 30f), "Value");
-			Widgets.Label(new Rect(rect.width * 0.8f, curY, rect.width * 0.2f, 30f), "Parent");
+			Rect rectValue = new Rect(rect.width * 0.6f, curY, rect.width * 0.2f, 30f);
+			Widgets.Label(rectValue, "Value");
+			TooltipHandler.TipRegion(rectValue, "Gene value. Applied to animal's base stats.");
+			Rect rectParent = new Rect(rect.width * 0.8f, curY, rect.width * 0.2f, 30f);
+			Widgets.Label(rectParent, "Parent");
+			TooltipHandler.TipRegion(rectParent, "The parental value this aniaml inherited from. Will be empty for wild or newly generated animals with no parents." );
 			curY += 20;
 			foreach (var stat in affectedStats)
 			{
-				curY += DrawRow(rect, curY, Constants.statNames[stat], Genes.GetGene(pawn, stat), Genes.GetInheritString(pawn, stat), Genes.GetInheritValue(pawn, stat));
+				curY += DrawRow(rect, curY, Constants.statNames[stat], Genes.GetGene(pawn, stat), Genes.GetInheritString(pawn, stat), Genes.GetInheritValue(pawn, stat), Genes.GetTooltip(stat));
 			}
 		}
 
@@ -64,10 +67,11 @@ namespace AnimalGenetics
 
 		}
 
-		private static float DrawRow(Rect rect, float curY, String name, float value, String parent, float parentValue)
+		private static float DrawRow(Rect rect, float curY, String name, float value, String parent, float parentValue, String tooltip)
 		{
 			Text.Font = GameFont.Small;
 			Rect rect2 = new Rect(0f, curY, rect.width, 20f);
+			TooltipHandler.TipRegion(rect2, tooltip);
 			if (Mouse.IsOver(rect2))
 			{
 				GUI.color = new Color(0.5f, 0.5f, 0.5f, 1f);
@@ -75,7 +79,7 @@ namespace AnimalGenetics
 			}
 			Text.Anchor = TextAnchor.UpperLeft;
 			Widgets.Label(new Rect(20f, curY, (rect.width * 0.5f) - 20f, 30f), name);
-			Text.Anchor = TextAnchor.MiddleCenter;
+			Text.Anchor = TextAnchor.UpperCenter;
 			GUI.color = Utilities.TextColor(value);
 			Widgets.Label(new Rect(rect.width * 0.6f, curY, rect.width * 0.2f, 30f), (value * 100).ToString("F0") + "%");
 			GUI.color = Utilities.TextColor(parentValue);
