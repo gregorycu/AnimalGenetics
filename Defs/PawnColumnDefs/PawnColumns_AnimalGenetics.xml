@@ -7,6 +7,12 @@
 		<label>speed</label>
 	</PawnColumnDef>
 	<PawnColumnDef>
+		<defName>AnimalGenetics_DamageGene</defName>
+		<workerClass>AnimalGenetics.PawnColumnWorker_DamageGene</workerClass>
+		<sortable>true</sortable>
+		<label>damage</label>
+	</PawnColumnDef>
+	<PawnColumnDef>
 		<defName>AnimalGenetics_CapacityGene</defName>
 		<workerClass>AnimalGenetics.PawnColumnWorker_CapacityGene</workerClass>
 		<sortable>true</sortable>

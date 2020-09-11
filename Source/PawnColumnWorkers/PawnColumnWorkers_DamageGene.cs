@@ -4,7 +4,7 @@ using Verse;
 
 namespace AnimalGenetics
 {
-    public class PawnColumnWorker_AttackGene : PawnColumnWorker
+    public class PawnColumnWorker_DamageGene : PawnColumnWorker
     {
         static StatDef statDef = StatDefOf.MeleeWeapon_DamageMultiplier;
         public override void DoCell(Rect rect, Pawn pawn, PawnTable table)

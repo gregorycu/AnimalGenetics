@@ -9,7 +9,6 @@ namespace AnimalGenetics
 	{
 		//public string labelKey = "TabGenetics";
 		//public string tutorTag = "Genetics";
-		static float height = 200f;
 
 		public ITab_Pawn_Genetics()
 		{
@@ -70,7 +69,7 @@ namespace AnimalGenetics
         protected override void UpdateSize()
         {
             base.UpdateSize();
-			this.size = new Vector2(300f, 180f);
+			this.size = new Vector2(300f, 200f);
 
 		}
 

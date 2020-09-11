@@ -14,8 +14,7 @@ namespace AnimalGenetics
             StatDefOf.LeatherAmount,
             StatDefOf.MeatAmount,
             StatDefOf.CarryingCapacity,
-            StatDefOf.MeleeWeapon_DamageMultiplier,
-            StatDefOf.ArmorRating_Blunt
+            StatDefOf.MeleeWeapon_DamageMultiplier
         };
 
         // Stats to insert and modify. For StatDefs that we are using for internal representation but do not effect what we want.
@@ -26,7 +25,6 @@ namespace AnimalGenetics
             StatDefOf.LeatherAmount,
             StatDefOf.MeatAmount,
             StatDefOf.CarryingCapacity,
-            StatDefOf.ArmorRating_Blunt
         };
 
         public static Dictionary<StatDef, String> statNames= new Dictionary<StatDef, String>()
@@ -36,7 +34,6 @@ namespace AnimalGenetics
             { StatDefOf.MeatAmount, "Meat Amount" },
             { StatDefOf.CarryingCapacity, "Carrying Capacity" },
             { StatDefOf.MeleeWeapon_DamageMultiplier, "Damage" },
-            { StatDefOf.ArmorRating_Blunt, "Armor" }
         };
     }
 }

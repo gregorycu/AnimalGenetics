@@ -65,7 +65,6 @@
     <Compile Include="Genes.cs" />
     <Compile Include="ITab_Pawn_Genetics.cs" />
     <Compile Include="MainTabWindow_AnimalGenetics.cs" />
-    <Compile Include="PawnColumnWorkers\PawnColumnWorkers_CapacityGene - Copy.cs" />
     <Compile Include="PawnColumnWorkers\PawnColumnWorkers_DamageGene.cs" />
     <Compile Include="PawnColumnWorkers\PawnColumnWorkers_CapacityGene.cs" />
     <Compile Include="PawnColumnWorkers\PawnColumnWorkers_LeatherGene.cs" />

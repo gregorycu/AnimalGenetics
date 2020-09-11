@@ -70,7 +70,7 @@ namespace AnimalGenetics
                 if (animals && wildlife)
                 {
                     return from p in Find.CurrentMap.mapPawns.AllPawns
-                           where p.Spawned && p.RaceProps.Animal && !p.Position.Fogged(p.Map) && !p.IsPrisonerInPrisonCell()
+                           where p.Spawned && p.RaceProps.Animal && !p.Position.Fogged(p.Map)  && (p.Faction == null || p.Faction == Faction.OfPlayer)
                            select p;
                 }
                 if (animals)
@@ -82,7 +82,7 @@ namespace AnimalGenetics
                 if (wildlife)
                 {
                     return from p in Find.CurrentMap.mapPawns.AllPawns
-                           where p.Spawned && p.Faction == null && p.RaceProps.Animal && !p.Position.Fogged(p.Map) && !p.IsPrisonerInPrisonCell()
+                           where p.Spawned && p.Faction == null && p.RaceProps.Animal && !p.Position.Fogged(p.Map)
                            select p;
                 }
                 return new List<Pawn>();
