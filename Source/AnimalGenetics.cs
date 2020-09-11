@@ -7,6 +7,7 @@ namespace AnimalGenetics
 {
     public class AnimalGenetics : WorldComponent
     {
+        public static StatDef GatherYield = new StatDef {defName = "GatherYield" };
 
         public AnimalGenetics(World world) : base(world)
         {
@@ -17,7 +18,8 @@ namespace AnimalGenetics
                 //Log.Warning("Inserting " + stat.ToString());
                 try
                 {
-                    stat.parts.Insert(0, new StatPart(stat));
+                    if (stat.parts != null)
+                        stat.parts.Insert(0, new StatPart(stat));
                 } catch
                 {
                     Log.Error(stat.ToString() + " is broken");

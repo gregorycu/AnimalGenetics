@@ -15,6 +15,8 @@ namespace AnimalGenetics
             {
                 var h = new Harmony("AnimalGenetics");
                 h.PatchAll();
+
+                DefDatabase<StatDef>.Add(AnimalGenetics.GatherYield);
             }
         }
 
@@ -53,6 +55,8 @@ namespace AnimalGenetics
             }
         }
 
+
+
         [HarmonyPatch(typeof(VerbProperties), nameof(VerbProperties.GetDamageFactorFor), new[] { typeof(Tool), typeof(Pawn), typeof(HediffComp_VerbGiver) })]
         public static class VerbProperties_GetDanageFactorFor_Patch
         {
@@ -62,6 +66,32 @@ namespace AnimalGenetics
                 if (__1.RaceProps.Animal) {
                     __result = __result * Genes.GetGene(__1, StatDefOf.MeleeWeapon_DamageMultiplier);
                 }
+            }
+        }
+
+        [HarmonyPatch(typeof(CompMilkable), "get_ResourceAmount")]
+        public static class PatchCompMilkable_ResourceAmount
+        {
+            static public void Postfix(ref int __result, CompMilkable __instance)
+            {
+                Pawn pawn = __instance.parent as Pawn;
+                if (pawn == null || !pawn.RaceProps.Animal)
+                    return;
+
+                __result =(int)(__result * Genes.GetGene(pawn, AnimalGenetics.GatherYield));
+            }
+        }
+
+        [HarmonyPatch(typeof(CompShearable), "get_ResourceAmount")]
+        public static class PatchCompShearable_ResourceAmount
+        {
+            static public void Postfix(ref int __result, CompShearable __instance)
+            {
+                Pawn pawn = __instance.parent as Pawn;
+                if (pawn == null || !pawn.RaceProps.Animal)
+                    return;
+
+                __result = (int)(__result * Genes.GetGene(pawn, AnimalGenetics.GatherYield));
             }
         }
     }

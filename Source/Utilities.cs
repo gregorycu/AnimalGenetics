@@ -26,8 +26,6 @@ namespace AnimalGenetics
             var lhs = _Points.LastOrDefault((KeyValuePair<float, Color> point) => value >= point.Key);
             var rhs = _Points.FirstOrDefault((KeyValuePair<float, Color> point) => value < point.Key);
 
-            Log.Message(">>> " + ((value - lhs.Key) / (rhs.Key - lhs.Key)).ToString());
-
             return Color.Lerp(lhs.Value, rhs.Value, (value - lhs.Key) / (rhs.Key - lhs.Key));
         }
     };
