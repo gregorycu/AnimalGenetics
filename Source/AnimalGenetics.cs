@@ -1,13 +1,16 @@
 ﻿using System.Collections.Generic;
+using System;
 using RimWorld;
 using RimWorld.Planet;
 using Verse;
+using UnityEngine;
 
 namespace AnimalGenetics
 {
     public class AnimalGenetics : WorldComponent
     {
         public static StatDef GatherYield = new StatDef {defName = "GatherYield" };
+        public static StatDef Damage = new StatDef { defName = "Damage" };
 
         public AnimalGenetics(World world) : base(world)
         {
@@ -86,11 +89,8 @@ namespace AnimalGenetics
                 }
 
                 record.Value = record.ParentValue + Utilities.SampleGaussian(0f, Controller.Settings.mutationFactor);
-                if (record.Value < 0.1f)
-                {
-                    record.Value = 0.1f;
-                }
-
+                record.Value = Mathf.Max(record.Value, 0.1f);
+ 
                 toReturn.Data[stat] = record;
             }
 

@@ -10,7 +10,7 @@ namespace AnimalGenetics
 {
     public class MainTabWindow_AnimalGenetics : MainTabWindow_PawnTable
     {
-        private static bool animals;
+        public static bool animals;
         private static bool wildlife;
         private static bool lastAnimals;
         private static bool lastWildlife;

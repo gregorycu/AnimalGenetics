@@ -30,4 +30,10 @@
 		<sortable>true</sortable>
 		<label>leather</label>
 	</PawnColumnDef>
+	<PawnColumnDef>
+		<defName>AnimalGenetics_GatherYieldGene</defName>
+		<workerClass>AnimalGenetics.PawnColumnWorker_GatherYieldGene</workerClass>
+		<sortable>true</sortable>
+		<label>milk/wool</label>
+	</PawnColumnDef>
 </Defs>

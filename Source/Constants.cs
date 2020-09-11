@@ -14,7 +14,7 @@ namespace AnimalGenetics
             StatDefOf.LeatherAmount,
             StatDefOf.MeatAmount,
             StatDefOf.CarryingCapacity,
-            StatDefOf.MeleeWeapon_DamageMultiplier,
+            AnimalGenetics.Damage,
             AnimalGenetics.GatherYield
         };
 
@@ -26,7 +26,6 @@ namespace AnimalGenetics
             StatDefOf.LeatherAmount,
             StatDefOf.MeatAmount,
             StatDefOf.CarryingCapacity,
-            AnimalGenetics.GatherYield
         };
 
         public static Dictionary<StatDef, String> statNames= new Dictionary<StatDef, String>()
@@ -35,7 +34,8 @@ namespace AnimalGenetics
             { StatDefOf.LeatherAmount, "Leather Amount"},
             { StatDefOf.MeatAmount, "Meat Amount" },
             { StatDefOf.CarryingCapacity, "Carrying Capacity" },
-            { StatDefOf.MeleeWeapon_DamageMultiplier, "Damage" },
+            { AnimalGenetics.Damage, "Damage" },
+            { AnimalGenetics.GatherYield, "Milk/Wool" }
         };
     }
 }

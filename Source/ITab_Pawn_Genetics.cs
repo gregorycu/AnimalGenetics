@@ -20,7 +20,7 @@ namespace AnimalGenetics
 		{
 			get
 			{
-				return base.SelPawn.NonHumanlikeOrWildMan();
+				return base.SelPawn.RaceProps.Animal;
 			}
 		}
 
@@ -69,7 +69,7 @@ namespace AnimalGenetics
         protected override void UpdateSize()
         {
             base.UpdateSize();
-			this.size = new Vector2(300f, 200f);
+			this.size = new Vector2(300f, 220f);
 
 		}
 
