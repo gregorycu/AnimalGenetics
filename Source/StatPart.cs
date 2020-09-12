@@ -27,7 +27,7 @@ namespace AnimalGenetics
         {
             Pawn pawn = req.Thing as Pawn;
 
-            if (pawn == null)
+            if (pawn == null || !pawn.RaceProps.Animal)
                 return null;
 
             var statRecord = Find.World.GetComponent<AnimalGenetics>().GetFactor(pawn, _StatDef); 
