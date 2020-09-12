@@ -120,14 +120,16 @@ namespace AnimalGenetics
                     return ((PawnColumnDef)def).Stat;
                 }
             }
-            public override void DoCell(Rect rect, Pawn pawn, PawnTable table)
+            public override void DoCell(Rect rect, Pawn pawn, PawnTable table )
             {
-                float gene = Genes.GetGene(pawn, _StatDef);
-                GUI.color = Utilities.TextColor(gene);
-                Text.Anchor = TextAnchor.MiddleCenter;
-                Widgets.Label(rect, (gene * 100).ToString("F0") + "%");
-                Text.Anchor = TextAnchor.UpperLeft;
-                GUI.color = Color.white;
+                if (_StatDef != AnimalGenetics.GatherYield || (_StatDef == AnimalGenetics.GatherYield && (pawn.def.HasComp(typeof(CompShearable)) || pawn.def.HasComp(typeof(CompMilkable))))) {
+                    float gene = Genes.GetGene(pawn, _StatDef);
+                    GUI.color = Utilities.TextColor(gene);
+                    Text.Anchor = TextAnchor.MiddleCenter;
+                    Widgets.Label(rect, (gene * 100).ToString("F0") + "%");
+                    Text.Anchor = TextAnchor.UpperLeft;
+                    GUI.color = Color.white;
+                }
             }
 
             public override int GetMinWidth(PawnTable table)
