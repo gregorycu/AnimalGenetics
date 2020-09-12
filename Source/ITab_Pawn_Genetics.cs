@@ -47,13 +47,13 @@ namespace AnimalGenetics
 			float curY = 55f;
 			var affectedStats = Constants.affectedStats;
 			Text.Anchor = TextAnchor.MiddleCenter;
-			Rect rectValue = new Rect(rect.width * 0.6f, curY, rect.width * 0.2f, 30f);
+			Rect rectValue = new Rect(rect.width * 0.6f, curY, rect.width * 0.2f, 20f);
 			Widgets.Label(rectValue, "Value");
 			TooltipHandler.TipRegion(rectValue, "Gene value. Applied to animal's base stats.");
-			Rect rectParent = new Rect(rect.width * 0.8f, curY, rect.width * 0.2f, 30f);
+			Rect rectParent = new Rect(rect.width * 0.8f, curY, rect.width * 0.2f, 20f);
 			Widgets.Label(rectParent, "Parent");
 			TooltipHandler.TipRegion(rectParent, "The parental value this aniaml inherited from. Will be empty for wild or newly generated animals with no parents." );
-			curY += 20;
+			curY += 21;
 			foreach (var stat in affectedStats)
 			{
 				curY += DrawRow(rect, curY, Constants.statNames[stat], Genes.GetGene(pawn, stat), Genes.GetInheritString(pawn, stat), Genes.GetInheritValue(pawn, stat), Genes.GetTooltip(stat));
@@ -63,7 +63,7 @@ namespace AnimalGenetics
         protected override void UpdateSize()
         {
             base.UpdateSize();
-			this.size = new Vector2(300f, 230f);
+			this.size = new Vector2(300f, 225f);
 
 		}
 
