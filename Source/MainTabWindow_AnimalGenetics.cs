@@ -51,21 +51,9 @@ namespace AnimalGenetics
         {
             get
             {
-                if (_TableDef == null)
-                {
-                    _TableDef = PawnTableDefs.Genetics;
-
-                    int index = _TableDef.columns.FindIndex((RimWorld.PawnColumnDef col) => { return col.defName == "AnimalGenetics_Genes"; });
-                    _TableDef.columns.RemoveAt(index);
-
-                    for (int i = 0; i < Constants.affectedStats.Count; ++i)
-                        _TableDef.columns.Insert(index+i, new PawnColumnDef(Constants.affectedStats[i]));
-                }
-                return _TableDef;
+                return PawnTableDefs.Genetics;
             }
         }
-
-        RimWorld.PawnTableDef _TableDef;
 
         public override void PostOpen()
         {
@@ -96,50 +84,6 @@ namespace AnimalGenetics
                            select p;
                 }
                 return new List<Pawn>();
-            }
-        }
-
-        public class PawnColumnDef : RimWorld.PawnColumnDef
-        {
-            public PawnColumnDef(StatDef stat)
-            {
-                workerClass = typeof(PawnColumnWorker);
-                Stat = stat;
-                sortable = true;
-                label = Constants.GetLabel(stat);
-            }
-            public StatDef Stat;
-        };
-
-        public class PawnColumnWorker : RimWorld.PawnColumnWorker
-        {
-            StatDef _StatDef
-            {
-                get
-                {
-                    return ((PawnColumnDef)def).Stat;
-                }
-            }
-            public override void DoCell(Rect rect, Pawn pawn, PawnTable table )
-            {
-                if (_StatDef != AnimalGenetics.GatherYield || (_StatDef == AnimalGenetics.GatherYield && (pawn.def.HasComp(typeof(CompShearable)) || pawn.def.HasComp(typeof(CompMilkable))))) {
-                    float gene = Genes.GetGene(pawn, _StatDef);
-                    GUI.color = Utilities.TextColor(gene);
-                    Text.Anchor = TextAnchor.MiddleCenter;
-                    Widgets.Label(rect, (gene * 100).ToString("F0") + "%");
-                    Text.Anchor = TextAnchor.UpperLeft;
-                    GUI.color = Color.white;
-                }
-            }
-
-            public override int GetMinWidth(PawnTable table)
-            {
-                return 80;
-            }
-
-            public override int Compare(Pawn a, Pawn b)
-            {
-                return Genes.GetGene(a, _StatDef).CompareTo(Genes.GetGene(b, _StatDef));
             }
         }
     }

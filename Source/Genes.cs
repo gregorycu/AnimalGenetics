@@ -35,7 +35,7 @@ namespace AnimalGenetics
 
         public static String GetTooltip(StatDef gene)
         {
-            return Constants.GetDescription(gene);
+            return Constants.statTooltips[gene];
         }
     }
 }
