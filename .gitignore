@@ -255,3 +255,4 @@ paket-files/
 __pycache__/
 *.pyc
 Common/Assemblies
+Directory.Build.props
