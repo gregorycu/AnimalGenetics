@@ -63,7 +63,7 @@ namespace AnimalGenetics
         protected override void UpdateSize()
         {
             base.UpdateSize();
-			this.size = new Vector2(300f, 210f);
+			this.size = new Vector2(300f, 230f);
 
 		}
 

@@ -18,6 +18,7 @@ namespace AnimalGenetics
                 h.PatchAll();
 
                 DefDatabase<StatDef>.Add(AnimalGenetics.Damage);
+                DefDatabase<StatDef>.Add(AnimalGenetics.Health);
                 DefDatabase<StatDef>.Add(AnimalGenetics.GatherYield);
             }
         }
@@ -64,7 +65,6 @@ namespace AnimalGenetics
         {
             static public void Postfix(ref float __result, Pawn __1)
             {
-                //StatDefOf.MeleeWeapon_DamageMultiplier is for equipment. Using for animal gene purposes but won't inject stat part.
                 if (__1.RaceProps.Animal) {
                     __result = __result * Genes.GetGene(__1, AnimalGenetics.Damage);
                 }
@@ -94,6 +94,18 @@ namespace AnimalGenetics
                     return;
 
                 __result = (int)(__result * Genes.GetGene(pawn, AnimalGenetics.GatherYield));
+            }
+        }
+
+        [HarmonyPatch(typeof(Pawn), "get_HealthScale")]
+        public static class Pawn_HealthScale_Patch
+        {
+            static public void Postfix(ref float __result, ref Pawn __instance)
+            {
+                if (__instance.RaceProps.Animal)
+                {
+                    __result = __result * Genes.GetGene(__instance, AnimalGenetics.Health);
+                }
             }
         }
     }

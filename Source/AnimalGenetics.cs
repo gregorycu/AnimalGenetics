@@ -11,6 +11,7 @@ namespace AnimalGenetics
     {
         public static StatDef GatherYield = new StatDef {defName = "GatherYield" };
         public static StatDef Damage = new StatDef { defName = "Damage" };
+        public static StatDef Health = new StatDef { defName = "Health" };
 
         public AnimalGenetics(World world) : base(world)
         {

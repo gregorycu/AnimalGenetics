@@ -1,16 +1,22 @@
 <?xml version="1.0" encoding="utf-8" ?>
 <Defs>
 	<PawnColumnDef>
-		<defName>AnimalGenetics_SpeedGene</defName>
-		<workerClass>AnimalGenetics.PawnColumnWorker_SpeedGene</workerClass>
+		<defName>AnimalGenetics_HealthGene</defName>
+		<workerClass>AnimalGenetics.PawnColumnWorker_HealthGene</workerClass>
 		<sortable>true</sortable>
-		<label>speed</label>
+		<label>health</label>
 	</PawnColumnDef>
 	<PawnColumnDef>
 		<defName>AnimalGenetics_DamageGene</defName>
 		<workerClass>AnimalGenetics.PawnColumnWorker_DamageGene</workerClass>
 		<sortable>true</sortable>
 		<label>damage</label>
+	</PawnColumnDef>
+	<PawnColumnDef>
+		<defName>AnimalGenetics_SpeedGene</defName>
+		<workerClass>AnimalGenetics.PawnColumnWorker_SpeedGene</workerClass>
+		<sortable>true</sortable>
+		<label>speed</label>
 	</PawnColumnDef>
 	<PawnColumnDef>
 		<defName>AnimalGenetics_CapacityGene</defName>

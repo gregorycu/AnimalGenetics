@@ -11,8 +11,9 @@ namespace AnimalGenetics
         // order here dictates order displayed in game.
         public static List<StatDef> affectedStats = new List<StatDef>()
         {
-            StatDefOf.MoveSpeed,
+            AnimalGenetics.Health,
             AnimalGenetics.Damage,
+            StatDefOf.MoveSpeed,
             StatDefOf.CarryingCapacity,
             StatDefOf.MeatAmount,
             StatDefOf.LeatherAmount,
@@ -30,6 +31,7 @@ namespace AnimalGenetics
         public static Dictionary<StatDef, String> statNames= new Dictionary<StatDef, String>()
         {
             { StatDefOf.MoveSpeed, "Speed"},
+            { AnimalGenetics.Health, "Health" },
             { AnimalGenetics.Damage, "Damage" },
             { StatDefOf.CarryingCapacity, "Carrying Capacity" },
             { StatDefOf.MeatAmount, "Meat Amount" },
@@ -40,6 +42,7 @@ namespace AnimalGenetics
         public static Dictionary<StatDef, String> statTooltips = new Dictionary<StatDef, String>()
         {
             { StatDefOf.MoveSpeed, "Movement speed"},
+            { AnimalGenetics.Health, "Body part health" },
             { AnimalGenetics.Damage, "Melee attack damage" },
             { StatDefOf.CarryingCapacity, "Caravan and carry capacity" },
             { StatDefOf.MeatAmount, "Meat from butchering" },
