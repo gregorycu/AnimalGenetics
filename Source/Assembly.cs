@@ -20,6 +20,20 @@ namespace AnimalGenetics
                 DefDatabase<StatDef>.Add(AnimalGenetics.Damage);
                 DefDatabase<StatDef>.Add(AnimalGenetics.Health);
                 DefDatabase<StatDef>.Add(AnimalGenetics.GatherYield);
+
+                var affectedStats = Constants.affectedStatsToInsert;
+                foreach (var stat in affectedStats)
+                {
+                    try
+                    {
+                        if (stat.parts != null)
+                            stat.parts.Insert(0, new StatPart(stat));
+                    }
+                    catch
+                    {
+                        Log.Error(stat.ToString() + " is broken");
+                    }
+                }
             }
         }
 

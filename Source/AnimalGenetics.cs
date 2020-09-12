@@ -15,20 +15,7 @@ namespace AnimalGenetics
 
         public AnimalGenetics(World world) : base(world)
         {
-            var affectedStats = Constants.affectedStatsToInsert;
 
-            foreach (var stat in affectedStats)
-            {
-                //Log.Warning("Inserting " + stat.ToString());
-                try
-                {
-                    if (stat.parts != null)
-                        stat.parts.Insert(0, new StatPart(stat));
-                } catch
-                {
-                    Log.Error(stat.ToString() + " is broken");
-                }
-            }
         }
 
         public override void ExposeData()
