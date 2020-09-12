@@ -15,10 +15,13 @@
 		</li>
 	</v1.2>
 	</modDependenciesByVersion>
-	<url>https://steamcommunity.com/id/gregorycurrie/myworkshopfiles/?appid=294100</url>
-	<description>Adds genetic traits to animals.
+	<loadAfter>
+		<li>brrainz.harmony</li>
+	</loadAfter>
+	<url>https://github.com/gregorycu/AnimalGenetics/releases</url>
+	<description>Animal Genetics adds 7 genetics traits to animals that can be passed down to their children. Children will be born with either parent's value inherited modified by a mutation factor.
 
-Children will inherit values from their parents with with slight mutation. Selectively breed your cattle to give more meat and leather, increase your attack animals movement speed, or give your caravan animals greater carry capacity.
+Selectively breed your animals to be stronger and faster, carry more in caravans, or increase meat/leather/milk/wool yields. Humans have been doing it for 1000s of years, so why not your Rimworld Pawns?
 
 Go from Muffalos to &lt;b&gt;Buff&lt;/b&gt;alos.</description>
 </ModMetaData>
