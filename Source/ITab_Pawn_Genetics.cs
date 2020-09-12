@@ -56,7 +56,7 @@ namespace AnimalGenetics
 			curY += 21;
 			foreach (var stat in affectedStats)
 			{
-				curY += DrawRow(rect, curY, Constants.statNames[stat], Genes.GetGene(pawn, stat), Genes.GetInheritString(pawn, stat), Genes.GetInheritValue(pawn, stat), Genes.GetTooltip(stat));
+				curY += DrawRow(rect, curY, Constants.GetLabel(stat), Genes.GetGene(pawn, stat), Genes.GetInheritString(pawn, stat), Genes.GetInheritValue(pawn, stat), Genes.GetTooltip(stat));
 			}
 		}
 

@@ -9,9 +9,9 @@ namespace AnimalGenetics
 {
     public class AnimalGenetics : WorldComponent
     {
-        public static StatDef GatherYield = new StatDef {defName = "GatherYield", alwaysHide = true };
-        public static StatDef Damage = new StatDef { defName = "Damage", alwaysHide = true };
-        public static StatDef Health = new StatDef { defName = "Health", alwaysHide = true };
+        public static StatDef GatherYield = new StatDef {defName = "GatherYield", label = "Milk / Wool", description = "Milk and Wool yields", alwaysHide = true };
+        public static StatDef Damage = new StatDef { defName = "Damage", label = "Damage", description = "Melee attack damage", alwaysHide = true };
+        public static StatDef Health = new StatDef { defName = "Health", label = "Health", description = "Body part health", alwaysHide = true };
 
         public AnimalGenetics(World world) : base(world)
         {

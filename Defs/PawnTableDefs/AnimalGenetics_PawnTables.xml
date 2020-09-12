@@ -1,6 +1,11 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Defs>
 
+	<PawnColumnDef>
+		<defName>AnimalGenetics_Genes</defName>
+		<workerClass>PawnColumnWorker_Gap</workerClass>
+	</PawnColumnDef>
+
   <PawnTableDef>
     <defName>Genetics</defName>
     <workerClass>AnimalGenetics.PawnTable_Genetics</workerClass>
@@ -13,13 +18,7 @@
 	  <li>Hunt</li>
       <li>Tame</li>
 	  <li>GapTiny</li>
-	  <li>AnimalGenetics_HealthGene</li>
-	  <li>AnimalGenetics_DamageGene</li>
-	  <li>AnimalGenetics_SpeedGene</li>
-	  <li>AnimalGenetics_CapacityGene</li>
-	  <li>AnimalGenetics_MeatGene</li>
-	  <li>AnimalGenetics_LeatherGene</li>
-	  <li>AnimalGenetics_GatherYieldGene</li>
+	  <li>AnimalGenetics_Genes</li>
 	  <li>GapTiny</li>
 	  <li>AllowedArea</li>
       <li>RemainingSpace</li>
