@@ -12,7 +12,7 @@ namespace AnimalGenetics
         public int colorMode = 1;
         public bool colorModeNormal = false;
         public bool colorModeRPG = true;
-        public bool effectsHumanLike = true;
+        public bool humanMode = false;
 
         public override void ExposeData()
         {
@@ -22,6 +22,7 @@ namespace AnimalGenetics
             Scribe_Values.Look<float>(ref mutationStdDev, "mutationStdDev", 0.05f);
             Scribe_Values.Look<float>(ref mutationMean, "mutationMean", 0.03f);
             Scribe_Values.Look<int>(ref colorMode, "colorMode", 1);
+            Scribe_Values.Look<bool>(ref humanMode, "humanMode", false);
         }
 
         public void DoSettingsWindowContents(Rect rect)
@@ -43,12 +44,14 @@ namespace AnimalGenetics
             listingStandard.End();
 
             float curY = listingStandard.CurHeight + 70f;
-            Rect rect2 = new Rect(0, curY, rect.width / 2, 150f);
+            Rect rect2 = new Rect(0, curY, rect.width / 2, 200f);
             Listing_Standard listingStandard2 = new Listing_Standard();
             listingStandard2.Begin(rect2);
             listingStandard2.Label("Color Mode");
             if (listingStandard2.RadioButton_NewTemp("Normal", colorModeNormal, 8f, "Traditional red->yellow->green colors", 0f)) { colorModeNormal = true; colorModeRPG = false; colorMode = 0; }
             if (listingStandard2.RadioButton_NewTemp("RPG", colorModeRPG, 8f, "RPG style item quality colors", 0f)) { colorModeRPG = true; colorModeNormal = false; colorMode = 1; }
+            listingStandard2.Gap(30f);
+            listingStandard2.CheckboxLabeled("Apply Genes to Humanlikes", ref humanMode, "Gives genes to all humanlike pawns as well as animals");
             listingStandard2.Gap(30f);
             if (listingStandard2.ButtonText("Default Settings"))
             {
@@ -59,6 +62,7 @@ namespace AnimalGenetics
                 colorMode = 1;
                 colorModeNormal = false;
                 colorModeRPG = true;
+                humanMode = false;
             }
             listingStandard2.End();
         }
