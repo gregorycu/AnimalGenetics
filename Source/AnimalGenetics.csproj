@@ -23,7 +23,7 @@
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="0Harmony">
-      <HintPath>$(RimworldDir)\Mods\Harmony\Current\Assemblies\0Harmony.dll</HintPath>
+      <HintPath>..\..\..\Desktop\0Harmony.dll</HintPath>
       <Private>False</Private>
     </Reference>
     <Reference Include="Assembly-CSharp">

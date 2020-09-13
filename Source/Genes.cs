@@ -48,7 +48,7 @@ namespace AnimalGenetics
             if (pawn == null)
                 return false;
 
-            return pawn.RaceProps.Animal || pawn.RaceProps.Humanlike && Controller.Settings.effectsHumanLike;
+            return pawn.RaceProps.Animal || pawn.RaceProps.Humanlike && Controller.Settings.humanMode;
         }
     }
 }
