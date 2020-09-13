@@ -68,6 +68,9 @@ namespace AnimalGenetics
         {
             static public void Postfix(ref float __result, Pawn __0)
             {
+                if (!Genes.EffectsThing(__0))
+                    return;
+
                 __result = __result * Genes.GetGene(__0, StatDefOf.CarryingCapacity);
             }
         }
@@ -79,9 +82,10 @@ namespace AnimalGenetics
         {
             static public void Postfix(ref float __result, Pawn __1)
             {
-                if (__1.RaceProps.Animal) {
-                    __result = __result * Genes.GetGene(__1, AnimalGenetics.Damage);
-                }
+                if (!Genes.EffectsThing(__1))
+                    return;
+
+                __result = __result * Genes.GetGene(__1, AnimalGenetics.Damage);
             }
         }
 
@@ -90,11 +94,10 @@ namespace AnimalGenetics
         {
             static public void Postfix(ref int __result, CompMilkable __instance)
             {
-                Pawn pawn = __instance.parent as Pawn;
-                if (pawn == null || !pawn.RaceProps.Animal)
+                if (!Genes.EffectsThing(__instance.parent))
                     return;
 
-                __result =(int)(__result * Genes.GetGene(pawn, AnimalGenetics.GatherYield));
+                __result =(int)(__result * Genes.GetGene((Pawn)__instance.parent, AnimalGenetics.GatherYield));
             }
         }
 
@@ -103,11 +106,10 @@ namespace AnimalGenetics
         {
             static public void Postfix(ref int __result, CompShearable __instance)
             {
-                Pawn pawn = __instance.parent as Pawn;
-                if (pawn == null || !pawn.RaceProps.Animal)
+                if (!Genes.EffectsThing(__instance.parent))
                     return;
 
-                __result = (int)(__result * Genes.GetGene(pawn, AnimalGenetics.GatherYield));
+                __result = (int)(__result * Genes.GetGene((Pawn)(__instance.parent), AnimalGenetics.GatherYield));
             }
         }
 
@@ -116,10 +118,10 @@ namespace AnimalGenetics
         {
             static public void Postfix(ref float __result, ref Pawn __instance)
             {
-                if (__instance.RaceProps.Animal)
-                {
-                    __result = __result * Genes.GetGene(__instance, AnimalGenetics.Health);
-                }
+                if (!Genes.EffectsThing(__instance))
+                    return;
+
+                __result = __result * Genes.GetGene(__instance, AnimalGenetics.Health);
             }
         }
     }

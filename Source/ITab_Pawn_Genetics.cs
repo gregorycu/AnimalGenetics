@@ -20,7 +20,7 @@ namespace AnimalGenetics
 		{
 			get
 			{
-				return base.SelPawn.RaceProps.Animal;
+                return Genes.EffectsThing(base.SelPawn);
 			}
 		}
 

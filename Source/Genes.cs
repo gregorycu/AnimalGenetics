@@ -37,5 +37,18 @@ namespace AnimalGenetics
         {
             return Constants.statTooltips[gene];
         }
+
+        public static bool EffectsThing(Thing thing)
+        {
+            if (thing == null)
+                return false;
+
+            Pawn pawn = thing as Pawn;
+
+            if (pawn == null)
+                return false;
+
+            return pawn.RaceProps.Animal || pawn.RaceProps.Humanlike && Controller.Settings.effectsHumanLike;
+        }
     }
 }
