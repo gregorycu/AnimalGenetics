@@ -25,10 +25,10 @@ namespace AnimalGenetics
 
         public override string ExplanationPart(StatRequest req)
         {
-            Pawn pawn = req.Thing as Pawn;
-
-            if (pawn == null || !pawn.RaceProps.Animal)
+            if (!Genes.EffectsThing(req.Thing))
                 return null;
+
+            Pawn pawn = req.Thing as Pawn;
 
             var statRecord = Find.World.GetComponent<AnimalGenetics>().GetFactor(pawn, _StatDef); 
 
@@ -50,10 +50,11 @@ namespace AnimalGenetics
             if (!req.HasThing)
                 return null;
 
+            if (!Genes.EffectsThing(req.Thing))
+                return null;
+
             Pawn pawn = req.Thing as Pawn;
 
-            if (pawn == null)
-                return null;
 
             var statRecord = Find.World.GetComponent<AnimalGenetics>().GetFactor(pawn, _StatDef);
             return statRecord == null ? 1.0f : statRecord.Value;

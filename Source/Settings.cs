@@ -12,6 +12,7 @@ namespace AnimalGenetics
         public int colorMode = 1;
         public bool colorModeNormal = false;
         public bool colorModeRPG = true;
+        public bool effectsHumanLike = true;
 
         public override void ExposeData()
         {

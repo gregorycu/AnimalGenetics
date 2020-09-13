@@ -43,10 +43,8 @@ namespace AnimalGenetics
         {
             StatGroup toReturn = new StatGroup();
 
-            //if we're not an animal, return an empty stat list for this pawn
-            if (!pawn.RaceProps.Animal) {
+            if (!Genes.EffectsThing(pawn))
                 return toReturn;
-            }
 
             var mother = pawn.GetMother();
             var father = pawn.GetFather();
