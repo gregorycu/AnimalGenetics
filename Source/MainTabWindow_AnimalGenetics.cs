@@ -56,21 +56,21 @@ namespace AnimalGenetics
             Text.Anchor = TextAnchor.LowerLeft;
             if (Controller.Settings.humanMode)
             {
-                Widgets.CheckboxLabeled(new Rect(5f, 10f, 80f, checkboxHeight), "Animals".Translate(), ref animals, false, null, null, true);
-                Widgets.CheckboxLabeled(new Rect(95f, 10f, 102f, checkboxHeight), "Humanlikes".Translate(), ref humans, false, null, null, true);
+                Widgets.CheckboxLabeled(new Rect(5f, 10f, 80f, checkboxHeight), "AG.Animals".Translate(), ref animals, false, null, null, true);
+                Widgets.CheckboxLabeled(new Rect(95f, 10f, 102f, checkboxHeight), "AG.Humanlikes".Translate(), ref humans, false, null, null, true);
                 humanOffset += 250f;
             }
-            Widgets.CheckboxLabeled(new Rect(humanOffset, 10f, 73f, checkboxHeight), "Colony".Translate(), ref factionOwn, false, null, null, true);
-            Widgets.CheckboxLabeled(new Rect(humanOffset + 83f, 10f, 55f, checkboxHeight), "Wild".Translate(), ref factionWild, false, null, null, true);
-            Widgets.CheckboxLabeled(new Rect(humanOffset + 148f, 10f, 123f, checkboxHeight), "OtherFactions".Translate(), ref factionOther, false, null, null, true);
+            Widgets.CheckboxLabeled(new Rect(humanOffset, 10f, 73f, checkboxHeight), "AG.Colony".Translate(), ref factionOwn, false, null, null, true);
+            Widgets.CheckboxLabeled(new Rect(humanOffset + 83f, 10f, 55f, checkboxHeight), "AG.Wild".Translate(), ref factionWild, false, null, null, true);
+            Widgets.CheckboxLabeled(new Rect(humanOffset + 148f, 10f, 123f, checkboxHeight), "AG.OtherFactions".Translate(), ref factionOther, false, null, null, true);
             Text.Anchor = TextAnchor.UpperLeft;
 
             filterText = Widgets.TextField(new Rect(humanOffset + 310f, 10f, 120f, 24f), filterText, 20, new Regex(".*"));
             Text.Anchor = TextAnchor.MiddleCenter;
-            if (Widgets.ButtonText(new Rect(humanOffset + 433f, 10f, 55f, 24f), "Search".Translate(), true, true, true)) { SetDirty(); }
+            if (Widgets.ButtonText(new Rect(humanOffset + 433f, 10f, 55f, 24f), "AG.Search".Translate(), true, true, true)) { SetDirty(); }
             Text.Font = GameFont.Tiny;
             Text.Anchor = TextAnchor.MiddleCenter;
-            Widgets.Label(new Rect(humanOffset + 510f, 5f, 50f, 32f), "PrimarySort".Translate());
+            Widgets.Label(new Rect(humanOffset + 510f, 5f, 50f, 32f), "AG.PrimarySort".Translate());
             Text.Font = GameFont.Small;
             if (Widgets.ButtonText(new Rect(humanOffset + 565f, 10f, 42f, 24f), Constants.sortMode[Controller.Settings.sortMode], true, true, true)) {
                 Controller.Settings.sortMode += 1;

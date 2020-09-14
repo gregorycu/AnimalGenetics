@@ -32,16 +32,16 @@ namespace AnimalGenetics
         {
             Listing_Standard listingStandard = new Listing_Standard();
             listingStandard.Begin(rect);
-            listingStandard.Label("Settings1".Translate(), -1f, "Settings1Tooltip".Translate());
-            listingStandard.Label("Mean".Translate() + " : " + (mean * 100).ToString("F0"));
+            listingStandard.Label("AG.Settings1".Translate(), -1f, "AG.Settings1Tooltip".Translate());
+            listingStandard.Label("AG.Mean".Translate() + " : " + (mean * 100).ToString("F0"));
             mean = listingStandard.Slider(mean, 0f, 2f);
-            listingStandard.Label("StandardDeviation".Translate() + " : " + (stdDev * 100).ToString("F0"));
+            listingStandard.Label("AG.StandardDeviation".Translate() + " : " + (stdDev * 100).ToString("F0"));
             stdDev = listingStandard.Slider(stdDev, 0f, 0.5f);
             listingStandard.Gap(30f);
-            listingStandard.Label("Settings2".Translate(), -1f, "Settings2Tooltip".Translate());
-            listingStandard.Label("Mean".Translate() + " : " + (mutationMean * 100).ToString("F0"));
+            listingStandard.Label("AG.Settings2".Translate(), -1f, "AG.Settings2Tooltip".Translate());
+            listingStandard.Label("AG.Mean".Translate() + " : " + (mutationMean * 100).ToString("F0"));
             mutationMean = listingStandard.Slider(mutationMean, -0.25f, 0.25f);
-            listingStandard.Label("StandardDeviation".Translate() + " : " + (mutationStdDev * 100).ToString("F0"));
+            listingStandard.Label("AG.StandardDeviation".Translate() + " : " + (mutationStdDev * 100).ToString("F0"));
             mutationStdDev = listingStandard.Slider(mutationStdDev, 0f, 0.5f);
             //listingStandard.Gap(30f);
             listingStandard.End();
@@ -50,13 +50,13 @@ namespace AnimalGenetics
             Rect rect2 = new Rect(0, curY, rect.width / 2, 200f);
             Listing_Standard listingStandard2 = new Listing_Standard();
             listingStandard2.Begin(rect2);
-            listingStandard2.Label("ColorMode".Translate());
-            if (listingStandard2.RadioButton_NewTemp("ColorNormal".Translate(), colorModeNormal, 8f, "ColorNormalTooltip".Translate(), 0f)) { colorModeNormal = true; colorModeRPG = false; colorMode = 0; }
-            if (listingStandard2.RadioButton_NewTemp("ColorRPG".Translate(), colorModeRPG, 8f, "ColorRPGTooltip".Translate(), 0f)) { colorModeRPG = true; colorModeNormal = false; colorMode = 1; }
+            listingStandard2.Label("AG.ColorMode".Translate());
+            if (listingStandard2.RadioButton_NewTemp("AG.ColorNormal".Translate(), colorModeNormal, 8f, "AG.ColorNormalTooltip".Translate(), 0f)) { colorModeNormal = true; colorModeRPG = false; colorMode = 0; }
+            if (listingStandard2.RadioButton_NewTemp("AG.ColorRPG".Translate(), colorModeRPG, 8f, "AG.ColorRPGTooltip".Translate(), 0f)) { colorModeRPG = true; colorModeNormal = false; colorMode = 1; }
             listingStandard2.Gap(30f);
-            listingStandard2.CheckboxLabeled("HumanlikeGenes".Translate(), ref humanMode, "HumanlikeGenesTooltip".Translate());
+            listingStandard2.CheckboxLabeled("AG.HumanlikeGenes".Translate(), ref humanMode, "AG.HumanlikeGenesTooltip".Translate());
             listingStandard2.Gap(30f);
-            if (listingStandard2.ButtonText("DefaultSettings".Translate()))
+            if (listingStandard2.ButtonText("AG.DefaultSettings".Translate()))
             {
                 stdDev = 0.12f;
                 mean = 1f;

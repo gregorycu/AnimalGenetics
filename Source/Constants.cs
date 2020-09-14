@@ -37,13 +37,13 @@ namespace AnimalGenetics
 
         static Dictionary<StatDef, String> _labelOverrides = new Dictionary<StatDef, String>()
         {
-            { StatDefOf.MoveSpeed, "Speed".Translate()},
-            { AnimalGenetics.Health, "Health".Translate() },
-            { AnimalGenetics.Damage, "Damage".Translate() },
-            { StatDefOf.CarryingCapacity, "Capacity".Translate() },
-            { StatDefOf.MeatAmount, "Meat".Translate() },
-            { StatDefOf.LeatherAmount, "Leather".Translate()},
-            { AnimalGenetics.GatherYield, "GatherYield".Translate() }
+            { StatDefOf.MoveSpeed, "AG.Speed".Translate()},
+            { AnimalGenetics.Health, "AG.Health".Translate() },
+            { AnimalGenetics.Damage, "AG.Damage".Translate() },
+            { StatDefOf.CarryingCapacity, "AG.Capacity".Translate() },
+            { StatDefOf.MeatAmount, "AG.Meat".Translate() },
+            { StatDefOf.LeatherAmount, "AG.Leather".Translate()},
+            { AnimalGenetics.GatherYield, "AG.GatherYield".Translate() }
         };
 
         public static string GetDescription(StatDef stat)
@@ -55,8 +55,8 @@ namespace AnimalGenetics
 
         static Dictionary<StatDef, String> _descriptionOverrides = new Dictionary<StatDef, String>()
         {
-            { StatDefOf.MoveSpeed, "SpeedDesc".Translate()},
-            { StatDefOf.CarryingCapacity, "CapacityDesc".Translate() },
+            { StatDefOf.MoveSpeed, "AG.SpeedDesc".Translate()},
+            { StatDefOf.CarryingCapacity, "AG.CapacityDesc".Translate() },
         };
 
         /*public static Dictionary<StatDef, String> statNames= new Dictionary<StatDef, String>()
@@ -84,9 +84,9 @@ namespace AnimalGenetics
 
         public static Dictionary<int, String> sortMode = new Dictionary<int, String>()
         {
-            {0, "None".Translate() },
-            {1, "Asc".Translate() },
-            {2, "Desc".Translate() }
+            {0, "AG.None".Translate() },
+            {1, "AG.Asc".Translate() },
+            {2, "AG.Desc".Translate() }
         };
     }
 }

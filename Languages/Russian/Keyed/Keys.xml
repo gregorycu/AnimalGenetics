@@ -1,59 +1,59 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
 <LanguageData>
-	<TabGenetics>Генетика</TabGenetics>
-	<Genetics>Генетика</Genetics>
+	<AG.TabGenetics>Генетика</AG.TabGenetics>
+	<AG.Genetics>Генетика</AG.Genetics>
 	
 	<!-- Gene names -->
-	<Health>Здоровье</Health>
-	<Damage>Дамаг</Damage>
-	<Speed>Скорость</Speed>
-	<Capacity>Вместимость</Capacity>
-	<Meat>Мясо</Meat>
-	<Leather>Кожа</Leather>
-	<GatherYield>Молоко / шерсть</GatherYield>
+	<AG.Health>Здоровье</AG.Health>
+	<AG.Damage>Дамаг</AG.Damage>
+	<AG.Speed>Скорость</AG.Speed>
+	<AG.Capacity>Вместимость</AG.Capacity>
+	<AG.Meat>Мясо</AG.Meat>
+	<AG.Leather>Кожа</AG.Leather>
+	<AG.GatherYield>Молоко / шерсть</AG.GatherYield>
 	
 	<!-- Gene Descriptions -->
-	<HealthDesc>Body part health.</HealthDesc>
-	<DamageDesc>Melee attack damage.</DamageDesc>
-	<SpeedDesc>Movement speed.</SpeedDesc>
-	<CapacityDesc>Caravan and carry capacity.</CapacityDesc>
-	<GatherYieldDesc>The amount of milk or wool yielded from this creature.</GatherYieldDesc>
+	<AG.DamageDesc>Melee attack damage.</AG.DamageDesc>
+	<AG.HealthDesc>Body part health.</AG.HealthDesc>
+	<AG.SpeedDesc>Movement speed.</AG.SpeedDesc>
+	<AG.CapacityDesc>Caravan and carry capacity.</AG.CapacityDesc>
+	<AG.GatherYieldDesc>The amount of milk or wool yielded from this creature.</AG.GatherYieldDesc>
 	
 	<!-- Labels and Buttons -->
 	<!-- Care should be taken with string length here. Long ones could go display over the checkbox, for example. -->
-	<None>None</None>
-	<Asc>Asc</Asc>
-	<Desc>Desc</Desc>
-	<PrimarySort>Grouping</PrimarySort> <!-- Note the newline (\n) -->
-	<Search>Search</Search>
-	<Animals>Animals</Animals>
-	<Humanlikes>Humanlikes</Humanlikes>
-	<Colony>Colony</Colony>
-	<Wild>Wild</Wild>
-	<OtherFactions>Other Factions</OtherFactions>
-	<DefaultSettings>Default Settings</DefaultSettings>
+	<AG.None>None</AG.None>
+	<AG.Asc>Asc</AG.Asc>
+	<AG.Desc>Desc</AG.Desc>
+	<AG.PrimarySort>Grouping</AG.PrimarySort> <!-- Note the newline (\n) -->
+	<AG.Search>Search</AG.Search>
+	<AG.Animals>Animals</AG.Animals>
+	<AG.Humanlikes>Humanlikes</AG.Humanlikes>
+	<AG.Colony>Colony</AG.Colony>
+	<AG.Wild>Wild</AG.Wild>
+	<AG.OtherFactions>Other Factions</AG.OtherFactions>
+	<AG.DefaultSettings>Default Settings</AG.DefaultSettings>
 	<!-- Pawn Genetics Tab -->
-	<GeneticsOf>Genetics of</GeneticsOf>
-	<Value>Value</Value>
-	<Parent>Parent</Parent>
-	<ValueTooltop>Gene value. Applied to animal's base stats.</ValueTooltop>
-	<ParentTooltop>The parental value this animal inherited from. Will be empty for wild or newly generated animals with no parents.</ParentTooltop>
+	<AG.GeneticsOf>Genetics of</AG.GeneticsOf>
+	<AG.Value>Value</AG.Value>
+	<AG.Parent>Parent</AG.Parent>
+	<AG.ValueTooltop>Gene value. Applied to animal's base stats.</AG.ValueTooltop>
+	<AG.ParentTooltop>The parental value this animal inherited from. Will be empty for wild or newly generated animals with no parents.</AG.ParentTooltop>
 	
 	
 	
 	<!-- Mod Settings menu -->
-	<Mean>Mean</Mean>
-	<StandardDeviation>Standard Deviation</StandardDeviation>
-	<Settings1>Genetic range for new animals</Settings1>
-	<Settings1Tooltip>Randomly selected from a normal distribution with these settings...</Settings1Tooltip>
-	<Settings2>Inherited gene mutation factor</Settings2>
-	<Settings2Tooltip>Added/subtracted from inherited genes. Randomly selected from a normal distribution with these settings...</Settings2Tooltip>
-	<ColorMode>Color Mode</ColorMode>
-	<ColorNormal>Normal</ColorNormal>
-	<ColorNormalTooltip>Traditional red, yellow, green color scheme.</ColorNormalTooltip>
-	<ColorRPG>RPG</ColorRPG>
-	<ColorRPGTooltip>RPG style item quality color scheme.</ColorRPGTooltip>
-	<HumanlikeGenes>Apply Genes to Humanlikes</HumanlikeGenes>
-	<HumanlikeGenesTooltip>Gives genes to all humanlike pawns as well as animals.</HumanlikeGenesTooltip>
+	<AG.Mean>Mean</AG.Mean>
+	<AG.StandardDeviation>Standard Deviation</AG.StandardDeviation>
+	<AG.Settings1>Genetic range for new animals</AG.Settings1>
+	<AG.Settings1Tooltip>Randomly selected from a normal distribution with these settings...</AG.Settings1Tooltip>
+	<AG.Settings2>Inherited gene mutation factor</AG.Settings2>
+	<AG.Settings2Tooltip>Added/subtracted from inherited genes. Randomly selected from a normal distribution with these settings...</AG.Settings2Tooltip>
+	<AG.ColorMode>Color Mode</AG.ColorMode>
+	<AG.ColorNormal>Normal</AG.ColorNormal>
+	<AG.ColorNormalTooltip>Traditional red, yellow, green color scheme.</AG.ColorNormalTooltip>
+	<AG.ColorRPG>RPG</AG.ColorRPG>
+	<AG.ColorRPGTooltip>RPG style item quality color scheme.</AG.ColorRPGTooltip>
+	<AG.HumanlikeGenes>Apply Genes to Humanlikes</AG.HumanlikeGenes>
+	<AG.HumanlikeGenesTooltip>Gives genes to all humanlike pawns as well as animals.</AG.HumanlikeGenesTooltip>
 	
 </LanguageData>
