@@ -42,7 +42,7 @@ namespace AnimalGenetics
                 postfix = " (x" + GenText.ToStringPercent(statRecord.ParentValue) + icon + ")";
             }
 
-            return "Genetics: x" + GenText.ToStringPercent(statRecord.Value) + postfix;
+            return "Genetics".Translate() + ": x" + GenText.ToStringPercent(statRecord.Value) + postfix;
         }
 
         float? GetFactor(StatRequest req)

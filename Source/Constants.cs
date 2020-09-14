@@ -28,18 +28,49 @@ namespace AnimalGenetics
             StatDefOf.CarryingCapacity
         };
 
-        public static Dictionary<StatDef, String> statNames= new Dictionary<StatDef, String>()
+        public static string GetLabel(StatDef stat)
         {
-            { StatDefOf.MoveSpeed, "Speed"},
-            { AnimalGenetics.Health, "Health" },
-            { AnimalGenetics.Damage, "Damage" },
-            { StatDefOf.CarryingCapacity, "Carrying Capacity" },
-            { StatDefOf.MeatAmount, "Meat Amount" },
-            { StatDefOf.LeatherAmount, "Leather Amount"},
-            { AnimalGenetics.GatherYield, "Milk / Wool" }
+            if (!_labelOverrides.ContainsKey(stat))
+                return stat.label;
+            return _labelOverrides[stat];
+        }
+
+        static Dictionary<StatDef, String> _labelOverrides = new Dictionary<StatDef, String>()
+        {
+            { StatDefOf.MoveSpeed, "Speed".Translate()},
+            { AnimalGenetics.Health, "Health".Translate() },
+            { AnimalGenetics.Damage, "Damage".Translate() },
+            { StatDefOf.CarryingCapacity, "Capacity".Translate() },
+            { StatDefOf.MeatAmount, "Meat".Translate() },
+            { StatDefOf.LeatherAmount, "Leather".Translate()},
+            { AnimalGenetics.GatherYield, "GatherYield".Translate() }
         };
 
-        public static Dictionary<StatDef, String> statTooltips = new Dictionary<StatDef, String>()
+        public static string GetDescription(StatDef stat)
+        {
+            if (!_descriptionOverrides.ContainsKey(stat))
+                return stat.description;
+            return _descriptionOverrides[stat];
+        }
+
+        static Dictionary<StatDef, String> _descriptionOverrides = new Dictionary<StatDef, String>()
+        {
+            { StatDefOf.MoveSpeed, "SpeedDesc".Translate()},
+            { StatDefOf.CarryingCapacity, "CapacityDesc".Translate() },
+        };
+
+        /*public static Dictionary<StatDef, String> statNames= new Dictionary<StatDef, String>()
+        {
+            { StatDefOf.MoveSpeed, "Speed".Translate()},
+            { AnimalGenetics.Health, "Health".Translate() },
+            { AnimalGenetics.Damage, "Damage".Translate() },
+            { StatDefOf.CarryingCapacity, "Capacity".Translate() },
+            { StatDefOf.MeatAmount, "Meat".Translate() },
+            { StatDefOf.LeatherAmount, "Leather".Translate()},
+            { AnimalGenetics.GatherYield, "GatherYield".Translate() }
+        };*/
+
+        /*public static Dictionary<StatDef, String> statTooltips = new Dictionary<StatDef, String>()
         {
             { StatDefOf.MoveSpeed, "Movement speed"},
             { AnimalGenetics.Health, "Body part health" },
@@ -48,6 +79,14 @@ namespace AnimalGenetics
             { StatDefOf.MeatAmount, "Meat from butchering" },
             { StatDefOf.LeatherAmount, "Leather from butchering"},
             { AnimalGenetics.GatherYield, "Milk and Wool yields" }
+        };
+        */
+
+        public static Dictionary<int, String> sortMode = new Dictionary<int, String>()
+        {
+            {0, "None".Translate() },
+            {1, "Asc".Translate() },
+            {2, "Desc".Translate() }
         };
     }
 }

@@ -1,0 +1,59 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<LanguageData>
+	<TabGenetics>Генетика</TabGenetics>
+	<Genetics>Генетика</Genetics>
+	
+	<!-- Gene names -->
+	<Health>Здоровье</Health>
+	<Damage>Дамаг</Damage>
+	<Speed>Скорость</Speed>
+	<Capacity>Вместимость</Capacity>
+	<Meat>Мясо</Meat>
+	<Leather>Кожа</Leather>
+	<GatherYield>Молоко / шерсть</GatherYield>
+	
+	<!-- Gene Descriptions -->
+	<HealthDesc>Body part health.</HealthDesc>
+	<DamageDesc>Melee attack damage.</DamageDesc>
+	<SpeedDesc>Movement speed.</SpeedDesc>
+	<CapacityDesc>Caravan and carry capacity.</CapacityDesc>
+	<GatherYieldDesc>The amount of milk or wool yielded from this creature.</GatherYieldDesc>
+	
+	<!-- Labels and Buttons -->
+	<!-- Care should be taken with string length here. Long ones could go display over the checkbox, for example. -->
+	<None>None</None>
+	<Asc>Asc</Asc>
+	<Desc>Desc</Desc>
+	<PrimarySort>Grouping</PrimarySort> <!-- Note the newline (\n) -->
+	<Search>Search</Search>
+	<Animals>Animals</Animals>
+	<Humanlikes>Humanlikes</Humanlikes>
+	<Colony>Colony</Colony>
+	<Wild>Wild</Wild>
+	<OtherFactions>Other Factions</OtherFactions>
+	<DefaultSettings>Default Settings</DefaultSettings>
+	<!-- Pawn Genetics Tab -->
+	<GeneticsOf>Genetics of</GeneticsOf>
+	<Value>Value</Value>
+	<Parent>Parent</Parent>
+	<ValueTooltop>Gene value. Applied to animal's base stats.</ValueTooltop>
+	<ParentTooltop>The parental value this animal inherited from. Will be empty for wild or newly generated animals with no parents.</ParentTooltop>
+	
+	
+	
+	<!-- Mod Settings menu -->
+	<Mean>Mean</Mean>
+	<StandardDeviation>Standard Deviation</StandardDeviation>
+	<Settings1>Genetic range for new animals</Settings1>
+	<Settings1Tooltip>Randomly selected from a normal distribution with these settings...</Settings1Tooltip>
+	<Settings2>Inherited gene mutation factor</Settings2>
+	<Settings2Tooltip>Added/subtracted from inherited genes. Randomly selected from a normal distribution with these settings...</Settings2Tooltip>
+	<ColorMode>Color Mode</ColorMode>
+	<ColorNormal>Normal</ColorNormal>
+	<ColorNormalTooltip>Traditional red, yellow, green color scheme.</ColorNormalTooltip>
+	<ColorRPG>RPG</ColorRPG>
+	<ColorRPGTooltip>RPG style item quality color scheme.</ColorRPGTooltip>
+	<HumanlikeGenes>Apply Genes to Humanlikes</HumanlikeGenes>
+	<HumanlikeGenesTooltip>Gives genes to all humanlike pawns as well as animals.</HumanlikeGenesTooltip>
+	
+</LanguageData>
