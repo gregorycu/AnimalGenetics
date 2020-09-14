@@ -12,8 +12,8 @@ namespace AnimalGenetics
 
 		public ITab_Pawn_Genetics()
 		{
-			this.labelKey = "TabGenetics";
-			this.tutorTag = "Genetics";
+			this.labelKey = "AG.TabGenetics";
+			this.tutorTag = "AG.Genetics";
 		}
 
 		public override bool IsVisible
@@ -40,7 +40,7 @@ namespace AnimalGenetics
 				str = "PawnSummary".Translate(pawn.Named("PAWN"));
 			}
 			Text.Font = GameFont.Small;
-			Widgets.Label(new Rect(15f, 15f, rect.width * 0.9f, 30f), "Genetics of:  " + pawn.Label);
+			Widgets.Label(new Rect(15f, 15f, rect.width * 0.9f, 30f), "AG.GeneticsOf".Translate() + ":  " + pawn.Label);
 			Text.Font = GameFont.Tiny;
 			Widgets.Label(new Rect(15f, 35f, rect.width * 0.9f, 30f), str);
 
@@ -48,17 +48,17 @@ namespace AnimalGenetics
 			var affectedStats = Constants.affectedStats;
 			Text.Anchor = TextAnchor.MiddleCenter;
 			Rect rectValue = new Rect(rect.width * 0.6f, curY, rect.width * 0.2f, 20f);
-			Widgets.Label(rectValue, "Value");
-			TooltipHandler.TipRegion(rectValue, "Gene value. Applied to animal's base stats.");
+			Widgets.Label(rectValue, "AG.Value".Translate());
+			TooltipHandler.TipRegion(rectValue, "AG.ValueTooltop".Translate());
 			Rect rectParent = new Rect(rect.width * 0.8f, curY, rect.width * 0.2f, 20f);
-			Widgets.Label(rectParent, "Parent");
-			TooltipHandler.TipRegion(rectParent, "The parental value this aniaml inherited from. Will be empty for wild or newly generated animals with no parents." );
+			Widgets.Label(rectParent, "AG.Parent".Translate());
+			TooltipHandler.TipRegion(rectParent, "AG.ParentTooltop".Translate());
 			curY += 21;
 			foreach (var stat in affectedStats)
 			{
 				if (stat != AnimalGenetics.GatherYield || (stat == AnimalGenetics.GatherYield && (pawn.def.HasComp(typeof(CompShearable)) || pawn.def.HasComp(typeof(CompMilkable)))))
 				{
-					curY += DrawRow(rect, curY, Constants.statNames[stat], Genes.GetGene(pawn, stat), Genes.GetInheritString(pawn, stat), Genes.GetInheritValue(pawn, stat), Genes.GetTooltip(stat));
+					curY += DrawRow(rect, curY, Constants.GetLabel(stat), Genes.GetGene(pawn, stat), Genes.GetInheritString(pawn, stat), Genes.GetInheritValue(pawn, stat), Genes.GetTooltip(stat));
 				}
 			}
 		}

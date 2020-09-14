@@ -16,6 +16,13 @@ namespace AnimalGenetics
             Text.Anchor = TextAnchor.UpperLeft;
             GUI.color = Color.white;
         }
+        protected override GameFont DefaultHeaderFont
+        {
+            get
+            {
+                return GameFont.Tiny;
+            }
+        }
 
         public override int GetMinWidth(PawnTable table)
         {
