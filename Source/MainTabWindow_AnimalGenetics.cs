@@ -199,7 +199,9 @@ namespace AnimalGenetics
             if (filterText == "")
                 return true;
 
-            return (p.Name != null && p.Name.ToStringFull.Contains(filterText)) || p.KindLabel.Contains(filterText) || p.def.label.Contains(filterText);
+            Func<string, bool> Match = (string str) => { return str != null && str.IndexOf(filterText, StringComparison.OrdinalIgnoreCase) >= 0; };
+
+            return Match(p.Name.ToStringFull) || Match(p.KindLabel) || Match(p.def.label);
         }
     }
 }
