@@ -63,6 +63,26 @@ namespace AnimalGenetics
             }
         }*/
 
+        /*[HarmonyPatch(typeof(PawnUtility), nameof(PawnUtility.BodyResourceGrowthSpeed))]
+        public static class FastGrowth
+        {
+            static public bool Prefix(ref float __result)
+            {
+                __result = 10000f;
+                return false;
+            }
+        }*/
+
+        /*[HarmonyPatch(typeof(CompHatcher), nameof(CompHatcher.CompTick))]
+        public static class FastHatch
+        {
+            static public bool Prefix(ref CompHatcher __instance)
+            {
+                __instance.Hatch();
+                return false;
+            }
+        }*/
+
         [HarmonyPatch(typeof(MassUtility), nameof(MassUtility.Capacity))]
         public static class MassUtility_Capacity_Patch
         {
@@ -74,8 +94,6 @@ namespace AnimalGenetics
                 __result = __result * Genes.GetGene(__0, StatDefOf.CarryingCapacity);
             }
         }
-
-
 
         [HarmonyPatch(typeof(VerbProperties), nameof(VerbProperties.GetDamageFactorFor), new[] { typeof(Tool), typeof(Pawn), typeof(HediffComp_VerbGiver) })]
         public static class VerbProperties_GetDanageFactorFor_Patch
