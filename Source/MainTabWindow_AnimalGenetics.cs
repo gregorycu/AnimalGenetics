@@ -74,13 +74,21 @@ namespace AnimalGenetics
                 Widgets.CheckboxLabeled(new Rect(curX, 10f, humanlikesWidth, checkboxHeight), "AG.Humanlikes".Translate(), ref humans, false, null, null, true);
                 curX += humanlikesWidth + gap + 20f; //extra 20 for category gap
             }
-            Widgets.CheckboxLabeled(new Rect(curX, 10f, colonyWidth, checkboxHeight), "AG.Colony".Translate(), ref factionOwn, false, null, null, true);
-            curX += colonyWidth + gap;
-            Widgets.CheckboxLabeled(new Rect(curX, 10f, wildWidth, checkboxHeight), "AG.Wild".Translate(), ref factionWild, false, null, null, true);
-            curX += wildWidth + gap;
-            Widgets.CheckboxLabeled(new Rect(curX, 10f, otherFactionsWidth, checkboxHeight), "AG.OtherFactions".Translate(), ref factionOther, false, null, null, true);
-            curX += otherFactionsWidth + gap;
-            Text.Anchor = TextAnchor.UpperLeft;
+            if (Controller.Settings.omniscientMode)
+            {
+                Widgets.CheckboxLabeled(new Rect(curX, 10f, colonyWidth, checkboxHeight), "AG.Colony".Translate(), ref factionOwn, false, null, null, true);
+                curX += colonyWidth + gap;
+                Widgets.CheckboxLabeled(new Rect(curX, 10f, wildWidth, checkboxHeight), "AG.Wild".Translate(), ref factionWild, false, null, null, true);
+                curX += wildWidth + gap;
+                Widgets.CheckboxLabeled(new Rect(curX, 10f, otherFactionsWidth, checkboxHeight), "AG.OtherFactions".Translate(), ref factionOther, false, null, null, true);
+                curX += otherFactionsWidth + gap;
+                Text.Anchor = TextAnchor.UpperLeft;
+            } else
+            {
+                factionOwn = true;
+                factionWild = false;
+                factionOther = false;
+            }
 
             // Working from right side
             curX2 -= 50f;

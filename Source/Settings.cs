@@ -14,6 +14,7 @@ namespace AnimalGenetics
         public bool colorModeNormal = false;
         public bool colorModeRPG = true;
         public bool humanMode = false;
+        public bool omniscientMode = true;
         // Other
         public int sortMode = 0;
 
@@ -26,6 +27,7 @@ namespace AnimalGenetics
             Scribe_Values.Look<float>(ref mutationMean, "mutationMean", 0.03f);
             Scribe_Values.Look<int>(ref colorMode, "colorMode", 1);
             Scribe_Values.Look<bool>(ref humanMode, "humanMode", false);
+            Scribe_Values.Look<bool>(ref omniscientMode, "omniscientMode", true);
         }
 
         public void DoSettingsWindowContents(Rect rect)
@@ -47,7 +49,7 @@ namespace AnimalGenetics
             listingStandard.End();
 
             float curY = listingStandard.CurHeight + 70f;
-            Rect rect2 = new Rect(0, curY, rect.width / 2, 200f);
+            Rect rect2 = new Rect(0, curY, rect.width / 2, 250f);
             Listing_Standard listingStandard2 = new Listing_Standard();
             listingStandard2.Begin(rect2);
             listingStandard2.Label("AG.ColorMode".Translate());
@@ -55,6 +57,7 @@ namespace AnimalGenetics
             if (listingStandard2.RadioButton_NewTemp("AG.ColorRPG".Translate(), colorModeRPG, 8f, "AG.ColorRPGTooltip".Translate(), 0f)) { colorModeRPG = true; colorModeNormal = false; colorMode = 1; }
             listingStandard2.Gap(30f);
             listingStandard2.CheckboxLabeled("AG.HumanlikeGenes".Translate(), ref humanMode, "AG.HumanlikeGenesTooltip".Translate());
+            listingStandard2.CheckboxLabeled("AG.Omniscient".Translate(), ref omniscientMode, "AG.OmniscientTooltip".Translate());
             listingStandard2.Gap(30f);
             if (listingStandard2.ButtonText("AG.DefaultSettings".Translate()))
             {
@@ -66,7 +69,8 @@ namespace AnimalGenetics
                 colorModeNormal = false;
                 colorModeRPG = true;
                 humanMode = false;
-            }
+                omniscientMode = true;
+    }
             listingStandard2.End();
         }
     }

@@ -20,7 +20,11 @@ namespace AnimalGenetics
 		{
 			get
 			{
-                return Genes.EffectsThing(base.SelPawn);
+				if (!Controller.Settings.omniscientMode && base.SelPawn.Faction != Faction.OfPlayer)
+                {
+					return false;
+                }
+				return Genes.EffectsThing(base.SelPawn);
 			}
 		}
 

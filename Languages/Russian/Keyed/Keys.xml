@@ -55,5 +55,7 @@
 	<AG.ColorRPGTooltip>RPG style item quality color scheme.</AG.ColorRPGTooltip>
 	<AG.HumanlikeGenes>Apply Genes to Humanlikes</AG.HumanlikeGenes>
 	<AG.HumanlikeGenesTooltip>Gives genes to all humanlike pawns as well as animals.</AG.HumanlikeGenesTooltip>
+	<AG.Omniscient>Genes visible on all animals</AG.Omniscient>
+	<AG.OmniscientTooltip>When disabled, you will only be able to see genetic details of your own colony's animals.</AG.OmniscientTooltip>
 	
 </LanguageData>

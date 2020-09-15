@@ -30,6 +30,9 @@ namespace AnimalGenetics
 
             Pawn pawn = req.Thing as Pawn;
 
+            if (!Controller.Settings.omniscientMode && pawn.Faction != Faction.OfPlayer)
+                return null;
+
             var statRecord = Find.World.GetComponent<AnimalGenetics>().GetFactor(pawn, _StatDef); 
 
             if (statRecord == null)
