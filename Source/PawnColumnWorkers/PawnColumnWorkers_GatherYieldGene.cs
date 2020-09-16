@@ -9,7 +9,7 @@ namespace AnimalGenetics
         static StatDef statDef = AnimalGenetics.GatherYield;
         public override void DoCell(Rect rect, Pawn pawn, PawnTable table)
         {
-            if (pawn.def.HasComp(typeof(CompShearable)) || pawn.def.HasComp(typeof(CompMilkable)))
+            if (Genes.Gatherable(pawn))
             {
                 float gene = Genes.GetGene(pawn, statDef);
                 GUI.color = Utilities.TextColor(gene);

@@ -50,5 +50,10 @@ namespace AnimalGenetics
 
             return pawn.RaceProps.Animal || pawn.RaceProps.Humanlike && Controller.Settings.humanMode;
         }
+        
+        public static bool Gatherable(Pawn pawn)
+        {
+            return pawn.def.HasComp(typeof(CompShearable)) || pawn.def.HasComp(typeof(CompMilkable));
+        }
     }
 }
