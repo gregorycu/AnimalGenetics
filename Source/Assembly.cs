@@ -1,9 +1,10 @@
 ﻿using HarmonyLib;
 using System.Reflection;
+using System.Collections.Generic;
 using System;
 using Verse;
 using RimWorld;
-
+using System.Linq;
 
 namespace AnimalGenetics
 {
@@ -13,6 +14,7 @@ namespace AnimalGenetics
         public static class AnimalGeneticsAssemblyLoader
         {
             public static Type typeAlphaAnimals;
+            public static List<Type> gatherableTypes;
             static AnimalGeneticsAssemblyLoader()
             {
                 var h = new Harmony("AnimalGenetics");
@@ -36,6 +38,12 @@ namespace AnimalGenetics
                     }
                 }
 
+                gatherableTypes = new List<Type>()
+                {
+                    typeof(CompShearable),
+                    typeof(CompMilkable)
+                };
+
                 // Compatibility patches
                 try
                 {
@@ -44,10 +52,12 @@ namespace AnimalGenetics
                         Log.Message("Animal Genetics : Alpha Animals is loaded - Patching");
                         h.Patch(AccessTools.Method(AccessTools.TypeByName("AlphaBehavioursAndEvents.CompAnimalProduct"), "get_ResourceAmount"),
                             postfix: new HarmonyMethod(typeof(CompatibilityPatches), nameof(CompatibilityPatches.AlphaAnimals_get_ResourceAmount_Patch)));
-                        h.Patch(AccessTools.Method(typeof(Genes), nameof(Genes.Gatherable)),
-                            postfix: new HarmonyMethod(typeof(CompatibilityPatches), nameof(CompatibilityPatches.AlphaAnimals_DispalyGene_Patch)));
-                        // We only want to call this once, not each time we're checking for the comp below. The performance hit to call each time is obscene.
-                        typeAlphaAnimals = AccessTools.TypeByName("AlphaBehavioursAndEvents.CompAnimalProduct");
+                        gatherableTypes.Add(AccessTools.TypeByName("AlphaBehavioursAndEvents.CompAnimalProduct"));
+                    }
+                    if (LoadedModManager.RunningModsListForReading.Any(x => x.PackageId == "CETeam.CombatExtended" || x.Name == "Combat Extended"))
+                    {
+                        //gatherableTypes.Append(AccessTools.TypeByName("CombatExtended.CompMilkableRenameable")); //they all use shearable
+                        gatherableTypes.Add(AccessTools.TypeByName("CombatExtended.CompShearableRenameable"));
                     }
                 }
                 catch { }
@@ -176,13 +186,6 @@ namespace AnimalGenetics
             public static void AlphaAnimals_get_ResourceAmount_Patch(ref int __result, CompHasGatherableBodyResource __instance)
             {
                 __result = (int)(__result * Genes.GetGene((Pawn)__instance.parent, AnimalGenetics.GatherYield));
-            }
-            public static void AlphaAnimals_DispalyGene_Patch(ref bool __result, Pawn pawn)
-            {
-                if (pawn.def.HasComp(AnimalGeneticsAssemblyLoader.typeAlphaAnimals))
-                {
-                    __result = true;
-                }
             }
         }
     }

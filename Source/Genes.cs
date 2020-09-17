@@ -53,7 +53,11 @@ namespace AnimalGenetics
         
         public static bool Gatherable(Pawn pawn)
         {
-            return pawn.def.HasComp(typeof(CompShearable)) || pawn.def.HasComp(typeof(CompMilkable));
+            foreach (Type type in Assembly.AnimalGeneticsAssemblyLoader.gatherableTypes)
+            {
+                if (pawn.def.HasComp(type)) { return true; }
+            }
+            return false;
         }
     }
 }
