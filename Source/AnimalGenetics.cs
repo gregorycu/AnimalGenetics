@@ -39,6 +39,11 @@ namespace AnimalGenetics
             return GetData(pawn).GetFactor(stat);
         }
 
+        public void ModifyFactor(Pawn pawn, StatDef stat, float value)
+        {
+            GetData(pawn).ModifyFactor(stat, value);
+        }
+
         public StatGroup GenerateStatsGroup(Pawn pawn)
         {
             StatGroup toReturn = new StatGroup();

@@ -41,6 +41,11 @@ namespace AnimalGenetics
             return Data[stat];
         }
 
+        public void ModifyFactor(StatDef stat, float value)
+        {
+            Data[stat].Value += value;
+        }
+
         public static StatRecord DefaultStat = new StatRecord { Value = 1.0f, ParentValue = 1.0f, Parent = StatRecord.Source.None };
         public Dictionary<StatDef, StatRecord> Data = new Dictionary<StatDef, StatRecord>();
     }

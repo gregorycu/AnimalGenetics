@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<Patch>
+	<Operation Class="PatchOperationAdd">
+		<xpath>/Defs/ThingDef[@Name="AnimalThingBase"]/recipes</xpath>
+		<value>
+			<li>AnimalGeneticsAdministerGeneSerum</li>
+		</value>
+	</Operation>
+		<Operation Class="PatchOperationAdd">
+		<xpath>/Defs/ThingDef[defName="Human"]/recipes</xpath>
+		<value>
+			<li>AnimalGeneticsAdministerGeneSerum</li>
+		</value>
+	</Operation>
+</Patch>

@@ -10,6 +10,10 @@ namespace AnimalGenetics
         {
             return Find.World.GetComponent<AnimalGenetics>().GetFactor(pawn, gene).Value;
         }
+        public static void ModifyGene(Pawn pawn, StatDef gene, float value)
+        {
+            Find.World.GetComponent<AnimalGenetics>().ModifyFactor(pawn, gene, value);
+        }
 
         public static String GetInheritString(Pawn pawn, StatDef gene)
         {

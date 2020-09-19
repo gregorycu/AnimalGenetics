@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<Defs>
+<ThingDef ParentName="MechSerumBase">
+    <defName>AnimalGeneticsGeneSerum</defName>
+    <label>Gene serum</label>
+    <description>A one-use super-dose of mechanites tuned to heal health conditions. The mechanites will target and heal the single worst health condition affecting someone at any given time. Works even on health conditions that would otherwise be incurable. The mechanites can even transmute themselves into organic matter, forming new limbs or organs as needed.</description>
+    <graphicData>
+      <texPath>Things/Item/Special/MechSerumHealer</texPath>
+      <graphicClass>Graphic_Single</graphicClass>
+    </graphicData>
+    <stackLimit>10</stackLimit>
+    <statBases>
+      <MarketValue>1000</MarketValue>
+    </statBases>
+    <thingCategories>
+      <li>Items</li>
+    </thingCategories>
+    <tradeability>Sellable</tradeability>
+    <comps>
+      <li Class="CompProperties_Usable">
+        <useJob>UseItem</useJob>
+        <useLabel>Use gene serum</useLabel>
+        <useDuration>600</useDuration>
+      </li>
+      <li Class="CompProperties_UseEffect">
+        <compClass>AnimalGenetics.CompUseEffect_IncreaseAllGenes</compClass>
+      </li>
+      <li Class="CompProperties_UseEffect">
+        <compClass>CompUseEffect_DestroySelf</compClass>
+      </li>
+    </comps>
+    <thingSetMakerTags>
+      <li>RewardStandardHighFreq</li>
+    </thingSetMakerTags>
+  </ThingDef>
+  
+  <RecipeDef>
+    <defName>AnimalGeneticsAdministerGeneSerum</defName>
+    <label>administer gene serum</label>
+    <description>Administer a gene serum.</description>
+    <workerClass>Recipe_AdministerUsableItem</workerClass>
+    <jobString>Administering gene serum.</jobString>
+    <targetsBodyPart>false</targetsBodyPart>
+    <anesthetize>false</anesthetize>
+    <workAmount>600</workAmount>
+    <dontShowIfAnyIngredientMissing>true</dontShowIfAnyIngredientMissing>
+    <surgerySuccessChanceFactor>99999</surgerySuccessChanceFactor>
+    <ingredients>
+      <li>
+        <filter>
+          <thingDefs>
+            <li>AnimalGeneticsGeneSerum</li>
+          </thingDefs>
+        </filter>
+        <count>1</count>
+      </li>
+    </ingredients>
+    <fixedIngredientFilter>
+      <thingDefs>
+        <li>AnimalGeneticsGeneSerum</li>
+      </thingDefs>
+    </fixedIngredientFilter>
+  </RecipeDef>
+ </Defs>
