@@ -1,5 +1,28 @@
 ﻿using Verse;
 using UnityEngine;
+using ExtensionMethods;
+
+namespace ExtensionMethods
+{
+    public static class MyExtensions
+    {
+        public static void CheckboxLabeled(this Listing_Standard listingStandard, string label, ref bool checkOn, string tooltip, bool disabled)
+        {
+            float lineHeight = Text.LineHeight;
+            Rect rect = listingStandard.GetRect(lineHeight);
+            if (!tooltip.NullOrEmpty())
+            {
+                if (Mouse.IsOver(rect))
+                {
+                    Widgets.DrawHighlight(rect);
+                }
+                TooltipHandler.TipRegion(rect, tooltip);
+            }
+            Widgets.CheckboxLabeled(rect, label, ref checkOn, disabled, null, null, false);
+            listingStandard.Gap(listingStandard.verticalSpacing);
+        }
+    }
+}
 
 namespace AnimalGenetics
 {
@@ -18,6 +41,31 @@ namespace AnimalGenetics
         // Other
         public int sortMode = 0;
 
+        public bool ShowGenesInAnimalsTab
+        {
+            get { return current.showGenesInAnimalsTab; }
+        }
+
+        public bool ShowGenesInWildlifeTab
+        {
+            get { return current.showGenesInWildlifeTab; }
+        }
+
+        private struct Settings
+        {
+            public bool showGenesInAnimalsTab;
+            public bool showGenesInWildlifeTab;
+        };
+
+        static Settings DefaultValues = new Settings
+        {
+            showGenesInAnimalsTab = false,
+            showGenesInWildlifeTab = false
+        };
+
+        Settings current = new Settings();
+        Settings previous = new Settings();
+
         public override void ExposeData()
         {
             base.ExposeData();
@@ -28,10 +76,15 @@ namespace AnimalGenetics
             Scribe_Values.Look<int>(ref colorMode, "colorMode", 1);
             Scribe_Values.Look<bool>(ref humanMode, "humanMode", false);
             Scribe_Values.Look<bool>(ref omniscientMode, "omniscientMode", true);
+            Scribe_Values.Look<bool>(ref current.showGenesInAnimalsTab, "showGenesInAnimalsTab", DefaultValues.showGenesInAnimalsTab);
+            Scribe_Values.Look<bool>(ref current.showGenesInWildlifeTab, "showGenesInWildlifeTab", DefaultValues.showGenesInWildlifeTab);
         }
 
         public void DoSettingsWindowContents(Rect rect)
         {
+            if (!omniscientMode)
+                current.showGenesInWildlifeTab = false;
+
             Listing_Standard listingStandard = new Listing_Standard();
             listingStandard.Begin(rect);
             listingStandard.Label("AG.Settings1".Translate(), -1f, "AG.Settings1Tooltip".Translate());
@@ -49,7 +102,7 @@ namespace AnimalGenetics
             listingStandard.End();
 
             float curY = listingStandard.CurHeight + 70f;
-            Rect rect2 = new Rect(0, curY, rect.width / 2, 250f);
+            Rect rect2 = new Rect(0, curY, rect.width / 2 - 10, 250f);
             Listing_Standard listingStandard2 = new Listing_Standard();
             listingStandard2.Begin(rect2);
             listingStandard2.Label("AG.ColorMode".Translate());
@@ -59,7 +112,19 @@ namespace AnimalGenetics
             listingStandard2.CheckboxLabeled("AG.HumanlikeGenes".Translate(), ref humanMode, "AG.HumanlikeGenesTooltip".Translate());
             listingStandard2.CheckboxLabeled("AG.Omniscient".Translate(), ref omniscientMode, "AG.OmniscientTooltip".Translate());
             listingStandard2.Gap(30f);
-            if (listingStandard2.ButtonText("AG.DefaultSettings".Translate()))
+            listingStandard2.End();
+
+            Rect rhs = new Rect(rect.width / 2 + 10, curY, rect.width / 2 - 10, 250f);
+            Listing_Standard listingStandardRhs = new Listing_Standard();
+            listingStandardRhs.Begin(rhs);
+            listingStandardRhs.CheckboxLabeled("AnimalGenetics.ShowGenesInAnimalsTab".Translate(), ref current.showGenesInAnimalsTab, "AnimalGenetics.ShowGenesInAnimalsTabTooltip".Translate());
+            listingStandardRhs.CheckboxLabeled("AnimalGenetics.ShowGenesInWildlifeTab".Translate(), ref current.showGenesInWildlifeTab, "AnimalGenetics.ShowGenesInWildlifeTabTooltip".Translate(), !omniscientMode);
+            listingStandardRhs.End();
+
+            Listing_Standard bottom = new Listing_Standard();
+            Rect bottomRect = new Rect(0, rect2.y + listingStandard2.CurHeight + 70f, rect.width, 100);
+            bottom.Begin(bottomRect);
+			if (bottom.ButtonText("AG.DefaultSettings".Translate()))
             {
                 stdDev = 0.12f;
                 mean = 1f;
@@ -70,8 +135,16 @@ namespace AnimalGenetics
                 colorModeRPG = true;
                 humanMode = false;
                 omniscientMode = true;
-    }
-            listingStandard2.End();
+                current = DefaultValues;
+            }
+            bottom.End();
+
+            if (!current.Equals(previous))
+            {
+                Assembly.AnimalGeneticsAssemblyLoader.PatchUI();
+                previous = current;
+            }
+
         }
     }
 }

@@ -57,5 +57,9 @@
 	<AG.HumanlikeGenesTooltip>Gives genes to all humanlike pawns as well as animals.</AG.HumanlikeGenesTooltip>
 	<AG.Omniscient>Genes visible on all animals</AG.Omniscient>
 	<AG.OmniscientTooltip>When disabled, you will only be able to see genetic details of your own colony's animals.</AG.OmniscientTooltip>
+	<AnimalGenetics.ShowGenesInAnimalsTab>Show genes in Animal Tab</AnimalGenetics.ShowGenesInAnimalsTab>
+	<AnimalGenetics.ShowGenesInAnimalsTabTooltip>Enable to show the genes in the Animal Tab.</AnimalGenetics.ShowGenesInAnimalsTabTooltip>
+	<AnimalGenetics.ShowGenesInWildlifeTab>Show genes in Wildlife Tab</AnimalGenetics.ShowGenesInWildlifeTab>
+	<AnimalGenetics.ShowGenesInWildlifeTabTooltip>Enable to show the genes in the Wildlife Tab.</AnimalGenetics.ShowGenesInWildlifeTabTooltip>
 	
 </LanguageData>

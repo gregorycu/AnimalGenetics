@@ -13,6 +13,9 @@ namespace AnimalGenetics
         [StaticConstructorOnStartup]
         public static class AnimalGeneticsAssemblyLoader
         {
+            private static List<PawnColumnDef> _DefaultAnimalsPawnTableDefColumns;
+            private static List<PawnColumnDef> _DefaultWildlifePawnTableDefColumns;
+
             public static Type typeAlphaAnimals;
             public static List<Type> gatherableTypes;
             static AnimalGeneticsAssemblyLoader()
@@ -61,6 +64,28 @@ namespace AnimalGenetics
                     }
                 }
                 catch { }
+
+                _DefaultAnimalsPawnTableDefColumns = new List<PawnColumnDef>(PawnTableDefOf.Animals.columns);
+                _DefaultWildlifePawnTableDefColumns = new List<PawnColumnDef>(PawnTableDefOf.Wildlife.columns);
+
+                var placeholderPosition = MainTabWindow_AnimalGenetics.PawnTableDefs.Genetics.columns.FindIndex((PawnColumnDef def) => def.defName == "AnimalGenetics_Placeholder");
+                MainTabWindow_AnimalGenetics.PawnTableDefs.Genetics.columns.RemoveAt(placeholderPosition);
+                MainTabWindow_AnimalGenetics.PawnTableDefs.Genetics.columns.InsertRange(placeholderPosition, PawnTableColumnsDefOf.Genetics.columns);
+
+                PatchUI();
+            }
+
+            public static void PatchUI()
+            {
+                PawnTableDefOf.Animals.columns = new List<PawnColumnDef>(_DefaultAnimalsPawnTableDefColumns);
+
+                if (Controller.Settings.ShowGenesInAnimalsTab)
+                    PawnTableDefOf.Animals.columns.AddRange(PawnTableColumnsDefOf.Genetics.columns);
+
+                PawnTableDefOf.Wildlife.columns = new List<PawnColumnDef>(_DefaultWildlifePawnTableDefColumns);
+
+                if (Controller.Settings.ShowGenesInWildlifeTab)
+                    PawnTableDefOf.Wildlife.columns.AddRange(PawnTableColumnsDefOf.Genetics.columns);
             }
         }
 

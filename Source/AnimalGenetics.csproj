@@ -66,6 +66,7 @@
     <Compile Include="Assembly.cs" />
     <Compile Include="Constants.cs" />
     <Compile Include="Controller.cs" />
+    <Compile Include="Defs.cs" />
     <Compile Include="Genes.cs" />
     <Compile Include="ITab_Pawn_Genetics.cs" />
     <Compile Include="MainTabWindow_AnimalGenetics.cs" />

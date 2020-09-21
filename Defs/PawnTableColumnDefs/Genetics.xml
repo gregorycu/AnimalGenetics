@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Defs>
+  <AnimalGenetics.PawnTableColumnsDef>
+    <defName>Genetics</defName>
+    <columns>
+      <li>AnimalGenetics_HealthGene</li>
+      <li>AnimalGenetics_DamageGene</li>
+      <li>AnimalGenetics_SpeedGene</li>
+      <li>AnimalGenetics_CapacityGene</li>
+      <li>AnimalGenetics_MeatGene</li>
+      <li>AnimalGenetics_LeatherGene</li>
+      <li>AnimalGenetics_GatherYieldGene</li>
+    </columns>
+  </AnimalGenetics.PawnTableColumnsDef>
+  <PawnColumnDef>
+    <defName>AnimalGenetics_Placeholder</defName>
+  </PawnColumnDef>
+</Defs>
