@@ -1,8 +1,9 @@
-mkdir AnimalGenetics
-xcopy /Y /s About AnimalGenetics\About\
-xcopy /Y /s Common AnimalGenetics\Common\
-xcopy /Y /s Defs AnimalGenetics\Defs\
-xcopy /Y /s Languages AnimalGenetics\Languages\
-xcopy /Y /s Patches AnimalGenetics\Patches\
-xcopy /Y LICENSE AnimalGenetics\
-tar -a -c -f AnimalGenetics.zip AnimalGenetics
+mkdir Package
+mkdir Package\AnimalGenetics
+xcopy /Y /s About Package\AnimalGenetics\About\
+xcopy /Y /s Common Package\AnimalGenetics\Common\
+xcopy /Y /s Defs Package\AnimalGenetics\Defs\
+xcopy /Y /s Languages Package\AnimalGenetics\Languages\
+xcopy /Y /s Patches Package\AnimalGenetics\Patches\
+xcopy /Y LICENSE Package\AnimalGenetics\
+tar -a -c -f Package\AnimalGenetics.zip Package\AnimalGenetics
