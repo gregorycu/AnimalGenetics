@@ -14,5 +14,6 @@
   </AnimalGenetics.PawnTableColumnsDef>
   <PawnColumnDef>
     <defName>AnimalGenetics_Placeholder</defName>
+    <workerClass>AnimalGenetics.Placeholder</workerClass>
   </PawnColumnDef>
 </Defs>
