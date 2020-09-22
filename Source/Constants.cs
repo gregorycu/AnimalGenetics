@@ -1,5 +1,4 @@
 ﻿using RimWorld;
-using UnityEngine;
 using Verse;
 using System;
 using System.Collections.Generic;
@@ -58,29 +57,6 @@ namespace AnimalGenetics
             { StatDefOf.MoveSpeed, "AG.SpeedDesc".Translate()},
             { StatDefOf.CarryingCapacity, "AG.CapacityDesc".Translate() },
         };
-
-        /*public static Dictionary<StatDef, String> statNames= new Dictionary<StatDef, String>()
-        {
-            { StatDefOf.MoveSpeed, "Speed".Translate()},
-            { AnimalGenetics.Health, "Health".Translate() },
-            { AnimalGenetics.Damage, "Damage".Translate() },
-            { StatDefOf.CarryingCapacity, "Capacity".Translate() },
-            { StatDefOf.MeatAmount, "Meat".Translate() },
-            { StatDefOf.LeatherAmount, "Leather".Translate()},
-            { AnimalGenetics.GatherYield, "GatherYield".Translate() }
-        };*/
-
-        /*public static Dictionary<StatDef, String> statTooltips = new Dictionary<StatDef, String>()
-        {
-            { StatDefOf.MoveSpeed, "Movement speed"},
-            { AnimalGenetics.Health, "Body part health" },
-            { AnimalGenetics.Damage, "Melee attack damage" },
-            { StatDefOf.CarryingCapacity, "Caravan and carry capacity" },
-            { StatDefOf.MeatAmount, "Meat from butchering" },
-            { StatDefOf.LeatherAmount, "Leather from butchering"},
-            { AnimalGenetics.GatherYield, "Milk and Wool yields" }
-        };
-        */
 
         public static Dictionary<int, String> sortMode = new Dictionary<int, String>()
         {

@@ -7,9 +7,6 @@ namespace AnimalGenetics
 {
     class ITab_Pawn_Genetics : ITab
 	{
-		//public string labelKey = "TabGenetics";
-		//public string tutorTag = "Genetics";
-
 		public ITab_Pawn_Genetics()
 		{
 			this.labelKey = "AG.TabGenetics";

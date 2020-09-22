@@ -1,9 +1,4 @@
 ﻿using RimWorld;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using Verse;
 
 namespace AnimalGenetics
@@ -57,7 +52,6 @@ namespace AnimalGenetics
                 return null;
 
             Pawn pawn = req.Thing as Pawn;
-
 
             var statRecord = Find.World.GetComponent<AnimalGenetics>().GetFactor(pawn, _StatDef);
             return statRecord == null ? 1.0f : statRecord.Value;
