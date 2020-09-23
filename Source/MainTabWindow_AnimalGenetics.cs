@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Text.RegularExpressions;
 using System.Linq;
 using RimWorld.Planet;
 using RimWorld;
@@ -12,32 +11,30 @@ namespace AnimalGenetics
 {
     public class MainTabWindow_AnimalGenetics : MainTabWindow_PawnTable
     {
-        private static bool animals;
-        private static bool humans;
-        private static bool lastAnimals;
-        private static bool lastHumans;
-        private static bool factionOwn;
-        private static bool factionWild;
-        private static bool factionOther;
-        private static bool lastFactionOwn;
-        private static bool lastFactionWild;
-        private static bool lastFactionOther;
-        private static float checkboxHeight = 24f;
-        
+        struct Options
+        {
+            public bool ShowAnimals;
+            public bool ShowHumans;
+            public bool ShowFaction;
+            public bool ShowWild;
+            public bool ShowOther;
+            public string FilterText;
+        };
 
-        private static float gap = 12f;
-        private static float checkboxWidth = 26f;
-        private float animalsWidth = Text.CalcSize("AG.Animals".Translate()).x + checkboxWidth;
-        private float humanlikesWidth = Text.CalcSize("AG.Humanlikes".Translate()).x + checkboxWidth;
-        private float colonyWidth = Text.CalcSize("AG.Colony".Translate()).x + checkboxWidth;
-        private float wildWidth = Text.CalcSize("AG.Wild".Translate()).x + checkboxWidth;
-        private float otherFactionsWidth = Text.CalcSize("AG.OtherFactions".Translate()).x + checkboxWidth;
+        Options current;
+        Options previous;
 
-        private string lastFilterText = "";
-        private String filterText = "";
-        private int _filterTextId = -1;
-		
         private static MethodInfo _DoTextField;
+        private readonly static float checkboxHeight = 24f;
+        private readonly static float gap = 12f;
+        private readonly static float checkboxWidth = 26f;
+        private readonly float animalsWidth = Text.CalcSize("AG.Animals".Translate()).x + checkboxWidth;
+        private readonly float humanlikesWidth = Text.CalcSize("AG.Humanlikes".Translate()).x + checkboxWidth;
+        private readonly float colonyWidth = Text.CalcSize("AG.Colony".Translate()).x + checkboxWidth;
+        private readonly float wildWidth = Text.CalcSize("AG.Wild".Translate()).x + checkboxWidth;
+        private readonly float otherFactionsWidth = Text.CalcSize("AG.OtherFactions".Translate()).x + checkboxWidth;
+
+        private int _filterTextId = -1;
 
         [DefOf]
         public static class PawnTableDefs
@@ -52,16 +49,17 @@ namespace AnimalGenetics
 
         public MainTabWindow_AnimalGenetics()
         {
-            animals = true;
-            humans = false;
-            lastAnimals = animals;
-            lastHumans = humans;
-            factionOwn = false;
-            factionWild = false;
-            factionOther = false;
-            lastFactionOwn = factionOwn;
-            lastFactionWild = factionWild;
-            lastFactionOther = factionOther;
+            current = new Options
+            {
+                ShowAnimals = true,
+                ShowHumans = true,
+                ShowFaction = true,
+                ShowWild = true,
+                ShowOther = true,
+                FilterText = ""
+            };
+            previous = current;
+
             forcePause = false;
         }
 
@@ -84,7 +82,7 @@ namespace AnimalGenetics
             float curX2 = rect.width - 300f;
             if (!Controller.Settings.humanMode)
             {
-                humans = false;
+                current.ShowHumans = false;
             }
             base.DoWindowContents(rect);
 
@@ -93,25 +91,25 @@ namespace AnimalGenetics
             if (Controller.Settings.humanMode)
             {
                 
-                Widgets.CheckboxLabeled(new Rect(curX, 10f, animalsWidth, checkboxHeight), "AG.Animals".Translate(), ref animals, false, null, null, true);
+                Widgets.CheckboxLabeled(new Rect(curX, 10f, animalsWidth, checkboxHeight), "AG.Animals".Translate(), ref current.ShowAnimals, false, null, null, true);
                 curX += animalsWidth + gap;
-                Widgets.CheckboxLabeled(new Rect(curX, 10f, humanlikesWidth, checkboxHeight), "AG.Humanlikes".Translate(), ref humans, false, null, null, true);
+                Widgets.CheckboxLabeled(new Rect(curX, 10f, humanlikesWidth, checkboxHeight), "AG.Humanlikes".Translate(), ref current.ShowHumans, false, null, null, true);
                 curX += humanlikesWidth + gap + 20f; //extra 20 for category gap
             }
             if (Controller.Settings.omniscientMode)
             {
-                Widgets.CheckboxLabeled(new Rect(curX, 10f, colonyWidth, checkboxHeight), "AG.Colony".Translate(), ref factionOwn, false, null, null, true);
+                Widgets.CheckboxLabeled(new Rect(curX, 10f, colonyWidth, checkboxHeight), "AG.Colony".Translate(), ref current.ShowFaction, false, null, null, true);
                 curX += colonyWidth + gap;
-                Widgets.CheckboxLabeled(new Rect(curX, 10f, wildWidth, checkboxHeight), "AG.Wild".Translate(), ref factionWild, false, null, null, true);
+                Widgets.CheckboxLabeled(new Rect(curX, 10f, wildWidth, checkboxHeight), "AG.Wild".Translate(), ref current.ShowWild, false, null, null, true);
                 curX += wildWidth + gap;
-                Widgets.CheckboxLabeled(new Rect(curX, 10f, otherFactionsWidth, checkboxHeight), "AG.OtherFactions".Translate(), ref factionOther, false, null, null, true);
+                Widgets.CheckboxLabeled(new Rect(curX, 10f, otherFactionsWidth, checkboxHeight), "AG.OtherFactions".Translate(), ref current.ShowOther, false, null, null, true);
                 curX += otherFactionsWidth + gap;
                 Text.Anchor = TextAnchor.UpperLeft;
             } else
             {
-                factionOwn = true;
-                factionWild = false;
-                factionOther = false;
+                current.ShowFaction = true;
+                current.ShowWild = false;
+                current.ShowOther = false;
             }
 
             // Working from right side
@@ -130,37 +128,11 @@ namespace AnimalGenetics
 			Text.Anchor = TextAnchor.UpperLeft;
             curX2 -= 125f;
 
-            filterText = TextField(_filterTextId, new Rect(curX2, 10f, 120f, 24f), filterText);
+            current.FilterText = TextField(_filterTextId, new Rect(curX2, 10f, 120f, 24f), current.FilterText);
         
-            if (filterText != lastFilterText)
+            if (! current.Equals(previous))
             {
-                lastFilterText = filterText;
-                SetDirty();
-            }
-
-            if (animals != lastAnimals)
-            {
-                lastAnimals = animals;
-                SetDirty();
-            }
-            if (humans != lastHumans)
-            {
-                lastHumans = humans;
-                SetDirty();
-            }
-            if (factionOwn != lastFactionOwn)
-            {
-                lastFactionOwn = factionOwn;
-                SetDirty();
-            }
-            if (factionWild != lastFactionWild)
-            {
-                lastFactionWild = factionWild;
-                SetDirty();
-            }
-            if (factionOther != lastFactionOther)
-            {
-                lastFactionOther = factionOther;
+                previous = current;
                 SetDirty();
             }
         }
@@ -193,15 +165,15 @@ namespace AnimalGenetics
 
         private bool VisibleFactions(Pawn p)
         {
-            if (factionOwn && p.Faction == Faction.OfPlayer)
+            if (current.ShowFaction && p.Faction == Faction.OfPlayer)
             {
                 return true;
             }
-            if (factionWild && p.Faction == null)
+            if (current.ShowWild && p.Faction == null)
             {
                 return true;
             }
-            if (factionOther && p.Faction != Faction.OfPlayer && p.Faction != null)
+            if (current.ShowOther && p.Faction != Faction.OfPlayer && p.Faction != null)
             {
                 return true;
             }
@@ -210,11 +182,11 @@ namespace AnimalGenetics
 
         private bool VisibleSpecies(Pawn p)
         {
-            if (animals && p.RaceProps.Animal)
+            if (current.ShowAnimals && p.RaceProps.Animal)
             {
                 return true;
             }
-            if (humans && p.RaceProps.Humanlike)
+            if (current.ShowHumans && p.RaceProps.Humanlike)
             {
                 return true;
             }
@@ -223,10 +195,10 @@ namespace AnimalGenetics
 
         private bool TextFilter(Pawn p)
         {
-            if (filterText == "")
+            if (current.FilterText == "")
                 return true;
 
-            Func<string, bool> Match = (string str) => { return str != null && str.IndexOf(filterText, StringComparison.OrdinalIgnoreCase) >= 0; };
+            Func<string, bool> Match = (string str) => { return str != null && str.IndexOf(current.FilterText, StringComparison.OrdinalIgnoreCase) >= 0; };
 
             if (p.Name != null && Match(p.Name.ToStringFull))
                 return true;
