@@ -6,6 +6,7 @@ using RimWorld.Planet;
 using RimWorld;
 using UnityEngine;
 using Verse;
+using System.Reflection;
 
 namespace AnimalGenetics
 {
@@ -22,7 +23,7 @@ namespace AnimalGenetics
         private static bool lastFactionWild;
         private static bool lastFactionOther;
         private static float checkboxHeight = 24f;
-        private static String filterText;
+        
 
         private static float gap = 12f;
         private static float checkboxWidth = 26f;
@@ -31,12 +32,22 @@ namespace AnimalGenetics
         private float colonyWidth = Text.CalcSize("AG.Colony".Translate()).x + checkboxWidth;
         private float wildWidth = Text.CalcSize("AG.Wild".Translate()).x + checkboxWidth;
         private float otherFactionsWidth = Text.CalcSize("AG.OtherFactions".Translate()).x + checkboxWidth;
-        private float searchWidth = Text.CalcSize("AG.Search".Translate()).x + 5f;
+
+        private string lastFilterText = "";
+        private String filterText = "";
+        private int _filterTextId = -1;
+		
+        private static MethodInfo _DoTextField;
 
         [DefOf]
         public static class PawnTableDefs
         {
             public static PawnTableDef Genetics;
+        }
+
+        static MainTabWindow_AnimalGenetics()
+        {
+            _DoTextField = typeof(UnityEngine.GUI).GetTypeInfo().GetMethod("DoTextField", BindingFlags.NonPublic | BindingFlags.Static, null, new Type[] { typeof(Rect), typeof(int), typeof(GUIContent), typeof(bool), typeof(int), typeof(GUIStyle) }, null);
         }
 
         public MainTabWindow_AnimalGenetics()
@@ -54,8 +65,21 @@ namespace AnimalGenetics
             forcePause = false;
         }
 
+        public string TextField(int id, Rect position, string text)
+        {
+            if (_DoTextField == null)
+                return text;
+
+            GUIContent guicontent = new GUIContent(text);
+            _DoTextField.Invoke(null, new object[] { position, id, guicontent, false, -1, GUI.skin.textField });
+            return guicontent.text;
+        }
+
         public override void DoWindowContents(Rect rect)
         {
+            if (_filterTextId == -1)
+                _filterTextId = GUIUtility.GetControlID(FocusType.Keyboard);
+
             float curX = 5f;
             float curX2 = rect.width - 300f;
             if (!Controller.Settings.humanMode)
@@ -103,13 +127,16 @@ namespace AnimalGenetics
             Text.Font = GameFont.Tiny;
             Widgets.Label(new Rect(curX2, 5f, 50f, 32f), "AG.PrimarySort".Translate());
             Text.Font = GameFont.Small;
-            curX2 -= searchWidth + 15f;
-            if (Widgets.ButtonText(new Rect(curX2, 10f, 55f, 24f), "AG.Search".Translate(), true, true, true)) { SetDirty(); }
-            Text.Anchor = TextAnchor.UpperLeft;
+			Text.Anchor = TextAnchor.UpperLeft;
             curX2 -= 125f;
-            filterText = Widgets.TextField(new Rect(curX2, 10f, 120f, 24f), filterText, 20, new Regex(".*"));
 
-            
+            filterText = TextField(_filterTextId, new Rect(curX2, 10f, 120f, 24f), filterText);
+        
+            if (filterText != lastFilterText)
+            {
+                lastFilterText = filterText;
+                SetDirty();
+            }
 
             if (animals != lastAnimals)
             {
@@ -201,7 +228,10 @@ namespace AnimalGenetics
 
             Func<string, bool> Match = (string str) => { return str != null && str.IndexOf(filterText, StringComparison.OrdinalIgnoreCase) >= 0; };
 
-            return Match(p.Name.ToStringFull) || Match(p.KindLabel) || Match(p.def.label);
+            if (p.Name != null && Match(p.Name.ToStringFull))
+                return true;
+
+            return Match(p.KindLabel) || Match(p.def.label);
         }
     }
 }
