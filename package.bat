@@ -1,3 +1,4 @@
+rd /s /q Package
 mkdir Package
 mkdir Package\AnimalGenetics
 xcopy /Y /s About Package\AnimalGenetics\About\
