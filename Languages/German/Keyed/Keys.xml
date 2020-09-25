@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<LanguageData>
+	<AG.TabGenetics>Genetik</AG.TabGenetics>
+	<AG.Genetics>Genetik</AG.Genetics>
+	
+	<!-- Gene names -->
+	<AG.Damage>Schaden</AG.Damage>
+	<AG.Health>Leben</AG.Health>
+	<AG.Speed>Geschwindigkeit</AG.Speed>
+	<AG.Capacity>Tragfähigkeit</AG.Capacity>
+	<AG.Meat>Fleisch</AG.Meat>
+	<AG.Leather>Leder</AG.Leather>
+	<AG.GatherYield>Milch / Wolle</AG.GatherYield>
+	
+	<!-- Gene Descriptions -->
+	<AG.DamageDesc>Nahkampfangriffsschaden.</AG.DamageDesc>
+	<AG.HealthDesc>Gesundheit der Körperteile.</AG.HealthDesc>
+	<AG.SpeedDesc>Bewegungsgeschwindigkeit.</AG.SpeedDesc>
+	<AG.CapacityDesc>Karawane und Tragfähigkeit.</AG.CapacityDesc>
+	<AG.GatherYieldDesc>Die Menge an Milch oder Wolle, die von dieser Kreatur erzeugt wird.</AG.GatherYieldDesc>
+	
+	<!-- Labels and Buttons -->
+	<!-- Care should be taken with string length here. Long ones could go display over the checkbox, for example. -->
+	<AG.None>Nichts</AG.None>
+	<AG.Asc>Asc</AG.Asc>
+	<AG.Desc>Beschr.</AG.Desc>
+	<AG.PrimarySort>Gruppierung</AG.PrimarySort> <!-- Note the newline (\n) -->
+	<AG.Search>Suche</AG.Search>
+	<AG.Animals>Tiere</AG.Animals>
+	<AG.Humanlikes>Menschenähnlich</AG.Humanlikes>
+	<AG.Colony>Kolonie</AG.Colony>
+	<AG.Wild>Wild</AG.Wild>
+	<AG.OtherFactions>Andere Fraktionen</AG.OtherFactions>
+	<AG.DefaultSettings>Standardeinstellungen</AG.DefaultSettings>
+	<!-- Pawn Genetics Tab -->
+	<AG.GeneticsOf>Genetik von</AG.GeneticsOf>
+	<AG.Value>Wert</AG.Value>
+	<AG.Parent>Eltern</AG.Parent>
+	<AG.ValueTooltop>Genwert. Wird auf die Basiswerte des Tieres angewendet.</AG.ValueTooltop>
+	<AG.ParentTooltop>Der elterliche Wert, von dem dieses Tier geerbt hat. Wird für wilde oder neu erzeugte Tiere ohne Eltern leer sein.</AG.ParentTooltop>
+	
+	
+	
+	<!-- Mod Settings menu -->
+	<AG.Mean>Mean</AG.Mean>
+	<AG.StandardDeviation>Standardabweichung</AG.StandardDeviation>
+	<AG.Settings1>Genetischer Bereich für neue Tiere</AG.Settings1>
+	<AG.Settings1Tooltip>Mit diesen Einstellungen zufällig aus einer Normalverteilung ausgewählt ...</AG.Settings1Tooltip>
+	<AG.Settings2>Vererbter Genmutationsfaktor</AG.Settings2>
+	<AG.Settings2Tooltip>Addiert / subtrahiert von vererbten Genen. Mit diesen Einstellungen zufällig aus einer Normalverteilung ausgewählt ...</AG.Settings2Tooltip>
+	<AG.ColorMode>Farbmodus</AG.ColorMode>
+	<AG.ColorNormal>Normal</AG.ColorNormal>
+	<AG.ColorNormalTooltip>Traditionelles rotes, gelbes, grünes Farbschema.</AG.ColorNormalTooltip>
+	<AG.ColorRPG>RPG</AG.ColorRPG>
+	<AG.ColorRPGTooltip>Farbschema für Itemqualität im RPG-Stil.</AG.ColorRPGTooltip>
+	<AG.HumanlikeGenes>Gene auf Menschenähnliche anwenden</AG.HumanlikeGenes>
+	<AG.HumanlikeGenesTooltip>Verleiht allen menschenähnlichen Kreaturen sowie Tieren Gene.</AG.HumanlikeGenesTooltip>
+	<AG.Omniscient>Gene sichtbar bei allen Tieren</AG.Omniscient>
+	<AG.OmniscientTooltip>Wenn deaktiviert, können nur genetische Details der Tiere der eigenen Kolonie gesehen werden.</AG.OmniscientTooltip>
+	<AnimalGenetics.ShowGenesInAnimalsTab>Gene im Tier-Tab anzeigen</AnimalGenetics.ShowGenesInAnimalsTab>
+	<AnimalGenetics.ShowGenesInAnimalsTabTooltip>Aktiviere diese Option, um die Gene auf der Registerkarte Tier anzuzeigen.</AnimalGenetics.ShowGenesInAnimalsTabTooltip>
+	<AnimalGenetics.ShowGenesInWildlifeTab>Gene im Wildtiere Tab anzeigen</AnimalGenetics.ShowGenesInWildlifeTab>
+	<AnimalGenetics.ShowGenesInWildlifeTabTooltip>Aktiviere diese Option, um die Gene auf der Registerkarte Wildtiere anzuzeigen.</AnimalGenetics.ShowGenesInWildlifeTabTooltip>
+	
+</LanguageData>
