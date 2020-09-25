@@ -38,9 +38,11 @@
 	<AG.Parent>Parent</AG.Parent>
 	<AG.ValueTooltop>Gene value. Applied to animal's base stats.</AG.ValueTooltop>
 	<AG.ParentTooltop>The parental value this animal inherited from. Will be empty for wild or newly generated animals with no parents.</AG.ParentTooltop>
-	
-	
-	
+	<AnimalGenetics.Mother>Mother</AnimalGenetics.Mother>
+	<AnimalGenetics.Father>Father</AnimalGenetics.Father>	
+
+
+
 	<!-- Mod Settings menu -->
 	<AG.Mean>Mean</AG.Mean>
 	<AG.StandardDeviation>Standard Deviation</AG.StandardDeviation>
@@ -61,5 +63,7 @@
 	<AnimalGenetics.ShowGenesInAnimalsTabTooltip>Enable to show the genes in the Animal Tab.</AnimalGenetics.ShowGenesInAnimalsTabTooltip>
 	<AnimalGenetics.ShowGenesInWildlifeTab>Show genes in Wildlife Tab</AnimalGenetics.ShowGenesInWildlifeTab>
 	<AnimalGenetics.ShowGenesInWildlifeTabTooltip>Enable to show the genes in the Wildlife Tab.</AnimalGenetics.ShowGenesInWildlifeTabTooltip>
-	
+	<AnimalGenetics.ShowBothParentsInPawnTab>Show both parents in Pawn Tab</AnimalGenetics.ShowBothParentsInPawnTab>
+	<AnimalGenetics.ShowBothParentsInPawnTabTooltip>Enable to show both parents in Pawn Tab</AnimalGenetics.ShowBothParentsInPawnTabTooltip>
+
 </LanguageData>

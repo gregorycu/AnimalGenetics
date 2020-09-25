@@ -55,12 +55,14 @@ namespace AnimalGenetics
 
             foreach (var stat in affectedStats)
             {
-                var record = new StatRecord();
-
                 float motherValue = motherStats != null ? motherStats.GetFactor(stat).Value : Utilities.SampleGaussian(Controller.Settings.mean, Controller.Settings.stdDev, 0.1f);
                 float fatherValue = fatherStats != null ? fatherStats.GetFactor(stat).Value : Utilities.SampleGaussian(Controller.Settings.mean, Controller.Settings.stdDev, 0.1f);
 
                 bool fromMother = Utilities.SampleInt() % 2 == 0;
+
+                float? ToNullableFloat(bool nullify, float value) => nullify ? null : (float?)value; 
+
+                var record = new StatRecord(ToNullableFloat(mother == null, motherValue), ToNullableFloat(father == null, fatherValue));
 
                 if (fromMother)
                 {

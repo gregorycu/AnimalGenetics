@@ -10,27 +10,27 @@ namespace AnimalGenetics
         {
             return Find.World.GetComponent<AnimalGenetics>().GetFactor(pawn, gene).Value;
         }
+		
 
-        public static String GetInheritString(Pawn pawn, StatDef gene)
+
+        public static StatRecord GetStatRecord(Pawn pawn, StatDef gene)
         {
-            StatRecord.Source parentType = Find.World.GetComponent<AnimalGenetics>().GetFactor(pawn, gene).Parent;
-            if (parentType == StatRecord.Source.None)
-            {
-                return "";
-            }
-            else {
-                string gender = "♂";
-                if (parentType == StatRecord.Source.Mother)
-                {
-                    gender = "♀";
-                }
-                return (Find.World.GetComponent<AnimalGenetics>().GetFactor(pawn, gene).ParentValue * 100).ToString("F0") + "% " + gender;
-            }
+            return Find.World.GetComponent<AnimalGenetics>().GetFactor(pawn, gene);
         }
-        
-        public static float GetInheritValue(Pawn pawn, StatDef gene)
+
+        public static String GetInheritString(StatRecord statRecord)
         {
-            return Find.World.GetComponent<AnimalGenetics>().GetFactor(pawn, gene).ParentValue;
+            StatRecord.Source parentType = statRecord.Parent;
+            if (parentType == StatRecord.Source.None)
+                return "";
+
+            string gender = parentType == StatRecord.Source.Mother ? "♀" : "♂";
+            return (statRecord.ParentValue * 100).ToString("F0") + "% " + gender;
+        }
+
+        public static String GetGenderSymbol(StatRecord.Source source)
+        {
+            return source == StatRecord.Source.Mother ? "♀" : "♂";
         }
 
         public static String GetTooltip(StatDef gene)

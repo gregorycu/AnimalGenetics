@@ -51,16 +51,23 @@ namespace AnimalGenetics
             get { return current.showGenesInWildlifeTab; }
         }
 
+        public bool ShowBothParentsInPawnTab
+        {
+            get { return current.showBothParentsInPawnTab; }
+        }
+
         private struct Settings
         {
             public bool showGenesInAnimalsTab;
             public bool showGenesInWildlifeTab;
+            public bool showBothParentsInPawnTab;
         };
 
         static Settings DefaultValues = new Settings
         {
             showGenesInAnimalsTab = false,
-            showGenesInWildlifeTab = false
+            showGenesInWildlifeTab = false,
+            showBothParentsInPawnTab = false
         };
 
         Settings current = new Settings();
@@ -78,6 +85,7 @@ namespace AnimalGenetics
             Scribe_Values.Look<bool>(ref omniscientMode, "omniscientMode", true);
             Scribe_Values.Look<bool>(ref current.showGenesInAnimalsTab, "showGenesInAnimalsTab", DefaultValues.showGenesInAnimalsTab);
             Scribe_Values.Look<bool>(ref current.showGenesInWildlifeTab, "showGenesInWildlifeTab", DefaultValues.showGenesInWildlifeTab);
+            Scribe_Values.Look<bool>(ref current.showBothParentsInPawnTab, "showBothParentsInPawnTab", DefaultValues.showBothParentsInPawnTab);
         }
 
         public void DoSettingsWindowContents(Rect rect)
@@ -119,6 +127,8 @@ namespace AnimalGenetics
             listingStandardRhs.Begin(rhs);
             listingStandardRhs.CheckboxLabeled("AnimalGenetics.ShowGenesInAnimalsTab".Translate(), ref current.showGenesInAnimalsTab, "AnimalGenetics.ShowGenesInAnimalsTabTooltip".Translate());
             listingStandardRhs.CheckboxLabeled("AnimalGenetics.ShowGenesInWildlifeTab".Translate(), ref current.showGenesInWildlifeTab, "AnimalGenetics.ShowGenesInWildlifeTabTooltip".Translate(), !omniscientMode);
+            listingStandardRhs.CheckboxLabeled("AnimalGenetics.ShowBothParentsInPawnTab".Translate(), ref current.showBothParentsInPawnTab, "AnimalGenetics.ShowBothParentsInPawnTabTooltip".Translate(), !omniscientMode);
+
             listingStandardRhs.End();
 
             Listing_Standard bottom = new Listing_Standard();

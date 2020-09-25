@@ -2,9 +2,38 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using Verse;
 
 namespace AnimalGenetics
 {
+    namespace Utility
+    {
+        class GUI
+        {
+            public static void DrawGeneValueLabel(Rect box, float value, bool strikethrough = false, string extra = "")
+            {
+                TextAnchor oldTextAnchor = Text.Anchor;
+                Color oldColor = UnityEngine.GUI.color;
+
+                Text.Anchor = TextAnchor.MiddleCenter;
+                UnityEngine.GUI.color = Utilities.TextColor(value);
+
+                string text = (value * 100).ToString("F0") + "%" + extra;
+                Widgets.Label(box, text);
+
+                if (strikethrough)
+                {
+                    float halfSize = Text.CalcSize(text).x / 2 + 1;
+                    float midpoint = (box.xMin + box.xMax) / 2;
+
+                    Widgets.DrawLine(new Vector2(midpoint- halfSize, box.y + box.height / 2 - 1), new Vector2(midpoint + halfSize, box.y + box.height / 2 - 1), new Color(1f, 1f, 1f, 0.5f), 1);
+                }
+
+                UnityEngine.GUI.color = oldColor;
+                Text.Anchor = oldTextAnchor;
+            }
+        };
+    }
     class MultiLerp
     {
         public MultiLerp(KeyValuePair<float, Color>[] points)
