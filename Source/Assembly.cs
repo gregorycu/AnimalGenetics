@@ -88,6 +88,26 @@ namespace AnimalGenetics
             }
         }
 
+
+        [HarmonyPatch(typeof(Hediff_Pregnant), nameof(Hediff_Pregnant.DoBirthSpawn))]
+        public static class DoBirthSpawn_Patch
+        {
+            public static Pawn Mother = null;
+            public static Pawn Father = null;
+
+            static public void Prefix(Pawn mother, Pawn father)
+            {
+                Mother = mother;
+                Father = father;
+            }
+
+            static public void Postfix()
+            {
+                Mother = null;
+                Father = null;
+            }
+        }
+
         [HarmonyPatch(typeof(MassUtility), nameof(MassUtility.Capacity))]
         public static class MassUtility_Capacity_Patch
         {
