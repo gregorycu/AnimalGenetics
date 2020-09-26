@@ -48,6 +48,12 @@ namespace AnimalGenetics
             var mother = pawn.GetMother();
             var father = pawn.GetFather();
 
+            if (mother == null)
+                mother = Assembly.DoBirthSpawn_Patch.Mother;
+
+            if (father == null)
+                father = Assembly.DoBirthSpawn_Patch.Father;
+
             var motherStats = mother == null ? null : GetData(mother);
             var fatherStats = father == null ? null : GetData(father);
 

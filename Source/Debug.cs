@@ -18,6 +18,10 @@ namespace AnimalGenetics
             if (males.Count() != 1 || females.Count() != 1)
                 return;
 
+            Hediff_Pregnant hediff_Pregnant = (Hediff_Pregnant)HediffMaker.MakeHediff(RimWorld.HediffDefOf.Pregnant, females.First(), null);
+            hediff_Pregnant.father = males.First();
+            females.First().health.AddHediff(hediff_Pregnant, null, null, null);
+
             Hediff_Pregnant.DoBirthSpawn(females.First(), males.First());
             DebugActionsUtility.DustPuffFrom(females.First());
         }
