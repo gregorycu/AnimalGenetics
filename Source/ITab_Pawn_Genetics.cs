@@ -65,7 +65,7 @@ namespace AnimalGenetics
 
                 Widgets.Label(new Rect(20f, curY, (rect.x + rect.width * 0.4f) - 20f, 20f), Constants.GetLabel(stat));
 
-                Utility.GUI.DrawGeneValueLabel(new Rect(rect.x + rect.width * 0.4f, curY, rect.width * 0.2f, 20f), Genes.GetStatRecord(pawn, stat).Value);
+                Utility.GUI.DrawGeneValueLabel(new Rect(rect.x + rect.width * 0.4f, curY, rect.width * 0.2f, 20f), pawn.AnimalGenetics().GeneRecords[stat].Value);
 
                 curY += 20;
             }
@@ -96,16 +96,20 @@ namespace AnimalGenetics
 
             curY += 20;
 
+            var data = pawn.AnimalGenetics();
+
+            var statsGroup = data.GeneRecords;
+
             var stats = Constants.affectedStats.Where((StatDef stat) => stat != AnimalGenetics.GatherYield || Genes.Gatherable(pawn));
             foreach (var stat in stats)
             {
-                var statRecord = Genes.GetStatRecord(pawn, stat);
+                var statRecord = statsGroup[stat];
 
                 if (statRecord.MotherValue != null)
-                    Utility.GUI.DrawGeneValueLabel(new Rect(rect.x + rect.width * 0.6f, curY, rect.width * 0.2f, 20f), (float)statRecord.MotherValue, statRecord.Parent != StatRecord.Source.Mother);
+                    Utility.GUI.DrawGeneValueLabel(new Rect(rect.x + rect.width * 0.6f, curY, rect.width * 0.2f, 20f), (float)statRecord.MotherValue, statRecord.Parent != GeneRecord.Source.Mother);
 
                 if (statRecord.FatherValue != null)
-                    Utility.GUI.DrawGeneValueLabel(new Rect(rect.x + rect.width * 0.8f, curY, rect.width * 0.2f, 20f), (float)statRecord.FatherValue, statRecord.Parent != StatRecord.Source.Father);
+                    Utility.GUI.DrawGeneValueLabel(new Rect(rect.x + rect.width * 0.8f, curY, rect.width * 0.2f, 20f), (float)statRecord.FatherValue, statRecord.Parent != GeneRecord.Source.Father);
 
                 curY += 20f;
             }
@@ -126,8 +130,8 @@ namespace AnimalGenetics
             var stats = Constants.affectedStats.Where((StatDef stat) => stat != AnimalGenetics.GatherYield || Genes.Gatherable(pawn));
             foreach (var stat in stats)
             {
-                var statRecord = Genes.GetStatRecord(pawn, stat);
-                if (statRecord.Parent != StatRecord.Source.None)
+                var statRecord = pawn.AnimalGenetics().GeneRecords[stat];
+                if (statRecord.Parent != GeneRecord.Source.None)
                 {
                     string extra = Genes.GetGenderSymbol(statRecord.Parent);
                     Utility.GUI.DrawGeneValueLabel(new Rect(rect.x + rect.width * 0.6f, curY, rect.width * 0.2f, 20f), (float)statRecord.ParentValue, false, extra);

@@ -8,29 +8,22 @@ namespace AnimalGenetics
     {
         public static float GetGene(Pawn pawn, StatDef gene)
         {
-            return Find.World.GetComponent<AnimalGenetics>().GetFactor(pawn, gene).Value;
+            return pawn.AnimalGenetics().GeneRecords[gene].Value;
         }
 		
-
-
-        public static StatRecord GetStatRecord(Pawn pawn, StatDef gene)
+        public static String GetInheritString(GeneRecord statRecord)
         {
-            return Find.World.GetComponent<AnimalGenetics>().GetFactor(pawn, gene);
-        }
-
-        public static String GetInheritString(StatRecord statRecord)
-        {
-            StatRecord.Source parentType = statRecord.Parent;
-            if (parentType == StatRecord.Source.None)
+            GeneRecord.Source parentType = statRecord.Parent;
+            if (parentType == GeneRecord.Source.None)
                 return "";
 
-            string gender = parentType == StatRecord.Source.Mother ? "♀" : "♂";
+            string gender = parentType == GeneRecord.Source.Mother ? "♀" : "♂";
             return (statRecord.ParentValue * 100).ToString("F0") + "% " + gender;
         }
 
-        public static String GetGenderSymbol(StatRecord.Source source)
+        public static String GetGenderSymbol(GeneRecord.Source source)
         {
-            return source == StatRecord.Source.Mother ? "♀" : "♂";
+            return source == GeneRecord.Source.Mother ? "♀" : "♂";
         }
 
         public static String GetTooltip(StatDef gene)

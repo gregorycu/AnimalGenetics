@@ -3,9 +3,165 @@ using RimWorld;
 using RimWorld.Planet;
 using Verse;
 using UnityEngine;
+using System.Linq;
+using AnimalGenetics;
 
 namespace AnimalGenetics
 {
+    public static class Extensions
+    {
+        public static GeneticInformation AnimalGenetics(this Pawn pawn)
+        {
+            return pawn.TryGetComp<GeneticInformation>();
+        }
+
+        public static float GetGene(this Pawn pawn, StatDef stat)
+        {
+            return pawn.AnimalGenetics().GeneRecords[stat].Value;
+        }
+    }
+
+    public static class ParentReferences
+    {
+        public class Record
+        {
+            public Pawn mother;
+            public Pawn father;
+        }
+
+        public static Record Pop()
+        {
+            return _Data.Pop();
+        }
+        public static void Push(Record record)
+        {
+            _Data.Push(record);
+        }
+
+        public static Record Peek()
+        {
+            if (_Data.Count == 0)
+                return null;
+            return _Data.Peek();
+        }
+
+        static Stack<Record> _Data = new Stack<Record>();
+    }
+
+    public class GeneticInformation : ThingComp
+    {
+        static List<WeakReference<GeneticInformation>> _Instances = new List<WeakReference<GeneticInformation>>();
+        public static IEnumerable<GeneticInformation> Instances
+        {
+            get
+            {
+                _Instances = _Instances.Where((WeakReference<GeneticInformation> wr) => wr.IsAlive).ToList();
+                return _Instances.Where((WeakReference<GeneticInformation> wr) => wr.Target._geneRecords != null)
+                                 .Select((WeakReference<GeneticInformation> wr) => wr.Target);
+            }
+        }
+        public GeneticInformation()
+        {
+            _Instances.Add(new WeakReference<GeneticInformation>(this));
+        }
+
+        Dictionary<StatDef, GeneRecord> _geneRecords = null;
+        public Dictionary<StatDef, GeneRecord> GeneRecords
+        {
+            get
+            {
+                if (_geneRecords == null)
+                    Generate();
+                return _geneRecords;
+            }
+        }
+
+        public override void Initialize(CompProperties props)
+        {
+            base.Initialize(props);
+
+            // If we have a record of the parent data, generate stats now
+            if (ParentReferences.Peek() != null)
+                Generate(ParentReferences.Peek().mother, ParentReferences.Peek().father);
+        }
+
+        public override void PostExposeData()
+        {
+            base.PostExposeData();
+            if (!(parent is Pawn pawn))
+                return;
+
+            if (Scribe.EnterNode("animalGenetics"))
+            {
+                Scribe_Collections.Look(ref _geneRecords, "geneRecords", LookMode.Def, LookMode.Deep);
+                Scribe.ExitNode();
+            }
+
+            // Backwards Compat Load
+            if (Verse.Scribe.mode != LoadSaveMode.Saving)
+            {
+                if (_geneRecords == null)
+                {
+                    var animalGeneticsWorldComponent = Find.World.GetComponent<AnimalGenetics>();
+                    if (animalGeneticsWorldComponent.BackwardsCompatData.ContainsKey(pawn))
+                    {
+                        _geneRecords = new Dictionary<StatDef, GeneRecord>(animalGeneticsWorldComponent.BackwardsCompatData[pawn].Data);
+                    }
+                }
+            }
+        }
+
+        public void Generate(Pawn mother = null, Pawn father = null)
+        {
+            if (!(parent is Pawn pawn))
+                return;
+
+            if (!Genes.EffectsThing(parent))
+                return;
+
+            _geneRecords = new Dictionary<StatDef, GeneRecord>();
+
+            if (mother == null)
+                mother = pawn.GetMother();
+
+            if (father == null)
+                father = pawn.GetFather();
+
+            var motherStats = mother?.AnimalGenetics().GeneRecords;
+            var fatherStats = father?.AnimalGenetics().GeneRecords;
+
+            var affectedStats = Constants.affectedStats;
+
+            foreach (var stat in affectedStats)
+            {
+                float motherValue = motherStats != null ? motherStats[stat].Value : Utilities.SampleGaussian(Controller.Settings.mean, Controller.Settings.stdDev, 0.1f);
+                float fatherValue = fatherStats != null ? fatherStats[stat].Value : Utilities.SampleGaussian(Controller.Settings.mean, Controller.Settings.stdDev, 0.1f);
+
+                bool fromMother = Utilities.SampleInt() % 2 == 0;
+
+                float? ToNullableFloat(bool nullify, float value) => nullify ? null : (float?)value;
+
+                var record = new GeneRecord(ToNullableFloat(mother == null, motherValue), ToNullableFloat(father == null, fatherValue));
+
+                if (fromMother)
+                {
+                    record.ParentValue = motherValue;
+                    record.Parent = motherStats != null ? GeneRecord.Source.Mother : GeneRecord.Source.None;
+                }
+                else
+                {
+                    record.ParentValue = fatherValue;
+                    record.Parent = fatherStats != null ? GeneRecord.Source.Father : GeneRecord.Source.None;
+                }
+
+                record.Value = record.ParentValue + Utilities.SampleGaussian(Controller.Settings.mutationMean, Controller.Settings.mutationStdDev);
+                record.Value = Mathf.Max(record.Value, 0.1f);
+
+                _geneRecords[stat] = record;
+            }
+        }
+    };
+
     public class AnimalGenetics : WorldComponent
     {
         public static StatDef GatherYield = new StatDef { defName = "GatherYield", description = "AG.GatherYieldDesc".Translate(), alwaysHide = true };
@@ -14,80 +170,25 @@ namespace AnimalGenetics
 
         public AnimalGenetics(World world) : base(world)
         {
-
         }
 
         public override void ExposeData()
         {
-            Scribe_Collections.Look(ref _Data, "data", LookMode.Reference, LookMode.Deep, ref _Things, ref _StatGroups);
-        }
-
-        Dictionary<Thing, StatGroup> _Data = new Dictionary<Thing, StatGroup>();
-        List<Thing> _Things = new List<Thing>();
-        List<StatGroup> _StatGroups = new List<StatGroup>();
-
-        private StatGroup GetData(Pawn pawn)
-        {
-            if (!_Data.ContainsKey(pawn))
-                _Data[pawn] = GenerateStatsGroup(pawn);
-            return _Data[pawn];
-        }
-
-        public StatRecord GetFactor(Pawn pawn, StatDef stat)
-        {
-            return GetData(pawn).GetFactor(stat);
-        }
-
-        public StatGroup GenerateStatsGroup(Pawn pawn)
-        {
-            StatGroup toReturn = new StatGroup();
-
-            if (!Genes.EffectsThing(pawn))
-                return toReturn;
-
-            var mother = pawn.GetMother();
-            var father = pawn.GetFather();
-
-            if (mother == null)
-                mother = Assembly.DoBirthSpawn_Patch.Mother;
-
-            if (father == null)
-                father = Assembly.DoBirthSpawn_Patch.Father;
-
-            var motherStats = mother == null ? null : GetData(mother);
-            var fatherStats = father == null ? null : GetData(father);
-
-            var affectedStats = Constants.affectedStats;
-
-            foreach (var stat in affectedStats)
+            if (Verse.Scribe.mode == LoadSaveMode.Saving)
             {
-                float motherValue = motherStats != null ? motherStats.GetFactor(stat).Value : Utilities.SampleGaussian(Controller.Settings.mean, Controller.Settings.stdDev, 0.1f);
-                float fatherValue = fatherStats != null ? fatherStats.GetFactor(stat).Value : Utilities.SampleGaussian(Controller.Settings.mean, Controller.Settings.stdDev, 0.1f);
-
-                bool fromMother = Utilities.SampleInt() % 2 == 0;
-
-                float? ToNullableFloat(bool nullify, float value) => nullify ? null : (float?)value; 
-
-                var record = new StatRecord(ToNullableFloat(mother == null, motherValue), ToNullableFloat(father == null, fatherValue));
-
-                if (fromMother)
-                {
-                    record.ParentValue = motherValue;
-                    record.Parent = motherStats != null ? StatRecord.Source.Mother : StatRecord.Source.None;
-                }
-                else
-                {
-                    record.ParentValue = fatherValue;
-                    record.Parent = fatherStats != null ? StatRecord.Source.Father : StatRecord.Source.None;
-                }
-
-                record.Value = record.ParentValue + Utilities.SampleGaussian(Controller.Settings.mutationMean, Controller.Settings.mutationStdDev);
-                record.Value = Mathf.Max(record.Value, 0.1f);
- 
-                toReturn.Data[stat] = record;
+                BackwardsCompatData = new Dictionary<Thing, StatGroup>();
+                _Things = new List<Thing>();
+                _StatGroups = new List<StatGroup>();
+                System.GC.Collect();
+                foreach (GeneticInformation gi in GeneticInformation.Instances)
+                    BackwardsCompatData[gi.parent] = new StatGroup(gi);
             }
 
-            return toReturn;
+            Scribe_Collections.Look(ref BackwardsCompatData, "data", LookMode.Reference, LookMode.Deep, ref _Things, ref _StatGroups);
         }
+
+        public Dictionary<Thing, StatGroup> BackwardsCompatData = new Dictionary<Thing, StatGroup>();
+        List<Thing> _Things = new List<Thing>();
+        List<StatGroup> _StatGroups = new List<StatGroup>();
     }
 }

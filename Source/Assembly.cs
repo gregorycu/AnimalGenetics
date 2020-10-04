@@ -92,19 +92,14 @@ namespace AnimalGenetics
         [HarmonyPatch(typeof(Hediff_Pregnant), nameof(Hediff_Pregnant.DoBirthSpawn))]
         public static class DoBirthSpawn_Patch
         {
-            public static Pawn Mother = null;
-            public static Pawn Father = null;
-
             static public void Prefix(Pawn mother, Pawn father)
             {
-                Mother = mother;
-                Father = father;
+                ParentReferences.Push(new ParentReferences.Record { mother = mother, father = father });
             }
 
             static public void Postfix()
             {
-                Mother = null;
-                Father = null;
+                ParentReferences.Pop();
             }
         }
 

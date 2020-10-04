@@ -4,18 +4,18 @@ using Verse;
 
 namespace AnimalGenetics
 {
-    public class StatRecord : IExposable
+    public class GeneRecord : IExposable
     {
-        public StatRecord()
+        public GeneRecord()
         {
         }
-        public StatRecord(float? motherValue, float? fatherValue)
+        public GeneRecord(float? motherValue, float? fatherValue)
         {
             _motherValue = motherValue;
             _fatherValue = fatherValue;
             Value = 1.0f;
             ParentValue = 1.0f;
-            Parent = StatRecord.Source.None;
+            Parent = Source.None;
         }
 
         public float Value;
@@ -66,8 +66,13 @@ namespace AnimalGenetics
         }
     };
 
+    // Legacy Class - Still used for backwards compat
     public class StatGroup : IExposable
     {
+        public StatGroup(GeneticInformation geneticInformation)
+        {
+            Data = new Dictionary<StatDef, GeneRecord>(geneticInformation.GeneRecords);
+        }
         public StatGroup()
         {
         }
@@ -76,15 +81,9 @@ namespace AnimalGenetics
         {
             Scribe_Collections.Look(ref Data, "values", LookMode.Def, LookMode.Deep);
         }
-        public StatRecord GetFactor(StatDef stat)
-        {
-            if (!Data.ContainsKey(stat))
-                return DefaultStat;
-            return Data[stat];
-        }
 
-        public static StatRecord DefaultStat = new StatRecord(null, null);
-        public Dictionary<StatDef, StatRecord> Data = new Dictionary<StatDef, StatRecord>();
+        public static GeneRecord DefaultStat = new GeneRecord(null, null);
+        public Dictionary<StatDef, GeneRecord> Data = new Dictionary<StatDef, GeneRecord>();
     }
 
 }

@@ -28,15 +28,15 @@ namespace AnimalGenetics
             if (!Controller.Settings.omniscientMode && pawn.Faction != Faction.OfPlayer)
                 return null;
 
-            var statRecord = Find.World.GetComponent<AnimalGenetics>().GetFactor(pawn, _StatDef); 
+            var statRecord = pawn.AnimalGenetics().GeneRecords[_StatDef]; 
 
             if (statRecord == null)
                 return null;
 
             string postfix = "";
-            if (statRecord.Parent != StatRecord.Source.None)
+            if (statRecord.Parent != GeneRecord.Source.None)
             {
-                string icon = statRecord.Parent == StatRecord.Source.Mother ? "♀" : "♂";
+                string icon = statRecord.Parent == GeneRecord.Source.Mother ? "♀" : "♂";
                 postfix = " (x" + GenText.ToStringPercent(statRecord.ParentValue) + icon + ")";
             }
 
@@ -53,7 +53,7 @@ namespace AnimalGenetics
 
             Pawn pawn = req.Thing as Pawn;
 
-            var statRecord = Find.World.GetComponent<AnimalGenetics>().GetFactor(pawn, _StatDef);
+            var statRecord = pawn.AnimalGenetics().GeneRecords[_StatDef];
             return statRecord == null ? 1.0f : statRecord.Value;
         }
 
