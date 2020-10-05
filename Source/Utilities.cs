@@ -121,5 +121,10 @@ namespace AnimalGenetics
         {
             return RandGen.Next();
         }
+
+        public static double SampleDouble()
+        {
+            return RandGen.NextDouble();
+        }
     }
 }

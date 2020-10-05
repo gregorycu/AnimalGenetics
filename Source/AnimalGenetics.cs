@@ -5,6 +5,7 @@ using Verse;
 using UnityEngine;
 using System.Linq;
 using AnimalGenetics;
+using Math = System.Math;
 
 namespace AnimalGenetics
 {
@@ -137,22 +138,20 @@ namespace AnimalGenetics
                 float motherValue = motherStats != null ? motherStats[stat].Value : Utilities.SampleGaussian(Controller.Settings.mean, Controller.Settings.stdDev, 0.1f);
                 float fatherValue = fatherStats != null ? fatherStats[stat].Value : Utilities.SampleGaussian(Controller.Settings.mean, Controller.Settings.stdDev, 0.1f);
 
-                bool fromMother = Utilities.SampleInt() % 2 == 0;
+                float highValue = Math.Max(motherValue, fatherValue);
+                float lowValue = Math.Min(motherValue, fatherValue);
+
+                bool useHighValue = Utilities.SampleDouble() < Controller.Settings.BestGeneChance;
 
                 float? ToNullableFloat(bool nullify, float value) => nullify ? null : (float?)value;
 
                 var record = new GeneRecord(ToNullableFloat(mother == null, motherValue), ToNullableFloat(father == null, fatherValue));
+                record.ParentValue = useHighValue ? highValue : lowValue;
 
-                if (fromMother)
-                {
-                    record.ParentValue = motherValue;
+                if (record.ParentValue == motherValue)
                     record.Parent = motherStats != null ? GeneRecord.Source.Mother : GeneRecord.Source.None;
-                }
                 else
-                {
-                    record.ParentValue = fatherValue;
                     record.Parent = fatherStats != null ? GeneRecord.Source.Father : GeneRecord.Source.None;
-                }
 
                 record.Value = record.ParentValue + Utilities.SampleGaussian(Controller.Settings.mutationMean, Controller.Settings.mutationStdDev);
                 record.Value = Mathf.Max(record.Value, 0.1f);

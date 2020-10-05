@@ -65,5 +65,6 @@
 	<AnimalGenetics.ShowGenesInWildlifeTabTooltip>Enable to show the genes in the Wildlife Tab.</AnimalGenetics.ShowGenesInWildlifeTabTooltip>
 	<AnimalGenetics.ShowBothParentsInPawnTab>Show both parents in Pawn Tab</AnimalGenetics.ShowBothParentsInPawnTab>
 	<AnimalGenetics.ShowBothParentsInPawnTabTooltip>Enable to show both parents in Pawn Tab</AnimalGenetics.ShowBothParentsInPawnTabTooltip>
+	<AnimalGenetics.ChanceInheritBestGene>Inherit best gene chance</AnimalGenetics.ChanceInheritBestGene>
 
 </LanguageData>

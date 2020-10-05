@@ -56,18 +56,25 @@ namespace AnimalGenetics
             get { return current.showBothParentsInPawnTab; }
         }
 
+        public double BestGeneChance
+        {
+            get { return current.bestGeneChance; }
+        }
+
         private struct Settings
         {
             public bool showGenesInAnimalsTab;
             public bool showGenesInWildlifeTab;
             public bool showBothParentsInPawnTab;
+            public float bestGeneChance;
         };
 
         static Settings DefaultValues = new Settings
         {
             showGenesInAnimalsTab = false,
             showGenesInWildlifeTab = false,
-            showBothParentsInPawnTab = false
+            showBothParentsInPawnTab = false,
+            bestGeneChance = 0.5f
         };
 
         Settings current = new Settings();
@@ -86,6 +93,7 @@ namespace AnimalGenetics
             Scribe_Values.Look<bool>(ref current.showGenesInAnimalsTab, "showGenesInAnimalsTab", DefaultValues.showGenesInAnimalsTab);
             Scribe_Values.Look<bool>(ref current.showGenesInWildlifeTab, "showGenesInWildlifeTab", DefaultValues.showGenesInWildlifeTab);
             Scribe_Values.Look<bool>(ref current.showBothParentsInPawnTab, "showBothParentsInPawnTab", DefaultValues.showBothParentsInPawnTab);
+            Scribe_Values.Look<float>(ref current.bestGeneChance, "bestGeneChance", DefaultValues.bestGeneChance);
         }
 
         public void DrawGraph(Rect rect, int xMin, int xMax, float mean, float stddev)
@@ -195,10 +203,17 @@ namespace AnimalGenetics
             mutationGraph.height = listingStandard.CurHeight - mutationGraph.y;
 
             listingStandard.Gap(20f);
-            listingStandard.End();
+
 
             generationGraph.y += curY;
             mutationGraph.y += curY;
+
+            listingStandard.Label("AnimalGenetics.ChanceInheritBestGene".Translate() + " : " + (current.bestGeneChance * 100).ToString("F0"));
+            current.bestGeneChance = listingStandard.Slider(current.bestGeneChance, 0.0f, 1.0f);
+
+
+            listingStandard.End();
+
             DrawGraph(generationGraph, 0, 200, mean * 100, stdDev * 100);
             DrawGraph(mutationGraph, -25, 25, mutationMean * 100, mutationStdDev * 100);
 
@@ -226,7 +241,7 @@ namespace AnimalGenetics
             listingStandardRhs.End();
 
             Listing_Standard bottom = new Listing_Standard();
-            Rect bottomRect = new Rect(0, rect2.y + listingStandard2.CurHeight + 20, rect.width, 100);
+            Rect bottomRect = new Rect(0, rect2.y + listingStandard2.CurHeight, rect.width, 100);
             bottom.Begin(bottomRect);
 			if (bottom.ButtonText("AG.DefaultSettings".Translate()))
             {
