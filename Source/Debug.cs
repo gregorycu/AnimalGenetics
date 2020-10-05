@@ -25,6 +25,32 @@ namespace AnimalGenetics
             Hediff_Pregnant.DoBirthSpawn(females.First(), males.First());
             DebugActionsUtility.DustPuffFrom(females.First());
         }
+
+        [DebugAction("General", null, allowedGameStates = AllowedGameStates.PlayingOnMap)]
+        private static void LayEggTogether()
+        {
+            var males = Find.Selector.SelectedPawns.Where(candidate => candidate.gender == Gender.Male);
+            var females = Find.Selector.SelectedPawns.Where(candidate => candidate.gender == Gender.Female);
+
+            if (males.Count() != 1 || females.Count() != 1)
+                return;
+
+            var female = females.First();
+            var eggLayerComp = female.GetComp<RimWorld.CompEggLayer>();
+
+            if (eggLayerComp == null)
+                return;
+
+            eggLayerComp.Fertilize(males.First());
+
+            var egg = eggLayerComp.ProduceEgg();
+            if (egg == null)
+                return;
+
+            GenSpawn.Spawn(egg, female.Position, female.Map, WipeMode.Vanish);
+
+            DebugActionsUtility.DustPuffFrom(female);
+        }
     }
 
     /*
