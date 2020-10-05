@@ -61,6 +61,14 @@ namespace AnimalGenetics
                         //gatherableTypes.Append(AccessTools.TypeByName("CombatExtended.CompMilkableRenameable")); //they all use shearable
                         gatherableTypes.Add(AccessTools.TypeByName("CombatExtended.CompShearableRenameable"));
                     }
+
+                    if (LoadedModManager.RunningModsListForReading.Any(x => x.PackageId == "rim.job.world"))
+                    {
+                        Log.Message("Patched RJW");
+                        h.Patch(AccessTools.Method(AccessTools.TypeByName("rjw.Hediff_BasePregnancy"), "GenerateBabies"),
+                            prefix: new HarmonyMethod(typeof(CompatibilityPatches), nameof(CompatibilityPatches.RJW_GenerateBabies_Prefix)),
+                            postfix: new HarmonyMethod(typeof(CompatibilityPatches), nameof(CompatibilityPatches.RJW_GenerateBabies_Postfix)));
+                    }
                 }
                 catch { }
 
@@ -170,6 +178,16 @@ namespace AnimalGenetics
             public static void AlphaAnimals_get_ResourceAmount_Patch(ref int __result, CompHasGatherableBodyResource __instance)
             {
                 __result = (int)(__result * Genes.GetGene((Pawn)__instance.parent, AnimalGenetics.GatherYield));
+            }
+
+            public static void RJW_GenerateBabies_Prefix(Pawn ___pawn, Pawn ___father)
+            {
+                ParentReferences.Push(new ParentReferences.Record{mother =  ___pawn, father = ___father });
+            }
+
+            public static void RJW_GenerateBabies_Postfix(Pawn ___pawn)
+            {
+                ParentReferences.Pop();
             }
         }
     }
