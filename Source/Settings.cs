@@ -77,8 +77,8 @@ namespace AnimalGenetics
             bestGeneChance = 0.5f
         };
 
-        Settings current = new Settings();
-        Settings previous = new Settings();
+        Settings current = DefaultValues;
+        Settings previous = DefaultValues;
 
         public override void ExposeData()
         {
@@ -94,6 +94,7 @@ namespace AnimalGenetics
             Scribe_Values.Look<bool>(ref current.showGenesInWildlifeTab, "showGenesInWildlifeTab", DefaultValues.showGenesInWildlifeTab);
             Scribe_Values.Look<bool>(ref current.showBothParentsInPawnTab, "showBothParentsInPawnTab", DefaultValues.showBothParentsInPawnTab);
             Scribe_Values.Look<float>(ref current.bestGeneChance, "bestGeneChance", DefaultValues.bestGeneChance);
+            previous = current;
         }
 
         public void DrawGraph(Rect rect, int xMin, int xMax, float mean, float stddev)
