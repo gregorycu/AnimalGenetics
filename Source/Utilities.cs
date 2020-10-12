@@ -87,7 +87,7 @@ namespace AnimalGenetics
         public static Color TextColor(float mod)
         {
             KeyValuePair<float, Color>[] points;
-            points = colorProfiles[Controller.Settings.colorMode];
+            points = colorProfiles[Settings.UI.colorMode];
             var ml = new MultiLerp(points);
 
             return ml.Apply(mod);

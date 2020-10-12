@@ -41,7 +41,7 @@ namespace AnimalGenetics
             if (pawn == null)
                 return false;
 
-            return pawn.RaceProps.Animal || pawn.RaceProps.Humanlike && Controller.Settings.humanMode;
+            return pawn.RaceProps.Animal || pawn.RaceProps.Humanlike && Settings.Core.humanMode;
         }
         
         public static bool Gatherable(Pawn pawn)

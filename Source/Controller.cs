@@ -1,25 +1,62 @@
 ﻿using UnityEngine;
 using Verse;
 
+
 namespace AnimalGenetics
 {
-    public class Controller : Mod
+    public static class Settings
     {
-        public static AnimalGeneticsSettings Settings;
-        public Controller(ModContentPack content) : base(content)
+        public static UISettings UI;
+        public static CoreSettings Core
         {
-            Controller.Settings = GetSettings<AnimalGeneticsSettings>();
-            Controller.Settings.sortMode = 1; // set initial sortMode to ascending
+            get { return Find.World.GetComponent<AnimalGenetics>().Settings; }
+        }
+        public static CoreSettings InitialCore;
+    }
+
+    public class CoreMod : Mod
+    {
+        public static CoreSettings InitialSettings;
+
+        public CoreMod(ModContentPack content) : base(content)
+        {
+            Settings.InitialCore = GetSettings<CoreSettings>();
         }
 
         public override void DoSettingsWindowContents(Rect rect)
         {
-            Settings.DoSettingsWindowContents(rect);
+            SettingsUI.DoSettings(ConfigureInitialSettings ? Settings.InitialCore : Settings.Core, rect);
+        }
+
+        public bool ConfigureInitialSettings
+        {
+            get { return Verse.Current.ProgramState == ProgramState.Entry; }
         }
 
         public override string SettingsCategory()
         {
-            return "Animal Genetics";
+            if (ConfigureInitialSettings)
+                return "Animal Genetics - Initial Game Settings";
+            else
+                return "Animal Genetics - Game Settings";
+        }
+    }
+
+    public class UIMod : Mod
+    {
+         public UIMod(ModContentPack content) : base(content)
+            {
+                Settings.UI = GetSettings<UISettings>();
+            }
+
+        public override void DoSettingsWindowContents(Rect rect)
+        {
+            SettingsUI.DoSettings(Settings.UI, rect);
+        }
+
+        public override string SettingsCategory()
+        {
+            return "Animal Genetics - UI Settings";
         }
     }
 }

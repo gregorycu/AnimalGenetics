@@ -82,20 +82,30 @@ namespace AnimalGenetics
                 PatchUI();
             }
 
+            public static class PatchState
+            {
+                public static bool patchedGenesInAnimalsTab = false;
+                public static bool patchedGenesInWildlifeTab = false;
+            }
+
             public static void PatchUI()
             {
-                PawnTableDefOf.Animals.columns = new List<PawnColumnDef>(_DefaultAnimalsPawnTableDefColumns);
-
-                if (Controller.Settings.ShowGenesInAnimalsTab)
-                    PawnTableDefOf.Animals.columns.AddRange(PawnTableColumnsDefOf.Genetics.columns);
-
-                PawnTableDefOf.Wildlife.columns = new List<PawnColumnDef>(_DefaultWildlifePawnTableDefColumns);
-
-                if (Controller.Settings.ShowGenesInWildlifeTab)
-                    PawnTableDefOf.Wildlife.columns.AddRange(PawnTableColumnsDefOf.Genetics.columns);
+                if (PatchState.patchedGenesInAnimalsTab != Settings.UI.showGenesInAnimalsTab)
+                {
+                    PawnTableDefOf.Animals.columns = new List<PawnColumnDef>(_DefaultAnimalsPawnTableDefColumns);
+                    if (Settings.UI.showGenesInAnimalsTab)
+                        PawnTableDefOf.Animals.columns.AddRange(PawnTableColumnsDefOf.Genetics.columns);
+                    PatchState.patchedGenesInAnimalsTab = Settings.UI.showGenesInAnimalsTab;
+                }
+                if (PatchState.patchedGenesInWildlifeTab != Settings.UI.showGenesInWildlifeTab)
+                {
+                    PawnTableDefOf.Wildlife.columns = new List<PawnColumnDef>(_DefaultWildlifePawnTableDefColumns);
+                    if (Settings.UI.showGenesInWildlifeTab)
+                        PawnTableDefOf.Wildlife.columns.AddRange(PawnTableColumnsDefOf.Genetics.columns);
+                    PatchState.patchedGenesInWildlifeTab = Settings.UI.showGenesInWildlifeTab;
+                }
             }
         }
-
 
         [HarmonyPatch(typeof(Hediff_Pregnant), nameof(Hediff_Pregnant.DoBirthSpawn))]
         public static class DoBirthSpawn_Patch

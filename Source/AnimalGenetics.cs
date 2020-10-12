@@ -7,6 +7,8 @@ using System.Linq;
 using AnimalGenetics;
 using Math = System.Math;
 
+using AnimalGeneticsSettings = AnimalGenetics.Settings;
+
 namespace AnimalGenetics
 {
     public static class Extensions
@@ -135,13 +137,13 @@ namespace AnimalGenetics
 
             foreach (var stat in affectedStats)
             {
-                float motherValue = motherStats != null ? motherStats[stat].Value : Utilities.SampleGaussian(Controller.Settings.mean, Controller.Settings.stdDev, 0.1f);
-                float fatherValue = fatherStats != null ? fatherStats[stat].Value : Utilities.SampleGaussian(Controller.Settings.mean, Controller.Settings.stdDev, 0.1f);
+                float motherValue = motherStats != null ? motherStats[stat].Value : Utilities.SampleGaussian(Settings.Core.mean, Settings.Core.stdDev, 0.1f);
+                float fatherValue = fatherStats != null ? fatherStats[stat].Value : Utilities.SampleGaussian(Settings.Core.mean, Settings.Core.stdDev, 0.1f);
 
                 float highValue = Math.Max(motherValue, fatherValue);
                 float lowValue = Math.Min(motherValue, fatherValue);
 
-                bool useHighValue = Utilities.SampleDouble() < Controller.Settings.BestGeneChance;
+                bool useHighValue = Utilities.SampleDouble() < Settings.Core.bestGeneChance;
 
                 float? ToNullableFloat(bool nullify, float value) => nullify ? null : (float?)value;
 
@@ -153,7 +155,7 @@ namespace AnimalGenetics
                 else
                     record.Parent = fatherStats != null ? GeneRecord.Source.Father : GeneRecord.Source.None;
 
-                record.Value = record.ParentValue + Utilities.SampleGaussian(Controller.Settings.mutationMean, Controller.Settings.mutationStdDev);
+                record.Value = record.ParentValue + Utilities.SampleGaussian(Settings.Core.mutationMean, Settings.Core.mutationStdDev);
                 record.Value = Mathf.Max(record.Value, 0.1f);
 
                 _geneRecords[stat] = record;
@@ -163,12 +165,15 @@ namespace AnimalGenetics
 
     public class AnimalGenetics : WorldComponent
     {
+        public CoreSettings Settings = new CoreSettings();
+
         public static StatDef GatherYield = new StatDef { defName = "GatherYield", description = "AG.GatherYieldDesc".Translate(), alwaysHide = true };
         public static StatDef Damage = new StatDef { defName = "Damage", description = "AG.DamageDesc".Translate(),alwaysHide = true };
         public static StatDef Health = new StatDef { defName = "Health", description = "AG.HealthDesc".Translate(), alwaysHide = true };
 
         public AnimalGenetics(World world) : base(world)
         {
+            Settings = (CoreSettings)AnimalGeneticsSettings.InitialCore.Clone();
         }
 
         public override void ExposeData()
@@ -184,6 +189,12 @@ namespace AnimalGenetics
             }
 
             Scribe_Collections.Look(ref BackwardsCompatData, "data", LookMode.Reference, LookMode.Deep, ref _Things, ref _StatGroups);
+
+            if (Scribe.EnterNode("settings"))
+            {
+                Settings.ExposeData();
+                Scribe.ExitNode();
+            }
         }
 
         public Dictionary<Thing, StatGroup> BackwardsCompatData = new Dictionary<Thing, StatGroup>();

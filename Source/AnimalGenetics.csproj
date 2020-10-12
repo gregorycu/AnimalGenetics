@@ -79,6 +79,7 @@
     <Compile Include="PawnColumnWorkers\PawnColumnWorkers_LeatherGene.cs" />
     <Compile Include="PawnColumnWorkers\PawnColumnWorkers_MeatGene.cs" />
     <Compile Include="Settings.cs" />
+    <Compile Include="SettingsUI.cs" />
     <Compile Include="Utilities.cs" />
     <Compile Include="PawnColumnWorkers\PawnColumnWorkers_SpeedGene.cs" />
     <Compile Include="PawnTable_Genetics.cs" />

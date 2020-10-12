@@ -25,7 +25,7 @@ namespace AnimalGenetics
 
             Pawn pawn = req.Thing as Pawn;
 
-            if (!Controller.Settings.omniscientMode && pawn.Faction != Faction.OfPlayer)
+            if (!Settings.Core.omniscientMode && pawn.Faction != Faction.OfPlayer)
                 return null;
 
             var statRecord = pawn.AnimalGenetics().GeneRecords[_StatDef]; 

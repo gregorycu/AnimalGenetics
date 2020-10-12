@@ -17,7 +17,7 @@ namespace AnimalGenetics
 		{
 			get
 			{
-				if (!Controller.Settings.omniscientMode && base.SelPawn.Faction != Faction.OfPlayer)
+				if (!Settings.Core.omniscientMode && base.SelPawn.Faction != Faction.OfPlayer)
                 {
 					return false;
                 }
@@ -70,7 +70,7 @@ namespace AnimalGenetics
                 curY += 20;
             }
 
-            if (Controller.Settings.ShowBothParentsInPawnTab)
+            if (Settings.UI.showBothParentsInPawnTab)
                 curY += DrawBothParentData(rect, headerY, pawn);
             else
                 curY += DrawSingleParentData(rect, headerY, pawn);

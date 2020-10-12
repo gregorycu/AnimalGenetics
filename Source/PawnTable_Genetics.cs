@@ -13,7 +13,7 @@
         }
         protected override IEnumerable<Pawn> PrimarySortFunction(IEnumerable<Pawn> input)
         {
-            switch (Controller.Settings.sortMode)
+            switch (Settings.UI.sortMode)
             {
                 case 1:
                     return from p in input

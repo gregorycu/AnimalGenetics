@@ -80,7 +80,7 @@ namespace AnimalGenetics
 
             float curX = 5f;
             float curX2 = rect.width - 300f;
-            if (!Controller.Settings.humanMode)
+            if (!Settings.Core.humanMode)
             {
                 current.ShowHumans = false;
             }
@@ -88,7 +88,7 @@ namespace AnimalGenetics
 
             //working from left side
             Text.Anchor = TextAnchor.LowerLeft;
-            if (Controller.Settings.humanMode)
+            if (Settings.Core.humanMode)
             {
                 
                 Widgets.CheckboxLabeled(new Rect(curX, 10f, animalsWidth, checkboxHeight), "AG.Animals".Translate(), ref current.ShowAnimals, false, null, null, true);
@@ -96,7 +96,7 @@ namespace AnimalGenetics
                 Widgets.CheckboxLabeled(new Rect(curX, 10f, humanlikesWidth, checkboxHeight), "AG.Humanlikes".Translate(), ref current.ShowHumans, false, null, null, true);
                 curX += humanlikesWidth + gap + 20f; //extra 20 for category gap
             }
-            if (Controller.Settings.omniscientMode)
+            if (Settings.Core.omniscientMode)
             {
                 Widgets.CheckboxLabeled(new Rect(curX, 10f, colonyWidth, checkboxHeight), "AG.Colony".Translate(), ref current.ShowFaction, false, null, null, true);
                 curX += colonyWidth + gap;
@@ -115,10 +115,10 @@ namespace AnimalGenetics
             // Working from right side
             curX2 -= 50f;
             Text.Anchor = TextAnchor.MiddleCenter;
-            if (Widgets.ButtonText(new Rect(curX2, 10f, 42f, 24f), Constants.sortMode[Controller.Settings.sortMode], true, true, true))
+            if (Widgets.ButtonText(new Rect(curX2, 10f, 42f, 24f), Constants.sortMode[Settings.UI.sortMode], true, true, true))
             {
-                Controller.Settings.sortMode += 1;
-                if (Controller.Settings.sortMode >= Constants.sortMode.Count) { Controller.Settings.sortMode = 0; }
+                Settings.UI.sortMode += 1;
+                if (Settings.UI.sortMode >= Constants.sortMode.Count) { Settings.UI.sortMode = 0; }
                 SetDirty();
             }
             curX2 -= 55f;
