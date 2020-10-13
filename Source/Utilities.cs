@@ -60,8 +60,6 @@ namespace AnimalGenetics
 
     public static class Utilities
     {
-        private static System.Random RandGen = new System.Random();
-
         private static KeyValuePair<float, Color>[] pointsRPG = {
             new KeyValuePair<float, Color>(0.80f, Color.gray),
             new KeyValuePair<float, Color>(0.95f, Color.white),
@@ -91,40 +89,6 @@ namespace AnimalGenetics
             var ml = new MultiLerp(points);
 
             return ml.Apply(mod);
-        }
-
-        // Cheers, https://gist.github.com/tansey/1444070
-        public static float SampleGaussian(float mean, float stdDev, float lowerBound)
-        {
-            double x1 = 1 - RandGen.NextDouble();
-            double x2 = 1 - RandGen.NextDouble();
-
-            double y1 = Math.Sqrt(-2.0 * Math.Log(x1)) * Math.Cos(2.0 * Math.PI * x2);
-            float ret = ((float)y1) * stdDev + mean;
-            if (ret < lowerBound)
-            {
-                return lowerBound;
-            }
-            return ret;
-        }
-
-        public static float SampleGaussian(float mean, float stdDev)
-        {
-            double x1 = 1 - RandGen.NextDouble();
-            double x2 = 1 - RandGen.NextDouble();
-
-            double y1 = Math.Sqrt(-2.0 * Math.Log(x1)) * Math.Cos(2.0 * Math.PI * x2);
-            return ((float)y1) * stdDev + mean;
-        }
-
-        public static int SampleInt()
-        {
-            return RandGen.Next();
-        }
-
-        public static double SampleDouble()
-        {
-            return RandGen.NextDouble();
         }
     }
 }

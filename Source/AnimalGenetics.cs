@@ -137,25 +137,23 @@ namespace AnimalGenetics
 
             foreach (var stat in affectedStats)
             {
-                float motherValue = motherStats != null ? motherStats[stat].Value : Utilities.SampleGaussian(Settings.Core.mean, Settings.Core.stdDev, 0.1f);
-                float fatherValue = fatherStats != null ? fatherStats[stat].Value : Utilities.SampleGaussian(Settings.Core.mean, Settings.Core.stdDev, 0.1f);
+                float motherValue = motherStats != null ? motherStats[stat].Value : Mathf.Max(Verse.Rand.Gaussian(Settings.Core.mean, Settings.Core.stdDev), 0.1f);
+                float fatherValue = fatherStats != null ? fatherStats[stat].Value : Mathf.Max(Verse.Rand.Gaussian(Settings.Core.mean, Settings.Core.stdDev), 0.1f);
 
                 float highValue = Math.Max(motherValue, fatherValue);
                 float lowValue = Math.Min(motherValue, fatherValue);
 
-                bool useHighValue = Utilities.SampleDouble() < Settings.Core.bestGeneChance;
-
                 float? ToNullableFloat(bool nullify, float value) => nullify ? null : (float?)value;
 
                 var record = new GeneRecord(ToNullableFloat(mother == null, motherValue), ToNullableFloat(father == null, fatherValue));
-                record.ParentValue = useHighValue ? highValue : lowValue;
+                record.ParentValue = Verse.Rand.Chance(Settings.Core.bestGeneChance) ? highValue : lowValue;
 
                 if (record.ParentValue == motherValue)
                     record.Parent = motherStats != null ? GeneRecord.Source.Mother : GeneRecord.Source.None;
                 else
                     record.Parent = fatherStats != null ? GeneRecord.Source.Father : GeneRecord.Source.None;
 
-                record.Value = record.ParentValue + Utilities.SampleGaussian(Settings.Core.mutationMean, Settings.Core.mutationStdDev);
+                record.Value = record.ParentValue + Verse.Rand.Gaussian(Settings.Core.mutationMean, Settings.Core.mutationStdDev);
                 record.Value = Mathf.Max(record.Value, 0.1f);
 
                 _geneRecords[stat] = record;
