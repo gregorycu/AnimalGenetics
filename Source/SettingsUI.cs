@@ -188,5 +188,36 @@ namespace AnimalGenetics
 
             Assembly.AnimalGeneticsAssemblyLoader.PatchUI();
         }
+
+        public static void DoSettings(IntegrationSettings settings, Rect rect)
+        {
+            float curY = 80;
+
+            Rect rect2 = new Rect(0, curY, rect.width / 2 - 10, 250f);
+            Listing_Standard listingStandard2 = new Listing_Standard();
+            listingStandard2.Begin(rect2);
+
+            listingStandard2.Gap(30f);
+
+            TaggedString warning = (settings.ColonyManagerIntegration == ColonyManager.WasPatched)
+                ? new TaggedString("")
+                : new TaggedString(" (") + "AnimalGenetics.NeedsRestart".Translate() + new TaggedString(")");
+
+            listingStandard2.CheckboxLabeled("AnimalGenetics.ColonyManager.Integrate".Translate() + warning, ref settings.ColonyManagerIntegration, "AnimalGenetics.ColonyManager.IntegrateTooltip".Translate());
+
+            listingStandard2.Gap(30f);
+            listingStandard2.End();
+
+            Listing_Standard bottom = new Listing_Standard();
+            Rect bottomRect = new Rect(0, rect2.y + listingStandard2.CurHeight, rect.width, 100);
+            bottom.Begin(bottomRect);
+            if (bottom.ButtonText("AG.DefaultSettings".Translate()))
+            {
+                settings.Reset();
+            }
+            bottom.End();
+
+            Assembly.AnimalGeneticsAssemblyLoader.PatchUI();
+        }
     }
 }

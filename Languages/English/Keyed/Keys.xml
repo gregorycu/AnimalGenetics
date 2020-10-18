@@ -66,5 +66,14 @@
 	<AnimalGenetics.ShowBothParentsInPawnTab>Show both parents in Pawn Tab</AnimalGenetics.ShowBothParentsInPawnTab>
 	<AnimalGenetics.ShowBothParentsInPawnTabTooltip>Enable to show both parents in Pawn Tab</AnimalGenetics.ShowBothParentsInPawnTabTooltip>
 	<AnimalGenetics.ChanceInheritBestGene>Inherit best gene chance</AnimalGenetics.ChanceInheritBestGene>
+	<AnimalGenetics.NeedsRestart>Needs restart</AnimalGenetics.NeedsRestart>
+
+	<AnimalGenetics.ColonyManager.IntegrateTooltip>Check to use Animal Genetics and Colony Manager together</AnimalGenetics.ColonyManager.IntegrateTooltip>
+	<AnimalGenetics.ColonyManager.UseWith>Use with...</AnimalGenetics.ColonyManager.UseWith>
+	<AnimalGenetics.ColonyManager.GeneImportance>Gene importance</AnimalGenetics.ColonyManager.GeneImportance>
+	<AnimalGenetics.ColonyManager.Integrate>Integrate With Colony Manager</AnimalGenetics.ColonyManager.Integrate>
+	<AnimalGenetics.ColonyManager.Description>When animals are to be designated for taming or butchering, use AnimalGenetics to select an animal</AnimalGenetics.ColonyManager.Description>
+	<AnimalGenetics.ColonyManager.TamingTooltip>Use gene preferences to determine animals that should be tamed</AnimalGenetics.ColonyManager.TamingTooltip>
+    <AnimalGenetics.ColonyManager.ButcheringTooltip>Use gene preferences to determine animals that should NOT be butchered</AnimalGenetics.ColonyManager.ButcheringTooltip>
 
 </LanguageData>

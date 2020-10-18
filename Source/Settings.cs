@@ -82,4 +82,30 @@ namespace AnimalGenetics
             Scribe_Values.Look(ref showBothParentsInPawnTab, "showBothParentsInPawnTab", defaults.showBothParentsInPawnTab);
         }
     }
+
+    public class IntegrationSettings : ModSettings, ICloneable
+    {
+
+        public bool ColonyManagerIntegration;
+        public IntegrationSettings()
+        {
+            Reset();
+        }
+
+        public void Reset()
+        {
+            ColonyManagerIntegration = false;
+        }
+
+        public object Clone()
+        {
+            return this.MemberwiseClone();
+        }
+
+        public override void ExposeData()
+        {
+            var defaults = new IntegrationSettings();
+            Scribe_Values.Look(ref ColonyManagerIntegration, "colonyManagerIntegration", defaults.ColonyManagerIntegration);
+        }
+    }
 }

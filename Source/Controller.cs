@@ -7,6 +7,7 @@ namespace AnimalGenetics
     public static class Settings
     {
         public static UISettings UI;
+        public static IntegrationSettings Integration;
         public static CoreSettings Core
         {
             get { return Find.World.GetComponent<AnimalGenetics>().Settings; }
@@ -57,6 +58,24 @@ namespace AnimalGenetics
         public override string SettingsCategory()
         {
             return "Animal Genetics - UI Settings";
+        }
+    }
+
+    public class IntegrationMod : Mod
+    {
+        public IntegrationMod(ModContentPack content) : base(content)
+        {
+            Settings.Integration = GetSettings<IntegrationSettings>();
+        }
+
+        public override void DoSettingsWindowContents(Rect rect)
+        {
+            SettingsUI.DoSettings(Settings.Integration, rect);
+        }
+
+        public override string SettingsCategory()
+        {
+            return "Animal Genetics - Integration Settings";
         }
     }
 }

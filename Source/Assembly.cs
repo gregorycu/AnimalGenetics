@@ -72,6 +72,9 @@ namespace AnimalGenetics
                 }
                 catch { }
 
+                if (ColonyManager.ModRunning && Settings.Integration.ColonyManagerIntegration)
+                    ColonyManager.Patch(h);
+
                 _DefaultAnimalsPawnTableDefColumns = new List<PawnColumnDef>(PawnTableDefOf.Animals.columns);
                 _DefaultWildlifePawnTableDefColumns = new List<PawnColumnDef>(PawnTableDefOf.Wildlife.columns);
 
