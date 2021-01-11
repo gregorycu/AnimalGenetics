@@ -69,6 +69,13 @@ namespace AnimalGenetics
                             prefix: new HarmonyMethod(typeof(CompatibilityPatches), nameof(CompatibilityPatches.RJW_GenerateBabies_Prefix)),
                             postfix: new HarmonyMethod(typeof(CompatibilityPatches), nameof(CompatibilityPatches.RJW_GenerateBabies_Postfix)));
                     }
+                    if (LoadedModManager.RunningModsListForReading.Any(x => x.PackageId == "taurea.neutroproduction"))
+                    {
+                        Log.Message("Animal Genetics: Patched Chemicals & Neutroamine");
+                        h.Patch(AccessTools.Method(AccessTools.TypeByName("Chemical_Extraction.CompExtractable"), "get_ResourceAmount"),
+                            postfix: new HarmonyMethod(typeof(CompatibilityPatches), nameof(CompatibilityPatches.ChemicalsAndNeutroamine_get_ResourceAmountPatch)));
+                        gatherableTypes.Add(AccessTools.TypeByName("Chemical_Extraction.CompExtractable"));
+                    }
                 }
                 catch { }
 
@@ -198,6 +205,11 @@ namespace AnimalGenetics
             public static void RJW_GenerateBabies_Postfix(Pawn ___pawn)
             {
                 ParentReferences.Pop();
+            }
+
+            public static void ChemicalsAndNeutroamine_get_ResourceAmountPatch(ref int __result, CompHasGatherableBodyResource __instance)
+            {
+                __result = (int)(__result * Genes.GetGene((Pawn)__instance.parent, AnimalGenetics.GatherYield));
             }
         }
     }
