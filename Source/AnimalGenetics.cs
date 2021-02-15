@@ -6,6 +6,7 @@ using UnityEngine;
 using System.Linq;
 using AnimalGenetics;
 using Math = System.Math;
+using Multiplayer.API;
 
 using AnimalGeneticsSettings = AnimalGenetics.Settings;
 
@@ -116,6 +117,13 @@ namespace AnimalGenetics
 
         public void Generate(Pawn mother = null, Pawn father = null)
         {
+            int RandSeed = 0;
+            if (MP.IsInMultiplayer)
+            {
+                Rand.PushState();
+                RandSeed = Rand.RangeInclusive(-100000, 100000);
+                Rand.PopState();
+            }
             if (!(parent is Pawn pawn))
                 return;
 
@@ -137,6 +145,7 @@ namespace AnimalGenetics
 
             foreach (var stat in affectedStats)
             {
+                if (MP.IsInMultiplayer) Rand.PushState(RandSeed);
                 float motherValue = motherStats != null ? motherStats[stat].Value : Mathf.Max(Verse.Rand.Gaussian(Settings.Core.mean, Settings.Core.stdDev), 0.1f);
                 float fatherValue = fatherStats != null ? fatherStats[stat].Value : Mathf.Max(Verse.Rand.Gaussian(Settings.Core.mean, Settings.Core.stdDev), 0.1f);
 
@@ -157,6 +166,11 @@ namespace AnimalGenetics
                 record.Value = Mathf.Max(record.Value, 0.1f);
 
                 _geneRecords[stat] = record;
+                if (MP.IsInMultiplayer)
+                {
+                    Rand.PopState();
+                    RandSeed += 1;
+                }
             }
         }
     };
