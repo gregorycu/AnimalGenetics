@@ -15,12 +15,22 @@ namespace AnimalGenetics
     {
         public static GeneticInformation AnimalGenetics(this Pawn pawn)
         {
-            return pawn.TryGetComp<GeneticInformation>();
+            var comp = pawn.TryGetComp<GeneticInformation>();
+            if (comp == null)
+                Log.Warning("Could not get comp for pawn: " + pawn.ToStringSafe());
+            return comp;
         }
 
         public static float GetGene(this Pawn pawn, StatDef stat)
         {
-            return pawn.AnimalGenetics().GeneRecords[stat].Value;
+            var comp = pawn.TryGetComp<GeneticInformation>();
+            if (comp == null)
+                return 1.0f;
+            return comp.GeneRecords[stat].Value;
+        }
+        public static GeneRecord GetGeneRecord(this Pawn pawn, StatDef stat)
+        {
+            return pawn.TryGetComp<GeneticInformation>()?.GeneRecords[stat];
         }
     }
 
@@ -130,8 +140,8 @@ namespace AnimalGenetics
             if (father == null)
                 father = pawn.GetFather();
 
-            var motherStats = mother?.AnimalGenetics().GeneRecords;
-            var fatherStats = father?.AnimalGenetics().GeneRecords;
+            var motherStats = mother?.AnimalGenetics()?.GeneRecords;
+            var fatherStats = father?.AnimalGenetics()?.GeneRecords;
 
             var affectedStats = Constants.affectedStats;
 

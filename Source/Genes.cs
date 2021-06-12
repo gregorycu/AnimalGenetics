@@ -8,19 +8,9 @@ namespace AnimalGenetics
     {
         public static float GetGene(Pawn pawn, StatDef gene)
         {
-            return pawn.AnimalGenetics().GeneRecords[gene].Value;
+            return pawn.GetGene(gene);
         }
 		
-        public static String GetInheritString(GeneRecord statRecord)
-        {
-            GeneRecord.Source parentType = statRecord.Parent;
-            if (parentType == GeneRecord.Source.None)
-                return "";
-
-            string gender = parentType == GeneRecord.Source.Mother ? "♀" : "♂";
-            return (statRecord.ParentValue * 100).ToString("F0") + "% " + gender;
-        }
-
         public static String GetGenderSymbol(GeneRecord.Source source)
         {
             return source == GeneRecord.Source.Mother ? "♀" : "♂";

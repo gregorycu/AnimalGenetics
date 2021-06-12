@@ -65,7 +65,7 @@ namespace AnimalGenetics
 
                 Widgets.Label(new Rect(20f, curY, (rect.x + rect.width * 0.4f) - 20f, 20f), Constants.GetLabel(stat));
 
-                Utility.GUI.DrawGeneValueLabel(new Rect(rect.x + rect.width * 0.4f, curY, rect.width * 0.2f, 20f), pawn.AnimalGenetics().GeneRecords[stat].Value);
+                Utility.GUI.DrawGeneValueLabel(new Rect(rect.x + rect.width * 0.4f, curY, rect.width * 0.2f, 20f), pawn.GetGene(stat));
 
                 curY += 20;
             }
@@ -96,9 +96,9 @@ namespace AnimalGenetics
 
             curY += 20;
 
-            var data = pawn.AnimalGenetics();
-
-            var statsGroup = data.GeneRecords;
+            var statsGroup = pawn.AnimalGenetics()?.GeneRecords;
+            if (statsGroup == null)
+                return 0;
 
             var stats = Constants.affectedStats.Where((StatDef stat) => stat != AnimalGenetics.GatherYield || Genes.Gatherable(pawn));
             foreach (var stat in stats)
@@ -130,7 +130,7 @@ namespace AnimalGenetics
             var stats = Constants.affectedStats.Where((StatDef stat) => stat != AnimalGenetics.GatherYield || Genes.Gatherable(pawn));
             foreach (var stat in stats)
             {
-                var statRecord = pawn.AnimalGenetics().GeneRecords[stat];
+                var statRecord = pawn.GetGeneRecord(stat);
                 if (statRecord.Parent != GeneRecord.Source.None)
                 {
                     string extra = Genes.GetGenderSymbol(statRecord.Parent);

@@ -23,12 +23,13 @@ namespace AnimalGenetics
             if (!Genes.EffectsThing(req.Thing))
                 return null;
 
-            Pawn pawn = req.Thing as Pawn;
+            if (!(req.Thing is Pawn pawn))
+                return "";
 
             if (!Settings.Core.omniscientMode && pawn.Faction != Faction.OfPlayer)
                 return null;
 
-            var statRecord = pawn.AnimalGenetics().GeneRecords[_StatDef]; 
+            var statRecord = pawn.GetGeneRecord(_StatDef); 
 
             if (statRecord == null)
                 return null;
@@ -53,7 +54,10 @@ namespace AnimalGenetics
 
             Pawn pawn = req.Thing as Pawn;
 
-            var statRecord = pawn.AnimalGenetics().GeneRecords[_StatDef];
+            if (pawn == null)
+                Log.Error(req.Thing.ToStringSafe() +  " is not a Pawn");
+
+            var statRecord = pawn.GetGeneRecord(_StatDef);
             return statRecord == null ? 1.0f : statRecord.Value;
         }
 
