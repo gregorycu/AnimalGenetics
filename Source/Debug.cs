@@ -18,12 +18,35 @@ namespace AnimalGenetics
             if (males.Count() != 1 || females.Count() != 1)
                 return;
 
+            Hediff_Pregnant.DoBirthSpawn(females.First(), males.First());
+            DebugActionsUtility.DustPuffFrom(females.First());
+        }
+
+        [DebugAction("General", null, allowedGameStates = AllowedGameStates.PlayingOnMap)]
+        private static void MakePregnancyTogether()
+        {
+            var males = Find.Selector.SelectedPawns.Where(candidate => candidate.gender == Gender.Male);
+            var females = Find.Selector.SelectedPawns.Where(candidate => candidate.gender == Gender.Female);
+
+            if (males.Count() != 1 || females.Count() != 1)
+                return;
+
             Hediff_Pregnant hediff_Pregnant = (Hediff_Pregnant)HediffMaker.MakeHediff(RimWorld.HediffDefOf.Pregnant, females.First(), null);
             hediff_Pregnant.father = males.First();
             females.First().health.AddHediff(hediff_Pregnant, null, null, null);
+        }
 
-            Hediff_Pregnant.DoBirthSpawn(females.First(), males.First());
-            DebugActionsUtility.DustPuffFrom(females.First());
+        [DebugAction("General", null, allowedGameStates = AllowedGameStates.PlayingOnMap)]
+        private static void FinishPregnancy()
+        {
+            var pregnancies = Find.Selector.SelectedPawns.Where(candidate => candidate.health.hediffSet.HasHediff(RimWorld.HediffDefOf.Pregnant))
+                .Select(candidate => candidate.health.hediffSet.GetFirstHediffOfDef(RimWorld.HediffDefOf.Pregnant));
+
+            foreach (Hediff_Pregnant hediff in pregnancies)
+            {
+                Hediff_Pregnant.DoBirthSpawn(hediff.pawn, hediff.father);
+                hediff.pawn.health.RemoveHediff(hediff);
+            }
         }
 
         [DebugAction("General", null, allowedGameStates = AllowedGameStates.PlayingOnMap)]
