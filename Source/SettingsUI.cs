@@ -174,6 +174,7 @@ namespace AnimalGenetics
             listingStandardRhs.CheckboxLabeled("AnimalGenetics.ShowGenesInAnimalsTab".Translate(), ref settings.showGenesInAnimalsTab, "AnimalGenetics.ShowGenesInAnimalsTabTooltip".Translate());
             listingStandardRhs.CheckboxLabeled("AnimalGenetics.ShowGenesInWildlifeTab".Translate(), ref settings.showGenesInWildlifeTab, "AnimalGenetics.ShowGenesInWildlifeTabTooltip".Translate());
             listingStandardRhs.CheckboxLabeled("AnimalGenetics.ShowBothParentsInPawnTab".Translate(), ref settings.showBothParentsInPawnTab, "AnimalGenetics.ShowBothParentsInPawnTabTooltip".Translate());
+            listingStandardRhs.CheckboxLabeled("AnimalGenetics.ShowGeneticsTab".Translate(), ref settings.showGeneticsTab, "AnimalGenetics.ShowGeneticsTabTooltip".Translate());
 
             listingStandardRhs.End();
 

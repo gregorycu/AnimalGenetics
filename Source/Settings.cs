@@ -53,6 +53,7 @@ namespace AnimalGenetics
         public bool showGenesInAnimalsTab;
         public bool showGenesInWildlifeTab;
         public bool showBothParentsInPawnTab;
+        public bool showGeneticsTab;
         public int sortMode;
         public UISettings()
         {
@@ -65,7 +66,8 @@ namespace AnimalGenetics
             showGenesInAnimalsTab = false;
             showGenesInWildlifeTab = false;
             showBothParentsInPawnTab = false;
-			sortMode = 0;
+            showGeneticsTab = true;
+            sortMode = 0;
 		}
 
         public object Clone()
@@ -80,6 +82,7 @@ namespace AnimalGenetics
             Scribe_Values.Look(ref showGenesInAnimalsTab, "showGenesInAnimalsTab", defaults.showGenesInAnimalsTab);
             Scribe_Values.Look(ref showGenesInWildlifeTab, "showGenesInWildlifeTab", defaults.showGenesInWildlifeTab);
             Scribe_Values.Look(ref showBothParentsInPawnTab, "showBothParentsInPawnTab", defaults.showBothParentsInPawnTab);
+            Scribe_Values.Look(ref showGeneticsTab, "showGeneticsTab", defaults.showGeneticsTab);
         }
     }
 

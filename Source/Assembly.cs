@@ -107,6 +107,9 @@ namespace AnimalGenetics
                         PawnTableDefOf.Wildlife.columns.AddRange(PawnTableColumnsDefOf.Genetics.columns);
                     PatchState.patchedGenesInWildlifeTab = Settings.UI.showGenesInWildlifeTab;
                 }
+
+                var mainButton = DefDatabase<MainButtonDef>.GetNamed("AnimalGenetics");
+                mainButton.buttonVisible = Settings.UI.showGeneticsTab;
             }
         }
 
