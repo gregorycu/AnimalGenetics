@@ -20,7 +20,11 @@ namespace AnimalGenetics
 
             public static void Patch(Harmony h)
             {
-                _DrawToggle = AccessTools.TypeByName("FluffyManager.Utilities").GetMethod("DrawToggle", typeof(Utilities).GetMethod("DrawToggle").GetParameters().Types());
+                var parameters = typeof(Utilities).GetMethod("DrawToggle")?.GetParameters().Types();
+                if (parameters == null)
+                    return;
+                var drawToggleMethod = AccessTools.TypeByName("FluffyManager.Utilities")?.GetMethod("DrawToggle", parameters);
+                _DrawToggle = drawToggleMethod;
             }
 
             static MethodInfo _DrawToggle;
@@ -29,7 +33,7 @@ namespace AnimalGenetics
                                GameFont font = GameFont.Small, bool wrap = true)
             {
                 var parameters = new object[] { rect, label, tooltip, checkOn, expensive, size, margin, font, wrap };
-                _DrawToggle.Invoke(null, parameters);
+                _DrawToggle?.Invoke(null, parameters);
                 checkOn = (bool)parameters[3];
             }
 
@@ -227,9 +231,9 @@ namespace AnimalGenetics
         {
             static IEnumerable<MethodBase> TargetMethods()
             {
-                var template = typeof(System.Linq.Enumerable).GetMethods()
-                                .Where((MethodInfo mi) => mi.Name == "OrderBy" && mi.GetParameters().Count() == 2)
-                                .FirstOrDefault();
+                var template = typeof(Enumerable).GetMethods().FirstOrDefault((MethodInfo mi) => mi.Name == "OrderBy" && mi.GetParameters().Count() == 2);
+                if (template == null)
+                    return new List<MethodBase>();
                 return new List<MethodBase> { template.MakeGenericMethod(typeof(Pawn), typeof(long)), template.MakeGenericMethod(typeof(Pawn), typeof(float)) };
             }
 
