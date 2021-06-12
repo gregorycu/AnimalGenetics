@@ -8,4 +8,12 @@
             </li>
         </value>
     </Operation>
+    <Operation Class="PatchOperationAdd"> 
+        <xpath>/Defs/ThingDef[@Name="RB_PawnBase"]/comps</xpath>
+        <value>
+            <li>
+                <compClass>AnimalGenetics.GeneticInformation</compClass>
+            </li>
+        </value>
+    </Operation>
 </Patch>
