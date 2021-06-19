@@ -1,19 +1,40 @@
 <?xml version="1.0" encoding="utf-8" ?>
 <Patch>
-	<Operation Class="PatchOperationAdd"> 
-        <xpath>/Defs/ThingDef[@Name="BasePawn"]/comps</xpath>
-        <value>
-            <li>
-                <compClass>AnimalGenetics.GeneticInformation</compClass>
+    <Operation Class="PatchOperationSequence">
+        <success>Always</success><!-- No errors thrown -->
+        <operations>
+            <li Class="PatchOperationAdd"> 
+                <xpath>/Defs/ThingDef[@Name="BasePawn"]/comps</xpath>
+                <value>
+                    <li>
+                        <compClass>AnimalGenetics.PawnGeneticInformation</compClass>
+                    </li>
+                </value>
             </li>
-        </value>
-    </Operation>
-    <Operation Class="PatchOperationAdd"> 
-        <xpath>/Defs/ThingDef[@Name="RB_PawnBase"]/comps</xpath>
-        <value>
-            <li>
-                <compClass>AnimalGenetics.GeneticInformation</compClass>
+            <li Class="PatchOperationAdd">
+                <xpath>/Defs/ThingDef[@Name="EggFertBase"]/comps</xpath>
+                <value>
+                    <li>
+                        <compClass>AnimalGenetics.EggGeneticInformation</compClass>
+                    </li>
+                </value>
             </li>
-        </value>
+            <li Class="PatchOperationAdd">
+                <xpath>Defs/HediffDef[defName="Pregnant"]/comps</xpath>
+                <value>
+                    <li>
+                        <compClass>AnimalGenetics.FatherGeneticInformation</compClass>
+                    </li>
+                </value>
+            </li>
+            <li Class="PatchOperationAdd"> 
+                <xpath>/Defs/ThingDef[@Name="RB_PawnBase"]/comps</xpath>
+                <value>
+                    <li>
+                        <compClass>AnimalGenetics.PawnGeneticInformation</compClass>
+                    </li>
+                </value>
+            </li>
+        </operations>
     </Operation>
 </Patch>

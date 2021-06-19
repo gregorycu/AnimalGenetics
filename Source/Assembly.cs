@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using System;
 using Verse;
 using RimWorld;
-using System.Linq;
 
 namespace AnimalGenetics
 {
@@ -36,7 +35,7 @@ namespace AnimalGenetics
                     }
                     catch
                     {
-                        Log.Error(stat.ToString() + " is broken");
+                        Log.Error(stat + " is broken");
                     }
                 }
 
@@ -78,7 +77,7 @@ namespace AnimalGenetics
                 _DefaultAnimalsPawnTableDefColumns = new List<PawnColumnDef>(PawnTableDefOf.Animals.columns);
                 _DefaultWildlifePawnTableDefColumns = new List<PawnColumnDef>(PawnTableDefOf.Wildlife.columns);
 
-                var placeholderPosition = MainTabWindow_AnimalGenetics.PawnTableDefs.Genetics.columns.FindIndex((PawnColumnDef def) => def.defName == "AnimalGenetics_Placeholder");
+                var placeholderPosition = MainTabWindow_AnimalGenetics.PawnTableDefs.Genetics.columns.FindIndex(def => def.defName == "AnimalGenetics_Placeholder");
                 MainTabWindow_AnimalGenetics.PawnTableDefs.Genetics.columns.RemoveAt(placeholderPosition);
                 MainTabWindow_AnimalGenetics.PawnTableDefs.Genetics.columns.InsertRange(placeholderPosition, PawnTableColumnsDefOf.Genetics.columns);
 
@@ -87,25 +86,25 @@ namespace AnimalGenetics
 
             public static class PatchState
             {
-                public static bool patchedGenesInAnimalsTab = false;
-                public static bool patchedGenesInWildlifeTab = false;
+                public static bool PatchedGenesInAnimalsTab;
+                public static bool PatchedGenesInWildlifeTab = false;
             }
 
             public static void PatchUI()
             {
-                if (PatchState.patchedGenesInAnimalsTab != Settings.UI.showGenesInAnimalsTab)
+                if (PatchState.PatchedGenesInAnimalsTab != Settings.UI.showGenesInAnimalsTab)
                 {
                     PawnTableDefOf.Animals.columns = new List<PawnColumnDef>(_DefaultAnimalsPawnTableDefColumns);
                     if (Settings.UI.showGenesInAnimalsTab)
                         PawnTableDefOf.Animals.columns.AddRange(PawnTableColumnsDefOf.Genetics.columns);
-                    PatchState.patchedGenesInAnimalsTab = Settings.UI.showGenesInAnimalsTab;
+                    PatchState.PatchedGenesInAnimalsTab = Settings.UI.showGenesInAnimalsTab;
                 }
-                if (PatchState.patchedGenesInWildlifeTab != Settings.UI.showGenesInWildlifeTab)
+                if (PatchState.PatchedGenesInWildlifeTab != Settings.UI.showGenesInWildlifeTab)
                 {
                     PawnTableDefOf.Wildlife.columns = new List<PawnColumnDef>(_DefaultWildlifePawnTableDefColumns);
                     if (Settings.UI.showGenesInWildlifeTab)
                         PawnTableDefOf.Wildlife.columns.AddRange(PawnTableColumnsDefOf.Genetics.columns);
-                    PatchState.patchedGenesInWildlifeTab = Settings.UI.showGenesInWildlifeTab;
+                    PatchState.PatchedGenesInWildlifeTab = Settings.UI.showGenesInWildlifeTab;
                 }
 
                 var mainButton = DefDatabase<MainButtonDef>.GetNamed("AnimalGenetics");
@@ -116,12 +115,37 @@ namespace AnimalGenetics
         [HarmonyPatch(typeof(Hediff_Pregnant), nameof(Hediff_Pregnant.DoBirthSpawn))]
         public static class DoBirthSpawn_Patch
         {
-            static public void Prefix(Pawn mother, Pawn father)
+            public static void Prefix(Pawn mother, Pawn father)
             {
-                ParentReferences.Push(new ParentReferences.Record { mother = mother, father = father });
+                var motherGenes = mother?.AnimalGenetics()?.GeneRecords;
+                var fatherGenes = father?.AnimalGenetics()?.GeneRecords;
+
+                if (fatherGenes == null && mother != null)
+                {
+                    var fatherGeneticInformationComp = mother.health.hediffSet.GetFirstHediffOfDef(HediffDefOf.Pregnant)
+                        .TryGetComp<FatherGeneticInformation>();
+                    fatherGenes = fatherGeneticInformationComp?.GenesRecords;
+                }
+
+                ParentReferences.Push(new ParentReferences.Record {Mother = motherGenes, Father = fatherGenes });
             }
 
-            static public void Postfix()
+            public static void Postfix()
+            {
+                ParentReferences.Pop();
+            }
+        }
+
+        [HarmonyPatch(typeof(CompHatcher), nameof(CompHatcher.Hatch))]
+        public static class CompHatcher_Hatch_Patch
+        {
+            public static void Prefix(ThingWithComps ___parent)
+            {
+                var geneticInformation = ___parent.TryGetComp<GeneticInformation>();
+                ParentReferences.Push(new ParentReferences.Record { ThisGeneticInformation = geneticInformation });
+            }
+
+            public static void Postfix()
             {
                 ParentReferences.Pop();
             }
@@ -198,7 +222,11 @@ namespace AnimalGenetics
 
             public static void RJW_GenerateBabies_Prefix(Pawn ___pawn, Pawn ___father)
             {
-                ParentReferences.Push(new ParentReferences.Record{mother =  ___pawn, father = ___father });
+                ParentReferences.Push(new ParentReferences.Record
+                {
+                    Mother =  ___pawn?.AnimalGenetics()?.GeneRecords,
+                    Father = ___father?.AnimalGenetics()?.GeneRecords,
+                });
             }
 
             public static void RJW_GenerateBabies_Postfix(Pawn ___pawn)
