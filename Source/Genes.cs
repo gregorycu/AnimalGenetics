@@ -11,22 +11,19 @@ namespace AnimalGenetics
             return pawn.GetGene(gene);
         }
 		
-        public static String GetGenderSymbol(GeneRecord.Source source)
+        public static string GetGenderSymbol(GeneRecord.Source source)
         {
             return source == GeneRecord.Source.Mother ? "♀" : "♂";
         }
 
-        public static String GetTooltip(StatDef gene)
+        public static string GetTooltip(StatDef gene)
         {
             return Constants.GetDescription(gene);
         }
 
         public static bool EffectsThing(Thing thing)
         {
-            if (thing == null)
-                return false;
-
-            Pawn pawn = thing as Pawn;
+            var pawn = thing as Pawn;
 
             if (pawn == null)
                 return false;

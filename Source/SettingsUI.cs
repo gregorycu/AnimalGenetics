@@ -163,8 +163,8 @@ namespace AnimalGenetics
             Listing_Standard listingStandard2 = new Listing_Standard();
             listingStandard2.Begin(rect2);
             listingStandard2.Label("AG.ColorMode".Translate());
-            if (listingStandard2.RadioButton_NewTemp("AG.ColorNormal".Translate(), settings.colorMode == 0, 8f, "AG.ColorNormalTooltip".Translate(), 0f)) { settings.colorMode = 0; }
-            if (listingStandard2.RadioButton_NewTemp("AG.ColorRPG".Translate(), settings.colorMode == 1, 8f, "AG.ColorRPGTooltip".Translate(), 0f)) { settings.colorMode = 1; }
+            if (listingStandard2.RadioButton("AG.ColorNormal".Translate(), settings.colorMode == 0, 8f, "AG.ColorNormalTooltip".Translate(), 0f)) { settings.colorMode = 0; }
+            if (listingStandard2.RadioButton("AG.ColorRPG".Translate(), settings.colorMode == 1, 8f, "AG.ColorRPGTooltip".Translate(), 0f)) { settings.colorMode = 1; }
             listingStandard2.Gap(30f);
             listingStandard2.End();
 

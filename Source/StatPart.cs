@@ -38,10 +38,17 @@ namespace AnimalGenetics
             if (statRecord.Parent != GeneRecord.Source.None)
             {
                 string icon = statRecord.Parent == GeneRecord.Source.Mother ? "♀" : "♂";
-                postfix = " (x" + GenText.ToStringPercent(statRecord.ParentValue) + icon + ")";
+
+                var parentGeneticInformation = statRecord.Parent == GeneRecord.Source.Mother
+                    ? pawn.AnimalGenetics().Mother
+                    : pawn.AnimalGenetics().Father;
+
+                float parentValue = parentGeneticInformation.GeneRecords[_StatDef].Value;
+
+                postfix = " (x" + parentValue.ToStringPercent() + icon + ")";
             }
 
-            return "AG.Genetics".Translate() + ": x" + GenText.ToStringPercent(statRecord.Value) + postfix;
+            return "AG.Genetics".Translate() + ": x" + statRecord.Value.ToStringPercent() + postfix;
         }
 
         float? GetFactor(StatRequest req)

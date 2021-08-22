@@ -14,7 +14,6 @@ namespace AnimalGenetics
             private static List<PawnColumnDef> _DefaultAnimalsPawnTableDefColumns;
             private static List<PawnColumnDef> _DefaultWildlifePawnTableDefColumns;
 
-            public static Type typeAlphaAnimals;
             public static List<Type> gatherableTypes;
             static AnimalGeneticsAssemblyLoader()
             {
@@ -30,8 +29,7 @@ namespace AnimalGenetics
                 {
                     try
                     {
-                        if (stat.parts != null)
-                            stat.parts.Insert(0, new StatPart(stat));
+                        stat.parts?.Insert(0, new StatPart(stat));
                     }
                     catch
                     {
@@ -117,17 +115,17 @@ namespace AnimalGenetics
         {
             public static void Prefix(Pawn mother, Pawn father)
             {
-                var motherGenes = mother?.AnimalGenetics()?.GeneRecords;
-                var fatherGenes = father?.AnimalGenetics()?.GeneRecords;
+                var motherGeneticInformation = mother?.AnimalGenetics();
+                var fatherGeneticInformation = father?.AnimalGenetics();
 
-                if (fatherGenes == null && mother != null)
+                if (fatherGeneticInformation == null && motherGeneticInformation != null)
                 {
                     var fatherGeneticInformationComp = mother.health.hediffSet.GetFirstHediffOfDef(HediffDefOf.Pregnant)
                         .TryGetComp<FatherGeneticInformation>();
-                    fatherGenes = fatherGeneticInformationComp?.GenesRecords;
+                    fatherGeneticInformation = fatherGeneticInformationComp?.GeneticInformation;
                 }
 
-                ParentReferences.Push(new ParentReferences.Record {Mother = motherGenes, Father = fatherGenes });
+                ParentReferences.Push(new ParentReferences.Record {Mother = motherGeneticInformation, Father = fatherGeneticInformation });
             }
 
             public static void Postfix()
@@ -141,8 +139,8 @@ namespace AnimalGenetics
         {
             public static void Prefix(ThingWithComps ___parent)
             {
-                var geneticInformation = ___parent.TryGetComp<GeneticInformation>();
-                ParentReferences.Push(new ParentReferences.Record { ThisGeneticInformation = geneticInformation });
+                var comp = ___parent.TryGetComp<EggGeneticInformation>();
+                ParentReferences.Push(new ParentReferences.Record { This = comp.GeneticInformation });
             }
 
             public static void Postfix()
@@ -224,8 +222,8 @@ namespace AnimalGenetics
             {
                 ParentReferences.Push(new ParentReferences.Record
                 {
-                    Mother =  ___pawn?.AnimalGenetics()?.GeneRecords,
-                    Father = ___father?.AnimalGenetics()?.GeneRecords,
+                    Mother =  ___pawn?.AnimalGenetics(),
+                    Father = ___father?.AnimalGenetics(),
                 });
             }
 
