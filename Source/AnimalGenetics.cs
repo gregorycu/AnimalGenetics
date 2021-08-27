@@ -16,22 +16,22 @@ namespace AnimalGenetics
     {
         public static GeneticInformation AnimalGenetics(this Pawn pawn)
         {
-            var comp = pawn.TryGetComp<BaseGeneticInformation>().GeneticInformation;
-            if (comp == null)
-                Log.Warning("Could not get comp for pawn: " + pawn.ToStringSafe());
-            return comp;
+            return pawn.TryGetComp<BaseGeneticInformation>()?.GeneticInformation;
         }
 
         public static float GetGene(this Pawn pawn, StatDef stat)
         {
-            var comp = pawn.AnimalGenetics();
-            if (comp == null)
-                return 1.0f;
-            return comp.GeneRecords[stat].Value;
+            var record = GetGeneRecord(pawn, stat);
+
+            return record?.Value ?? 1.0f;
         }
         public static GeneRecord GetGeneRecord(this Pawn pawn, StatDef stat)
         {
-            return pawn.AnimalGenetics()?.GeneRecords[stat];
+            var records = pawn.AnimalGenetics()?.GeneRecords;
+            if (records == null)
+                return null;
+
+            return !records.ContainsKey(stat) ? null : records[stat];
         }
     }
 

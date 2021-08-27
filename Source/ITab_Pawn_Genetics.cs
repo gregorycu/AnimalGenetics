@@ -100,15 +100,15 @@ namespace AnimalGenetics
             if (statsGroup == null)
                 return 0;
 
-            var motherGeneRecords = pawn.AnimalGenetics().Mother?.GeneRecords;
-            var fatherGeneRecords = pawn.AnimalGenetics().Father?.GeneRecords;
+            var motherGeneRecords = pawn.AnimalGenetics()?.Mother?.GeneRecords;
+            var fatherGeneRecords = pawn.AnimalGenetics()?.Father?.GeneRecords;
 
             var stats = Constants.affectedStats.Where((StatDef stat) => stat != AnimalGenetics.GatherYield || Genes.Gatherable(pawn));
             foreach (var stat in stats)
             {
                 var statRecord = statsGroup[stat];
-                var motherStatRecord = motherGeneRecords?[stat];
-                var fatherStatRecord = fatherGeneRecords?[stat];
+                var motherStatRecord = motherGeneRecords?.TryGetValue(stat);
+                var fatherStatRecord = fatherGeneRecords?.TryGetValue(stat);
 
                 if (motherStatRecord != null)
                     Utility.GUI.DrawGeneValueLabel(new Rect(rect.x + rect.width * 0.6f, curY, rect.width * 0.2f, 20f), motherStatRecord.Value, statRecord.Parent != GeneRecord.Source.Mother);
@@ -132,8 +132,8 @@ namespace AnimalGenetics
 
             curY += 20f;
 
-            var motherGeneRecords = pawn.AnimalGenetics().Mother?.GeneRecords;
-            var fatherGeneRecords = pawn.AnimalGenetics().Father?.GeneRecords;
+            var motherGeneRecords = pawn.AnimalGenetics()?.Mother?.GeneRecords;
+            var fatherGeneRecords = pawn.AnimalGenetics()?.Father?.GeneRecords;
 
             var stats = Constants.affectedStats.Where((StatDef stat) => stat != AnimalGenetics.GatherYield || Genes.Gatherable(pawn));
             foreach (var stat in stats)
