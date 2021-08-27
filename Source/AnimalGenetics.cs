@@ -138,6 +138,13 @@ namespace AnimalGenetics
             Father = ParentReferences.FatherGeneticInformation;
         }
 
+        public GeneticInformation(GenesRecord geneRecords)
+        {
+            _geneRecords = geneRecords;
+            _loadId = _nextLoadId++;
+            _instances.Add(new Verse.WeakReference<GeneticInformation>(this));
+        }
+
         public GeneticInformation Mother;
         public GeneticInformation Father;
 
@@ -166,6 +173,9 @@ namespace AnimalGenetics
             Scribe_Collections.Look(ref _geneRecords, "genes");
         }
 
+        private static readonly Dictionary<GeneticInformation, GenesRecord> BackwardCompatibleData =
+            new Dictionary<GeneticInformation, GenesRecord>();
+
         private static int _nextLoadId = 1;
 
         public static void ExposeData()
@@ -193,11 +203,20 @@ namespace AnimalGenetics
     {
         public static GenesRecord GenerateGenesRecord(GeneticInformation mother, GeneticInformation father)
         {
-            var result = new Dictionary<StatDef, GeneRecord>();
+            var result = new GenesRecord();
+            EnsureAllGenesExist(result, mother, father);
+            return result;
+        }
+
+        public static void EnsureAllGenesExist(GenesRecord records, GeneticInformation mother, GeneticInformation father)
+        {
             var affectedStats = Constants.affectedStats;
 
             foreach (var stat in affectedStats)
             {
+                if (records.ContainsKey(stat))
+                    continue;
+
                 var motherStat = mother?.GeneRecords?[stat];
                 var fatherStat = father?.GeneRecords?[stat];
 
@@ -221,10 +240,8 @@ namespace AnimalGenetics
 
                 record.Value = parentValue + delta;
 
-                result[stat] = record;
+                records[stat] = record;
             }
-
-            return result;
         }
     }
 
@@ -238,6 +255,9 @@ namespace AnimalGenetics
             GeneticInformation = ParentReferences.ThisGeneticInformation ?? new GeneticInformation();
         }
 
+        private static readonly Dictionary<BaseGeneticInformation, GenesRecord> LegacyGenesRecords =
+            new Dictionary<BaseGeneticInformation, GenesRecord>();
+
         public override void PostExposeData()
         {
             base.PostExposeData();
@@ -245,6 +265,35 @@ namespace AnimalGenetics
             if (Scribe.EnterNode("animalGenetics"))
             {
                 Scribe_References.Look(ref GeneticInformation, "geneticInformation");
+
+                GenesRecord legacyGenesRecord = null;
+                Scribe_Collections.Look(ref legacyGenesRecord, "geneRecords");
+                if (legacyGenesRecord != null)
+                    LegacyGenesRecords[this] = legacyGenesRecord;
+
+                if (Scribe.mode == LoadSaveMode.PostLoadInit)
+                {
+                    if (GeneticInformation == null)
+                    {
+                        if (LegacyGenesRecords.ContainsKey(this))
+                        {
+                            Log.Message("Migrating Legacy Genetic Information for " + parent.ToString());
+                            GeneticInformation = new GeneticInformation(LegacyGenesRecords[this]);
+                            LegacyGenesRecords.Remove(this);
+                        }
+                        else
+                        {
+                            Log.Message("Generating Genetic Information for " + parent.ToString());
+                            GeneticInformation = new GeneticInformation(null);
+                        }
+                        GeneticCalculator.EnsureAllGenesExist(GeneticInformation.GeneRecords, null, null);
+                    }
+                    else
+                    {
+                        GeneticCalculator.EnsureAllGenesExist(GeneticInformation.GeneRecords, GeneticInformation.Mother, GeneticInformation.Father);
+                    }
+                }
+
                 Scribe.ExitNode();
             }
         }
