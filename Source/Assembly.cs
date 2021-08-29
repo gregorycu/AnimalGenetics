@@ -6,6 +6,29 @@ using RimWorld;
 
 namespace AnimalGenetics
 {
+    class StatDefWrapper : StatDef
+    {
+        public StatDef Underlying;
+    }
+
+    class StatWorker : RimWorld.StatWorker
+    {
+        public override bool ShouldShowFor(StatRequest req)
+        {
+            return Genes.EffectsThing(req.Thing);
+        }
+
+        public override float GetValueUnfinalized(StatRequest req, bool applyPostProcess = true)
+        {
+            return Genes.GetGene(req.Thing as Pawn, ((StatDefWrapper) this.stat).Underlying);
+        }
+
+        public override string GetExplanationUnfinalized(StatRequest req, ToStringNumberSense numberSense)
+        {
+            return "";
+        }
+    }
+
     namespace Assembly
     {
         [StaticConstructorOnStartup]
@@ -36,6 +59,11 @@ namespace AnimalGenetics
                         Log.Error(stat + " is broken");
                     }
                 }
+
+                var category = new StatCategoryDef { defName = "AnimalGenetics_Category", label = "Genetics", displayAllByDefault = true, displayOrder = 200};
+                DefDatabase<StatCategoryDef>.Add(category);
+                foreach (var stat in Constants.affectedStats)
+                    DefDatabase<StatDef>.Add(new StatDefWrapper { defName = "AnimalGenetics_" + stat.defName, label = Constants.GetLabel(stat), Underlying = stat, category = category, workerClass = typeof(StatWorker), toStringStyle = ToStringStyle.PercentZero });
 
                 StatDefOf.MarketValue.parts.Add(new MarketValueCalculator());
 
