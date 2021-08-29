@@ -37,6 +37,8 @@ namespace AnimalGenetics
                     }
                 }
 
+                StatDefOf.MarketValue.parts.Add(new MarketValueCalculator());
+
                 gatherableTypes = new List<Type>()
                 {
                     typeof(CompShearable),

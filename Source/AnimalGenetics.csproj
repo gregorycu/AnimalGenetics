@@ -76,6 +76,7 @@
     <Compile Include="Genes.cs" />
     <Compile Include="ITab_Pawn_Genetics.cs" />
     <Compile Include="MainTabWindow_AnimalGenetics.cs" />
+    <Compile Include="MarketValueCalculator.cs" />
     <Compile Include="PawnColumnWorkers\PawnColumnWorker.cs" />
     <Compile Include="PawnColumnWorkers\PawnColumnWorkers_HealthGene.cs" />
     <Compile Include="PawnColumnWorkers\PawnColumnWorkers_GatherYieldGene.cs" />

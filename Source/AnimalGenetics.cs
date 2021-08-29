@@ -12,6 +12,7 @@ using GenesRecord = System.Collections.Generic.Dictionary<RimWorld.StatDef, Anim
 
 namespace AnimalGenetics
 {
+    using AG = AnimalGenetics;
     public static class Extensions
     {
         public static GeneticInformation AnimalGenetics(this Pawn pawn)
@@ -32,6 +33,14 @@ namespace AnimalGenetics
                 return null;
 
             return !records.ContainsKey(stat) ? null : records[stat];
+        }
+
+        public static IEnumerable<StatDef> GetGenes(this Pawn pawn)
+        {
+            if (!Genes.EffectsThing(pawn))
+                return new List<StatDef>();
+            return Constants.affectedStats.Where((StatDef stat) =>
+                stat != AG.GatherYield || Genes.Gatherable(pawn));
         }
     }
 
